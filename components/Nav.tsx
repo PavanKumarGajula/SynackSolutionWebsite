@@ -17,9 +17,11 @@ export default function Nav() {
   }, []);
 
   const links = [
-    { href: "/services", label: "Services" },
-    { href: "/about",    label: "About" },
-    { href: "/contact",  label: "Contact" },
+    { href: "/",            label: "Home"       },
+    { href: "/industries",  label: "Industries" },
+    { href: "/services",    label: "Services"   },
+    { href: "/about",       label: "About"      },
+    { href: "/contact",     label: "Contact"    },
   ];
 
   return (
@@ -35,13 +37,8 @@ export default function Nav() {
       <div className="max-w-site mx-auto px-5 lg:px-10 h-[68px] flex items-center justify-between">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-8 h-8 rounded-[8px] bg-primary flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-accent">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="text-scale-50">
-              <polyline points="2,8 5,5 9,9 14,4" />
-              <polyline points="2,12 5,9 9,13 14,8" />
-            </svg>
-          </div>
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <img src="/logo.svg" alt="SynAck Solutions" width={38} height={38} className="flex-shrink-0" />
           <div className="flex flex-col leading-none gap-0.5">
             <span className="font-outfit text-[13px] font-black tracking-[0.08em] text-primary">SYNACK</span>
             <span className="text-[9px] font-semibold tracking-[0.14em] uppercase text-accent">Solutions</span>

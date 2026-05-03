@@ -50,15 +50,7 @@ export default function Footer() {
             transition={{ duration: 0.6, delay: 0, ease: EASE }}
           >
             <Link href="/" className="flex items-center gap-2.5 mb-4 w-fit group">
-              <div
-                className="w-9 h-9 rounded-[9px] bg-primary flex items-center justify-center flex-shrink-0 group-hover:border-accent transition-colors duration-150"
-                style={{ border: "1px solid #1E4D8C" }}
-              >
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="rgba(122,180,238,1)" strokeWidth="2.2" strokeLinecap="round">
-                  <polyline points="2,9 5.5,5.5 9.5,10 14,5"/>
-                  <polyline points="2,13 5.5,9.5 9.5,14 14,9"/>
-                </svg>
-              </div>
+              <img src="/logo.svg" alt="SynAck Solutions" width={42} height={42} className="flex-shrink-0" />
               <div>
                 <span className="block font-outfit text-[13.5px] font-black tracking-[0.09em] text-text-heading-on-dark">SYNACK</span>
                 <span className="block text-[9px] font-semibold tracking-[0.14em] uppercase text-accent mt-0.5">Solutions</span>

@@ -40,8 +40,8 @@ const metrics = [
 ];
 
 const CARD = "rounded-[20px] bg-white border border-border-light overflow-hidden hover:border-accent transition-colors duration-200";
-const VISUAL = "p-7 bg-bg-page border-b border-border-light min-h-[190px] flex flex-col justify-center";
-const TEXT = "px-6 py-5";
+const VISUAL = "p-5 bg-bg-page border-b border-border-light flex flex-col justify-center";
+const TEXT = "px-5 py-4";
 
 export default function TheStandard() {
   const topRef = useRef(null);
@@ -50,8 +50,8 @@ export default function TheStandard() {
   const botInView = useInView(botRef, { once: true, margin: "-80px" });
 
   return (
-    <section className="bg-bg-page py-[120px]">
-      <div className="max-w-site mx-auto px-5 lg:px-10 flex flex-col gap-16">
+    <section className="bg-bg-page py-12 lg:py-20">
+      <div className="max-w-site mx-auto px-5 lg:px-10 flex flex-col gap-8 lg:gap-10">
 
         <FadeUp>
           <div>

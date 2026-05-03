@@ -51,8 +51,8 @@ export default function HowWeWork() {
   }, [isInView]);
 
   return (
-    <section className="relative bg-bg-page py-[120px]">
-      <div className="max-w-site mx-auto px-5 lg:px-10 flex flex-col gap-[72px]">
+    <section className="relative bg-bg-page py-12 lg:py-20">
+      <div className="max-w-site mx-auto px-5 lg:px-10 flex flex-col gap-8 lg:gap-10">
 
         {/* Text — centered */}
         <FadeUp>
@@ -82,11 +82,11 @@ export default function HowWeWork() {
           <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-0">
 
             {/* Background line */}
-            <div className="absolute top-7 left-[12.5%] right-[12.5%] h-[2px] bg-border-light hidden lg:block" />
+            <div className="absolute top-6 left-[12.5%] right-[12.5%] h-[2px] bg-border-light hidden lg:block" />
 
             {/* Animated fill line */}
             <motion.div
-              className="absolute top-7 left-[12.5%] h-[2px] bg-gradient-to-r from-accent to-accent-hover rounded-full hidden lg:block"
+              className="absolute top-6 left-[12.5%] h-[2px] bg-gradient-to-r from-accent to-accent-hover rounded-full hidden lg:block"
               initial={{ width: "0%" }}
               animate={isInView ? { width: "75%" } : { width: "0%" }}
               transition={{ duration: 1.6, delay: 0.3, ease: EASE }}
@@ -99,7 +99,7 @@ export default function HowWeWork() {
               >
                 {/* Node */}
                 <div className={[
-                  "w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 mb-6 border-2 relative z-10",
+                  "w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 mb-4 border-2 relative z-10",
                   "transition-all duration-300",
                   active[i]
                     ? "bg-primary border-primary scale-[1.08] ring-[6px] ring-accent/[0.10]"

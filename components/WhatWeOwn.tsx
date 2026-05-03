@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { motion, useInView, useScroll, useSpring, useMotionValue, useTransform } from "framer-motion";
 import {
   MonitorCheck, ShieldCheck, Cloud, Network, LockKeyhole,
-  HardDriveDownload, TrendingUp, PackageCheck, GraduationCap, Video, ArrowRight,
+  HardDriveDownload, TrendingUp, PackageCheck, GraduationCap, Video,
 } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import Eyebrow from "@/components/Eyebrow";
@@ -99,17 +99,17 @@ export default function WhatWeOwn() {
   }, [scrollYProgress, endX, rawX]);
 
   const x = useSpring(rawX, { stiffness: 100, damping: 30, restDelta: 0.001 });
-  const barWidth = useTransform(scrollYProgress, [0, 1], ["8%", "100%"]);
+  const barWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <div ref={containerRef} style={{ height: "300vh" }}>
       <section
         ref={sectionRef}
-        className="sticky top-0 h-screen bg-bg-page overflow-hidden flex flex-col pt-24 pb-8"
+        className="sticky top-0 h-screen bg-bg-page overflow-hidden flex flex-col pt-20 pb-6 lg:pt-24 lg:pb-8"
       >
 
         {/* Header */}
-        <div className="max-w-site mx-auto px-5 lg:px-10 mb-8">
+        <div className="pl-[max(20px,calc(50vw-520px))] lg:pl-[max(40px,calc(50vw-520px))] pr-5 lg:pr-10 mb-5">
           <FadeUp>
             <Eyebrow>What We Own</Eyebrow>
             <h2 className="font-outfit font-black text-text-heading" style={{ fontSize: "clamp(26px, 3.2vw, 44px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}>
@@ -197,17 +197,13 @@ export default function WhatWeOwn() {
         </div>
 
         {/* Progress bar */}
-        <div className="max-w-site mx-auto px-5 lg:px-10 mt-5 flex items-center gap-4">
-          <div className="w-[160px] h-[2px] bg-border-light rounded-full overflow-hidden">
+        <div className="max-w-site mx-auto px-5 lg:px-10 mt-5">
+          <div className="w-full max-w-[320px] h-[3px] bg-border-light rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-accent rounded-full"
               style={{ width: barWidth }}
             />
           </div>
-          <span className="flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.05em] text-text-muted/35 uppercase">
-            <ArrowRight size={11} strokeWidth={2} />
-            Scroll to explore all 10
-          </span>
         </div>
 
       </section>

@@ -168,7 +168,7 @@ export default function Hero() {
 
 
       {/* ── Center content ── */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center pt-[140px] pb-[80px] px-5 text-center">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center pt-[100px] pb-12 lg:pt-[120px] lg:pb-16 px-5 text-center">
 
         {/* Eyebrow */}
         <motion.div

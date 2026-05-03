@@ -10,7 +10,7 @@ export default function WhatSynAckIs() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="relative overflow-hidden py-[120px] bg-bg-page">
+    <section className="relative overflow-hidden py-16 lg:py-24 bg-bg-page">
 
       {/* Top bleed */}
       <div className="absolute top-0 left-0 right-0 h-[100px] pointer-events-none z-[1] bg-gradient-to-b from-bg-page to-transparent" />

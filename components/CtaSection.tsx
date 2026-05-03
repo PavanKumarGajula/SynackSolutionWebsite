@@ -12,7 +12,7 @@ export default function CtaSection() {
   const inView = useInView(ref, { once: true, margin: "-15%" });
 
   return (
-    <section ref={ref} className="bg-primary relative overflow-hidden py-[140px]">
+    <section ref={ref} className="bg-primary relative overflow-hidden py-16 lg:py-24">
 
       {/* Grid overlay */}
       <div

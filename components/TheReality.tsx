@@ -83,7 +83,7 @@ export default function TheReality() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="relative bg-bg-page py-[120px]">
+    <section ref={ref} className="relative bg-bg-page py-16 lg:py-24">
       <div className="max-w-site mx-auto px-5 lg:px-10">
 
         {/* Text row */}
