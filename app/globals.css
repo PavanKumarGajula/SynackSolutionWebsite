@@ -1,0 +1,144 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: theme(colors.bg-page);
+    color: theme(colors.text-body);
+    font-family: var(--font-dm-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-outfit), sans-serif;
+    color: theme(colors.text-heading);
+  }
+}
+
+@layer components {
+
+  /* ── Base ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--font-dm-sans), system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    padding: 13px 28px;
+    border-radius: 10px;
+    border-width: 1.5px;
+    border-style: solid;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 180ms, border-color 180ms, color 180ms, transform 140ms, box-shadow 180ms;
+  }
+  .btn svg { flex-shrink: 0; transition: transform 150ms; }
+  .btn:hover svg { transform: translateX(3px); }
+
+  /* ── 01 Primary — light bg ── */
+  .btn-primary { color: #EAF2FC; background-color: #102347; border-color: #102347; }
+  .btn-primary:hover { background-color: #2472C8; border-color: #2472C8; transform: translateY(-2px); box-shadow: 0 10px 32px rgba(36,114,200,.25); }
+
+  /* ── 02 Outline — light bg ── */
+  .btn-outline { color: #102347; background-color: transparent; border-color: #102347; }
+  .btn-outline:hover { background-color: #102347; color: #EAF2FC; transform: translateY(-2px); box-shadow: 0 10px 32px rgba(16,35,71,.15); }
+
+  /* ── 03 Outline Accent — softer secondary ── */
+  .btn-outline-accent { color: #2472C8; background-color: transparent; border-color: #B8D4F7; }
+  .btn-outline-accent:hover { background-color: #EAF2FC; border-color: #2472C8; transform: translateY(-2px); }
+
+  /* ── 04 Accent Solid ── */
+  .btn-accent { color: #EAF2FC; background-color: #2472C8; border-color: #2472C8; }
+  .btn-accent:hover { background-color: #3D8FE0; border-color: #3D8FE0; transform: translateY(-2px); box-shadow: 0 10px 32px rgba(36,114,200,.30); }
+
+  /* ── 05 White Solid — dark bg ── */
+  .btn-white { color: #102347; background-color: #EAF2FC; border-color: #EAF2FC; }
+  .btn-white:hover { background-color: #FFFFFF; border-color: #FFFFFF; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,.20); }
+
+  /* ── 06 Outline White — dark bg ── */
+  .btn-outline-white { color: #EAF2FC; background-color: transparent; border-color: rgba(184,212,247,.40); }
+  .btn-outline-white:hover { background-color: rgba(255,255,255,.10); border-color: rgba(184,212,247,.80); transform: translateY(-2px); }
+
+  /* ── 07 Nav — navbar only ── */
+  .btn-nav {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--font-dm-sans), system-ui, sans-serif;
+    font-size: 13.5px; font-weight: 700; letter-spacing: 0.01em; line-height: 1;
+    color: #EAF2FC; background-color: #102347;
+    padding: 10px 22px; border-radius: 9px; border: 1.5px solid #102347;
+    text-decoration: none; cursor: pointer;
+    transition: background-color 150ms, border-color 150ms, transform 120ms;
+  }
+  .btn-nav:hover { background-color: #2472C8; border-color: #2472C8; transform: translateY(-1px); }
+  .btn-nav svg { flex-shrink: 0; transition: transform 150ms; }
+  .btn-nav:hover svg { transform: translateX(2px); }
+
+  /* ── 08 Small ── */
+  .btn-sm {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-dm-sans), system-ui, sans-serif;
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em; line-height: 1;
+    color: #EAF2FC; background-color: #102347;
+    padding: 8px 16px; border-radius: 7px; border: 1.5px solid #102347;
+    text-decoration: none; cursor: pointer;
+    transition: background-color 150ms, border-color 150ms;
+  }
+  .btn-sm:hover { background-color: #2472C8; border-color: #2472C8; }
+  .btn-sm svg { flex-shrink: 0; transition: transform 150ms; }
+  .btn-sm:hover svg { transform: translateX(2px); }
+
+  /* ── 08 Small Outline ── */
+  .btn-sm-outline {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-dm-sans), system-ui, sans-serif;
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em; line-height: 1;
+    color: #102347; background-color: transparent;
+    padding: 8px 16px; border-radius: 7px; border: 1.5px solid #102347;
+    text-decoration: none; cursor: pointer;
+    transition: background-color 150ms, color 150ms;
+  }
+  .btn-sm-outline:hover { background-color: #102347; color: #EAF2FC; }
+  .btn-sm-outline svg { flex-shrink: 0; transition: transform 150ms; }
+  .btn-sm-outline:hover svg { transform: translateX(2px); }
+
+  /* ── 09 Icon ── */
+  .btn-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background-color: #FFFFFF; border: 1.5px solid #B8D4F7;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; text-decoration: none;
+    transition: border-color 150ms, background-color 150ms, transform 140ms;
+  }
+  .btn-icon:hover { border-color: #102347; background-color: #EAF2FC; transform: translateY(-2px); }
+  .btn-icon svg { width: 16px; height: 16px; fill: none; stroke: #1E4D8C; stroke-width: 2; flex-shrink: 0; transition: stroke 150ms; }
+  .btn-icon:hover svg { stroke: #102347; }
+
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image: linear-gradient(theme(colors.border-light) 1px, transparent 1px),
+                      linear-gradient(90deg, theme(colors.border-light) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .font-outfit { font-family: var(--font-outfit), sans-serif; }
+
+  /* Flow gradient between sections */
+  .flow-to-section {
+    position: relative;
+  }
+  .flow-to-section::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0; right: 0;
+    height: 80px;
+    pointer-events: none;
+    z-index: 2;
+  }
+}
