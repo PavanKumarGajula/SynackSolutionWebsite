@@ -20,6 +20,7 @@ type Industry = {
   problems: string[];
   actions: ActionItem[];
   outcomes: string[];
+  playbookLabel: string;
 };
 
 const industries: Industry[] = [
@@ -50,6 +51,7 @@ const industries: Industry[] = [
       "OT and corporate IT properly isolated — a phishing click no longer reaches the floor",
       "Predictable hardware lifecycle and budget you can defend",
     ],
+    playbookLabel: "See the full Manufacturing playbook",
   },
   {
     id: "healthcare",
@@ -78,6 +80,7 @@ const industries: Industry[] = [
       "Clear ownership: every account tied to a person, every device tracked",
       "Lower breach exposure — and a real answer when an auditor asks how you know",
     ],
+    playbookLabel: "See the full Healthcare playbook",
   },
   {
     id: "professional-services",
@@ -106,6 +109,7 @@ const industries: Industry[] = [
       "New hires productive on day one; offboarding closes access immediately",
       "A defensible answer when a client asks how you protect their information",
     ],
+    playbookLabel: "See the full Professional Services playbook",
   },
   {
     id: "smb",
@@ -134,6 +138,7 @@ const industries: Industry[] = [
       "A real security baseline that meets cyber-insurance and customer questionnaires",
       "Documented systems that survive turnover and scale with headcount",
     ],
+    playbookLabel: "See the full SMB playbook",
   },
 ];
 
@@ -341,6 +346,16 @@ export default function Industries() {
                   ))}
                 </ul>
               </div>
+            </FadeUp>
+            {/* Playbook link */}
+            <FadeUp delay={0.32}>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-1.5 text-[14px] font-extrabold text-accent mt-1 group transition-colors duration-150 hover:text-accent-hover"
+              >
+                {ind.playbookLabel}
+                <ArrowRight size={13} strokeWidth={2.5} className="transition-transform duration-150 group-hover:translate-x-0.5" />
+              </Link>
             </FadeUp>
           </div>
         );

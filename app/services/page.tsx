@@ -84,7 +84,6 @@ export default function Services() {
         </span>
 
         <div className="relative z-10 max-w-site mx-auto w-full">
-          <div className="max-w-[700px]">
 
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -112,31 +111,28 @@ export default function Services() {
               ))}
             </h1>
 
-            <motion.p
-              className="text-text-muted leading-[1.8] max-w-[52ch] mb-10"
-              style={{ fontSize: "clamp(15px,1.5vw,18px)" }}
+            <motion.div
+              className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8"
               initial={{ opacity: 0, y: 20 }}
               animate={heroInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.8, ease: EASE }}
             >
-              From the laptop on your desk<br />
-              to the camera at your door.<br />
-              Everything.<br /><br />
-              Ten services. One invoice.<br />
-              <strong className="text-text-heading font-bold">One accountable partner.</strong>
-            </motion.p>
+              <p
+                className="text-text-muted leading-[1.8]"
+                style={{ fontSize: "clamp(15px,1.5vw,18px)" }}
+              >
+                From the laptop on your desk to the camera at your door. Everything.<br /><br />
+                Ten services. One invoice.{" "}
+                <strong className="text-text-heading font-bold">One accountable partner.</strong>
+              </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={heroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.95, ease: EASE }}
-            >
-              <Link href="/contact" className="btn btn-primary">
-                Talk to us <ArrowRight size={14} strokeWidth={2.5} />
-              </Link>
+              <div className="flex-shrink-0">
+                <Link href="/contact" className="btn btn-primary">
+                  Talk to us <ArrowRight size={14} strokeWidth={2.5} />
+                </Link>
+              </div>
             </motion.div>
 
-          </div>
         </div>
       </section>
 
