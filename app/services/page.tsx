@@ -9,15 +9,10 @@ import FadeUp from "@/components/FadeUp";
 import ServiceTabs from "@/components/ServiceTabs";
 import HowWeWork from "@/components/HowWeWork";
 import CtaSection from "@/components/CtaSection";
+import BuildingScene from "@/components/BuildingScene";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const trustItems = [
-  { num: "247", suffix: "+",     label: "Endpoints across active clients" },
-  { num: "4",   suffix: "min",   label: "Avg response business hours" },
-  { num: "99",  suffix: ".98%",  label: "Uptime guaranteed" },
-  { num: "10",  suffix: "+",     label: "Services under one roof" },
-];
 
 const startCards = [
   {
@@ -44,9 +39,8 @@ export default function Services() {
   const heroInView = useInView(heroRef, { once: true });
 
   const titleLines = [
-    "One team.",
-    "Full ownership of your IT.",
-    "No gaps. No finger-pointing.",
+    "One building.",
+    "Every layer owned.",
   ];
 
   const handleStartCard = (id: string) => {
@@ -74,28 +68,21 @@ export default function Services() {
         />
         <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-bg-page to-transparent pointer-events-none" />
 
-        {/* Ghost number */}
-        <span
-          className="absolute right-[-20px] top-1/2 -translate-y-1/2 font-outfit font-black text-primary select-none pointer-events-none leading-none hidden lg:block"
-          style={{ fontSize: "clamp(160px,20vw,300px)", letterSpacing: "-0.06em", opacity: 0.025 }}
-          aria-hidden="true"
-        >
-          10
-        </span>
+        <div className="relative z-10 max-w-site mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-        <div className="relative z-10 max-w-site mx-auto w-full">
-
+          {/* ── Left: text ── */}
+          <div>
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={heroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
+              transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
             >
               <Eyebrow>Our Services</Eyebrow>
             </motion.div>
 
             <h1
               className="font-outfit font-black text-text-heading mb-6"
-              style={{ fontSize: "clamp(40px,6vw,72px)", letterSpacing: "-0.04em", lineHeight: 1.01 }}
+              style={{ fontSize: "clamp(36px,5vw,64px)", letterSpacing: "-0.04em", lineHeight: 1.04 }}
             >
               {titleLines.map((line, i) => (
                 <span key={i} className="block overflow-hidden">
@@ -103,7 +90,7 @@ export default function Services() {
                     className="block"
                     initial={{ y: "100%", opacity: 0 }}
                     animate={heroInView ? { y: 0, opacity: 1 } : {}}
-                    transition={{ duration: 0.7, delay: 0.35 + i * 0.13, ease: EASE }}
+                    transition={{ duration: 0.7, delay: 0.30 + i * 0.13, ease: EASE }}
                   >
                     {line}
                   </motion.span>
@@ -111,53 +98,40 @@ export default function Services() {
               ))}
             </h1>
 
-            <motion.div
-              className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8"
+            <motion.p
+              className="text-text-muted leading-[1.8] mb-10"
+              style={{ fontSize: "clamp(15px,1.4vw,17px)" }}
               initial={{ opacity: 0, y: 20 }}
               animate={heroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.8, ease: EASE }}
+              transition={{ duration: 0.6, delay: 0.72, ease: EASE }}
             >
-              <p
-                className="text-text-muted leading-[1.8]"
-                style={{ fontSize: "clamp(15px,1.5vw,18px)" }}
-              >
-                From the laptop on your desk to the camera at your door. Everything.<br /><br />
-                Ten services. One invoice.{" "}
-                <strong className="text-text-heading font-bold">One accountable partner.</strong>
-              </p>
+              From the cameras outside your door to the network in your walls.<br />
+              From the laptops on your desks to the Microsoft 365 tenant in the cloud.<br />
+              <strong className="text-text-heading font-bold">Everything connected. Everything owned. By one team.</strong>
+            </motion.p>
 
-              <div className="flex-shrink-0">
-                <Link href="/contact" className="btn btn-primary">
-                  Talk to us <ArrowRight size={14} strokeWidth={2.5} />
-                </Link>
-              </div>
+            <motion.div
+              className="flex items-center gap-4 flex-wrap"
+              initial={{ opacity: 0, y: 20 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.88, ease: EASE }}
+            >
+              <Link href="/contact" className="btn btn-primary">
+                Talk to us <ArrowRight size={14} strokeWidth={2.5} />
+              </Link>
+              <span className="text-[13px] font-medium" style={{ color: "rgba(30,77,140,.5)" }}>
+                No obligation. Direct answers.
+              </span>
             </motion.div>
+          </div>
+
+          {/* ── Right: building scene ── */}
+          <div className="hidden lg:block">
+            <BuildingScene />
+          </div>
 
         </div>
       </section>
-
-      {/* ── Trust Strip ── */}
-      <div className="bg-white border-y border-border-light">
-        <div className="max-w-site mx-auto grid grid-cols-2 md:grid-cols-4 [&>*]:border-border-light">
-          {trustItems.map((t, i) => (
-            <div
-              key={t.label}
-              className={[
-                "px-6 py-5 text-center",
-                i === 0 ? "border-r" : "",
-                i === 1 ? "md:border-r" : "",
-                i === 2 ? "border-r border-t md:border-t-0" : "",
-                i === 3 ? "border-t md:border-t-0" : "",
-              ].join(" ")}
-            >
-              <p className="font-outfit text-[26px] font-black tracking-[-0.03em] text-text-heading leading-none mb-1">
-                {t.num}<span className="text-accent">{t.suffix}</span>
-              </p>
-              <p className="text-[12px] font-semibold text-text-muted leading-[1.4]">{t.label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* ── Where To Start ── */}
       <section className="py-16 lg:py-20 bg-bg-page">

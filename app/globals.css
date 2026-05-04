@@ -119,6 +119,13 @@
 
 }
 
+/* ── Building Scene keyframes ── */
+@keyframes b-hover { 0%,100% { transform: translateY(0); }    50% { transform: translateY(-8px); } }
+@keyframes b-blink { 0%,100% { opacity: 1; box-shadow: 0 0 8px #2472C8; } 50% { opacity: .3; box-shadow: none; } }
+@keyframes b-wifi  { 0%,100% { opacity: .3; }                 50% { opacity: .9; } }
+@keyframes b-drift { 0%,100% { transform: translateX(0); }    50% { transform: translateX(14px); } }
+@keyframes b-fadein{ from { opacity: 0; }                     to   { opacity: 1; } }
+
 @layer utilities {
   .bg-grid {
     background-image: linear-gradient(theme(colors.border-light) 1px, transparent 1px),
