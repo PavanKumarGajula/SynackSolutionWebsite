@@ -3,34 +3,15 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, MonitorCheck, ShieldCheck, Cloud } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Eyebrow from "@/components/Eyebrow";
-import FadeUp from "@/components/FadeUp";
 import ServiceTabs from "@/components/ServiceTabs";
 import HowWeWork from "@/components/HowWeWork";
 import CtaSection from "@/components/CtaSection";
 import BuildingScene from "@/components/BuildingScene";
+import WhereToBegin from "@/components/WhereToBegin";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-
-
-const startCards = [
-  {
-    id: "managed-it", step: "Start here", featured: true,
-    icon: MonitorCheck, title: "Managed IT & Help Desk",
-    body: "Your foundation. If no one owns your environment — start here. Everything else is built on this.",
-  },
-  {
-    id: "cybersecurity", step: "Add second", featured: false,
-    icon: ShieldCheck, title: "Cybersecurity",
-    body: "Your protection. If you're not certain your business is secure — add this second.",
-  },
-  {
-    id: "m365", step: "Fastest win", featured: false,
-    icon: Cloud, title: "Microsoft 365 & Cloud",
-    body: "Your cloud. If your M365 tenant is ungoverned sprawl — this is the fastest win.",
-  },
-];
 
 export default function Services() {
   const [activeTab, setActiveTab] = useState("managed-it");
@@ -133,73 +114,8 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ── Where To Start ── */}
-      <section className="py-16 lg:py-20 bg-bg-page">
-        <div className="max-w-site mx-auto px-5 lg:px-10">
-          <FadeUp>
-            <Eyebrow>Where To Begin</Eyebrow>
-            <h2 className="font-outfit text-h1 font-black text-text-heading mb-3">
-              Not sure where to start?<br />Most clients begin here.
-            </h2>
-            <p className="text-body text-text-muted mb-1.5">
-              We manage IT across 10 areas. Most clients start with 2 or 3.
-            </p>
-            <p className="text-[14px] italic mb-10" style={{ color: "rgba(30,77,140,.55)" }}>
-              Most come to us after something goes wrong. By then, it costs more.
-            </p>
-          </FadeUp>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {startCards.map((card, i) => {
-              const Icon = card.icon;
-              return (
-                <FadeUp key={card.id} delay={i * 0.1}>
-                  <button
-                    onClick={() => handleStartCard(card.id)}
-                    className={[
-                      "w-full text-left rounded-[18px] p-7 relative overflow-hidden border transition-all duration-200 group cursor-pointer",
-                      card.featured
-                        ? "bg-primary border-primary hover:border-accent hover:shadow-[0_8px_40px_rgba(16,35,71,.25)]"
-                        : "bg-white border-border-light hover:border-accent hover:shadow-[0_8px_32px_rgba(36,114,200,.12)] hover:-translate-y-0.5",
-                    ].join(" ")}
-                  >
-                    {/* Bottom accent bar on hover (non-featured only) */}
-                    {!card.featured && (
-                      <span className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-accent to-accent-hover rounded-b-[18px] opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                    )}
-
-                    <div className={`w-12 h-12 rounded-[14px] flex items-center justify-center mb-[18px] border ${
-                      card.featured
-                        ? "bg-accent/15 border-accent/30"
-                        : "bg-scale-50 border-border-light"
-                    }`}>
-                      <Icon size={22} className="text-accent" />
-                    </div>
-
-                    <span className={`text-[10px] font-bold tracking-[0.14em] uppercase block mb-2 ${
-                      card.featured ? "text-text-on-dark" : "text-accent"
-                    }`}>
-                      {card.step}
-                    </span>
-
-                    <p className={`font-outfit text-[17px] font-extrabold mb-2.5 ${
-                      card.featured ? "text-text-heading-on-dark" : "text-text-heading"
-                    }`}>
-                      {card.title}
-                    </p>
-
-                    <p className={`text-[13.5px] leading-[1.65] ${
-                      card.featured ? "text-text-on-dark" : "text-text-muted"
-                    }`}>
-                      {card.body}
-                    </p>
-                  </button>
-                </FadeUp>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* ── Where To Begin ── */}
+      <WhereToBegin onSelect={handleStartCard} />
 
       {/* ── Service Tabs ── */}
       <ServiceTabs activeTab={activeTab} setActiveTab={setActiveTab} />

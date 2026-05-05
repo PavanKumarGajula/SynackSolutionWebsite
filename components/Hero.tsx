@@ -134,6 +134,7 @@ export default function Hero() {
   const [line1, setLine1] = useState("");
   const [line2, setLine2] = useState("");
   const [sub1,  setSub1]  = useState("");
+  const [sub2,  setSub2]  = useState("");
   const [activeIdx,  setActiveIdx]  = useState(-1);
   const [typingDone, setTypingDone] = useState(false);
 
@@ -142,6 +143,7 @@ export default function Hero() {
       { text: "We run, secure, and",                                                        setter: setLine1, speed: 44 },
       { text: "connect your IT systems.",                                                    setter: setLine2, speed: 44 },
       { text: "If no one owns your environment, no one is responsible when it fails.",       setter: setSub1,  speed: 26 },
+      { text: "We make sure someone does.",                                                  setter: setSub2,  speed: 38 },
     ];
     let lineIdx = 0, charIdx = 0;
     let timer: ReturnType<typeof setTimeout>;
@@ -204,8 +206,18 @@ export default function Hero() {
         </h1>
 
         {/* Subtext */}
-        <p className="text-body-lg text-text-muted mb-10 max-w-[48ch]" style={{ minHeight: "1.75em" }}>
-          {sub1}<Cursor show={activeIdx === 2 && !typingDone} />
+        <p className="text-body-lg mb-7 max-w-[48ch]" style={{ minHeight: "1.75em" }}>
+          <span className="text-text-muted">
+            {sub1}<Cursor show={activeIdx === 2 && !typingDone} />
+          </span>
+          {sub2 && (
+            <>
+              <br />
+              <span className="font-semibold text-text-heading">
+                {sub2}<Cursor show={activeIdx === 3 && !typingDone} />
+              </span>
+            </>
+          )}
         </p>
 
         {/* CTAs + trust — fades in after typing */}
@@ -231,7 +243,7 @@ export default function Hero() {
           </div>
 
           <div className="flex items-center gap-6 flex-wrap justify-center">
-            {["No escalation to you", "One system. One owner.", "Fixed cost. No surprises."].map((badge) => (
+            {["We handle IT — you stay focused", "One partner. Full responsibility.", "Predictable monthly cost"].map((badge) => (
               <div key={badge} className="flex items-center gap-2">
                 <div className="w-4 h-4 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center flex-shrink-0">
                   <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-accent">
