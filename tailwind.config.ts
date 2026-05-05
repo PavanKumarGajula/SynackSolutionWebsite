@@ -64,6 +64,7 @@ const config: Config = {
       fontFamily: {
         outfit: ["var(--font-outfit)", "sans-serif"],
         sans:   ["var(--font-dm-sans)", "system-ui", "sans-serif"],
+        mono:   ["var(--font-jetbrains)", "ui-monospace", "monospace"],
       },
       fontSize: {
         // ── Display — hero headline only ──

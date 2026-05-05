@@ -11,26 +11,26 @@ const steps = [
   {
     num: "1",
     period: "Day 1",
-    title: "You don't get a welcome email. You get control.",
-    desc: "Admin access taken over. Credentials centralised. Immediate risks locked down. Ownership begins from the first moment.",
+    title: "Day 1 — A real start.",
+    desc: "Admin taken over. Credentials centralised. Immediate risks locked down.",
   },
   {
     num: "2",
     period: "Week 1",
-    title: "We show you your environment — clearly mapped.",
-    desc: "Users. Systems. Vendors. Gaps. Risks. Not a report — a picture. Here is what is wrong. Here is what we are changing.",
+    title: "Your environment, mapped.",
+    desc: "Users. Systems. Vendors. Gaps. Risks. A clear picture — not a dense report.",
   },
   {
     num: "3",
     period: "Weeks 2–3",
-    title: "Things change. Without you being involved.",
-    desc: 'Systems connected. Security enforced. You are not asked for approval. You are told: "This is done."',
+    title: "The work happens.",
+    desc: "Systems connected. Security enforced. We handle the work — you stay focused.",
   },
   {
     num: "4",
     period: "Day 30",
-    title: "You realise you have not thought about IT once.",
-    desc: "No escalations. No vendor calls. No decisions pushed back to you. The environment runs.",
+    title: "You stop thinking about IT.",
+    desc: "No escalations. No vendor calls. The environment runs.",
   },
 ];
 
@@ -61,13 +61,11 @@ export default function HowWeWork() {
             <h2
               className="font-outfit font-black text-h1 text-text-heading mb-5"
             >
-              We don&apos;t ask what you want us to do.
+              We come prepared. From day one.
             </h2>
             <p className="text-body-lg text-text-muted max-w-[56ch]">
-              We map your environment. We identify what&apos;s broken. We define what happens next.
-              <br />
-              No coordination. No back-and-forth. No decisions pushed back to you.{" "}
-              <strong className="text-text-heading font-bold">One system. One owner.</strong>
+              We map your environment. We bring you the plan.{" "}
+              <strong className="text-text-heading font-bold">You&apos;re not managing us — we&apos;re working for you.</strong>
             </p>
           </div>
         </FadeUp>

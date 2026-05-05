@@ -197,8 +197,7 @@ export default function TheStandard() {
               whileHover={{ y: -4, boxShadow: "0 8px 40px rgba(36,114,200,0.10)" }}
             >
               <div className={VISUAL}>
-                <p className="text-[11px] font-semibold text-text-muted mb-1">Monthly IT Investment</p>
-                <p className="text-[13px] text-text-muted mb-3.5">One number. Every month. No variables.</p>
+                <p className="text-[11px] font-semibold text-text-muted mb-1">Monthly IT Investment — One number. Everything in.</p>
                 <div className="h-px bg-border-light mb-3" />
                 {costLines.map((name, i) => (
                   <div
