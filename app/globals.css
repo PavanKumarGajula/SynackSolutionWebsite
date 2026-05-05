@@ -119,6 +119,14 @@
 
 }
 
+/* ── Industries page ── */
+@keyframes indBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+@keyframes indGlow  { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+@keyframes indNodePop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.ind-status-blink { animation: indBlink 1.5s ease infinite; }
+.ind-glow-blob    { animation: indGlow 4s ease-in-out infinite; }
+.ind-node-pop     { animation: indNodePop 0.3s ease forwards; opacity: 0; }
+
 /* ── Building Scene keyframes ── */
 @keyframes b-hover { 0%,100% { transform: translateY(0); }    50% { transform: translateY(-8px); } }
 @keyframes b-blink { 0%,100% { opacity: 1; box-shadow: 0 0 8px #2472C8; } 50% { opacity: .3; box-shadow: none; } }

@@ -1,426 +1,683 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import {
-  Factory, HeartPulse, Briefcase, Store,
-  AlertTriangle, CheckCircle2, TrendingUp, ArrowRight,
+  Factory, HeartPulse, Scale, Building2,
+  Network, Shield, Laptop, Mail, Users, Cloud,
+  ShieldCheck, UserCheck, Laptop2, Lock, FileHeart,
+  KeyRound, ShieldAlert, GitBranch, ArrowRight,
 } from "lucide-react";
-import FadeUp from "@/components/FadeUp";
-import type { LucideIcon } from "lucide-react";
 
-type ActionItem = { bold: string; rest: string };
-type Industry = {
-  id: string;
-  badge: string;
-  badgeIcon: LucideIcon;
-  heading: string;
-  summary: string;
-  pills: string[];
-  reverse: boolean;
-  problems: string[];
-  actions: ActionItem[];
-  outcomes: string[];
-  playbookLabel: string;
-};
+const EASE = [0.22, 1, 0.36, 1] as const;
 
-const industries: Industry[] = [
-  {
-    id: "manufacturing",
-    badge: "Manufacturing & Industrial",
-    badgeIcon: Factory,
-    heading: "Production stops when IT stops.",
-    summary:
-      "Plant floors run on aging endpoints, flat networks, and unmanaged OT. One ransomware event or a switch failure and the line stops. We harden what matters and document what's there.",
-    pills: ["Uptime", "OT/IT visibility", "Network segmentation", "Endpoint control"],
-    reverse: false,
-    problems: [
-      "Flat networks where production, office, and guest traffic share one segment",
-      "Unpatched Windows endpoints running line-of-business software no one wants to touch",
-      "OT assets (PLCs, HMIs, sensors) with no inventory and no monitoring",
-      "Single points of failure in the network closet — one switch dies, the line stops",
-    ],
-    actions: [
-      { bold: "Network & Infrastructure", rest: " — segmented VLANs separating OT, production, and corporate" },
-      { bold: "Cybersecurity", rest: " — endpoint detection, identity hardening, and patch baselines" },
-      { bold: "Managed IT", rest: " — on-call support with documented runbooks for production-critical systems" },
-      { bold: "IT Strategy", rest: " — refresh roadmaps so end-of-life hardware doesn't become end-of-line" },
-    ],
-    outcomes: [
-      "Fewer unplanned outages and faster recovery when something does fail",
-      "Clear inventory of every device, switch, and account on the network",
-      "OT and corporate IT properly isolated — a phishing click no longer reaches the floor",
-      "Predictable hardware lifecycle and budget you can defend",
-    ],
-    playbookLabel: "See the full Manufacturing playbook",
-  },
-  {
-    id: "healthcare",
-    badge: "Healthcare & Clinics",
-    badgeIcon: HeartPulse,
-    heading: "Patient access can't wait. Neither can compliance.",
-    summary:
-      "Clinics need EHR access that just works, identity controls that pass an audit, and continuity when things go wrong. We build to HIPAA expectations from day one — not bolted on later.",
-    pills: ["HIPAA-aligned", "Identity-first", "Continuity", "Endpoint encryption"],
-    reverse: true,
-    problems: [
-      "Shared logins on shared workstations — no audit trail when something goes wrong",
-      "Endpoints without disk encryption holding PHI, walking out the door in laptop bags",
-      "EHR slowdowns from undersized networks or single-WAN connections with no failover",
-      "Vendor accounts and former staff with access nobody has reviewed in years",
-    ],
-    actions: [
-      { bold: "Cybersecurity", rest: " — Entra ID conditional access, MFA, and disk encryption baselines" },
-      { bold: "Cloud & Microsoft 365", rest: " — tenant governance, mailbox auditing, and DLP for PHI" },
-      { bold: "Network & Infrastructure", rest: " — redundant WAN, segmented clinical networks, monitored uplinks" },
-      { bold: "Managed IT", rest: " — documented onboarding/offboarding so access changes track with HR" },
-    ],
-    outcomes: [
-      "Audit-ready evidence of access control, encryption, and incident response",
-      "Reliable EHR access with documented failover when the primary link drops",
-      "Clear ownership: every account tied to a person, every device tracked",
-      "Lower breach exposure — and a real answer when an auditor asks how you know",
-    ],
-    playbookLabel: "See the full Healthcare playbook",
-  },
-  {
-    id: "professional-services",
-    badge: "Professional Services",
-    badgeIcon: Briefcase,
-    heading: "Your reputation is built on protecting client work.",
-    summary:
-      "Law firms, accounting practices, consultancies — the work is in the documents, the email, and the M365 tenant. We govern those tightly so client trust is structural, not aspirational.",
-    pills: ["Client data protection", "M365 governance", "Fast onboarding", "Email security"],
-    reverse: false,
-    problems: [
-      "SharePoint and OneDrive sprawl — client files in places nobody can find or govern",
-      "Email impersonation and wire-fraud attempts hitting partners and finance teams",
-      "New hires waiting days for access; departing staff keeping access for weeks",
-      "Unmanaged personal devices accessing client data with no controls",
-    ],
-    actions: [
-      { bold: "Cloud & Microsoft 365", rest: " — tenant baselines, sensitivity labels, structured matter folders" },
-      { bold: "Cybersecurity", rest: " — anti-phishing, MFA, conditional access, mailbox monitoring" },
-      { bold: "Managed IT", rest: " — same-day onboarding, same-hour offboarding, documented and repeatable" },
-      { bold: "IT Asset Procurement", rest: " — standardized laptops, encrypted by default, managed through Intune" },
-    ],
-    outcomes: [
-      "Client data lives where you can govern it — labeled, logged, and access-controlled",
-      "Phishing and BEC attempts caught before they reach a partner's inbox",
-      "New hires productive on day one; offboarding closes access immediately",
-      "A defensible answer when a client asks how you protect their information",
-    ],
-    playbookLabel: "See the full Professional Services playbook",
-  },
-  {
-    id: "smb",
-    badge: "Small & Mid-Size Business",
-    badgeIcon: Store,
-    heading: "Predictable IT, without hiring a department.",
-    summary:
-      "Growing businesses need IT that scales with them — not a break/fix loop and a part-time tech who knows where the printer driver lives. We give you the operating model of a mature IT shop, sized for your team.",
-    pills: ["Predictable support", "Scalable systems", "Standardized hardware", "Security baseline"],
-    reverse: true,
-    problems: [
-      "No documentation — when one person leaves, the knowledge leaves with them",
-      "Mixed hardware from five vendors, each with its own setup and lifecycle",
-      "Reactive IT spend — emergencies dictate the budget instead of strategy",
-      "Security as an afterthought: no MFA, no backup verification, no incident plan",
-    ],
-    actions: [
-      { bold: "Managed IT", rest: " — single point of contact, documented systems, predictable monthly cost" },
-      { bold: "IT Asset Procurement", rest: " — standardized hardware lifecycle, ordered and managed through us" },
-      { bold: "Cybersecurity", rest: " — security baseline that scales: MFA, EDR, backup verification, IR plan" },
-      { bold: "IT Strategy", rest: " — quarterly reviews so spend tracks with growth, not surprises" },
-    ],
-    outcomes: [
-      "IT runs in the background — your team works, things stay up",
-      "Hardware refreshes happen on schedule, not after a failure",
-      "A real security baseline that meets cyber-insurance and customer questionnaires",
-      "Documented systems that survive turnover and scale with headcount",
-    ],
-    playbookLabel: "See the full SMB playbook",
-  },
-];
+/* ─── Shared primitives ────────────────────────────── */
 
-const navItems = [
-  { href: "#manufacturing",        label: "Manufacturing",          Icon: Factory    },
-  { href: "#healthcare",           label: "Healthcare",             Icon: HeartPulse },
-  { href: "#professional-services",label: "Professional Services",  Icon: Briefcase  },
-  { href: "#smb",                  label: "Small & Mid-Size Business", Icon: Store  },
-];
-
-export default function Industries() {
+function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return (
-    <main className="pt-[68px]">
-
-      {/* ── Hero ── */}
-      <header className="relative bg-primary overflow-hidden pt-14 pb-14 border-b border-border-dark">
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(900px 360px at 18% 12%, rgba(36,114,200,.20) 0%, transparent 60%), radial-gradient(760px 280px at 85% 18%, rgba(122,180,238,.12) 0%, transparent 58%)",
-          }}
-        />
-        <div className="relative z-10 max-w-site mx-auto px-5 lg:px-10">
-          <div className="max-w-[880px]">
-            <FadeUp>
-              <p className="text-[12px] font-black tracking-[0.14em] uppercase text-accent mb-3">
-                Industries
-              </p>
-              <h1
-                className="font-outfit font-black text-text-heading-on-dark mb-3.5"
-                style={{ fontSize: "clamp(30px,4vw,48px)", letterSpacing: "-0.02em", lineHeight: 1.08 }}
-              >
-                IT designed around how your industry actually runs.
-              </h1>
-              <p className="text-[16px] leading-[1.7] max-w-[65ch] mb-6" style={{ color: "rgba(234,240,255,.78)" }}>
-                The risks, workflows, and compliance pressures aren&apos;t the same in a clinic, a factory floor, or a law firm — and our engagements aren&apos;t either. Below: the four industries we know best, what breaks first, what we fix, and what changes after we deploy.
-              </p>
-              <div className="flex gap-3 flex-wrap">
-                <Link href="/contact" className="btn btn-white">
-                  Talk to an Engineer <ArrowRight size={14} strokeWidth={2.5} />
-                </Link>
-                <Link href="#manufacturing" className="btn btn-outline-white">
-                  Browse Industries <ArrowRight size={14} strokeWidth={2.5} />
-                </Link>
-              </div>
-            </FadeUp>
-          </div>
-        </div>
-      </header>
-
-      {/* ── Sticky Industry Nav ── */}
-      <nav
-        className="sticky top-[68px] z-40 bg-white/92 backdrop-blur-md border-b border-border-light"
-        aria-label="Industry sections"
+    <div className="inline-flex items-center gap-2.5 mb-[22px]">
+      <span className="w-6 h-[2px] rounded-full flex-shrink-0" style={{ background: dark ? "#7AB4EE" : "#2472C8" }} />
+      <span
+        className="font-mono text-[11px] font-bold tracking-[0.17em] uppercase"
+        style={{ color: dark ? "#7AB4EE" : "#2472C8" }}
       >
-        <div className="max-w-site mx-auto px-5 lg:px-10">
-          <div className="flex gap-1.5 overflow-x-auto py-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            {navItems.map(({ href, label, Icon }) => (
-              <Link
-                key={href}
-                href={href}
-                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-[13px] font-semibold text-text-muted whitespace-nowrap border border-transparent transition-all duration-150 hover:border-accent/20 hover:text-accent"
-                style={{ ["--hover-bg" as string]: "rgba(36,114,200,.06)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(36,114,200,.06)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "")}
-              >
-                <Icon size={14} className="flex-shrink-0" />
-                {label}
-              </Link>
+        {children}
+      </span>
+    </div>
+  );
+}
+
+function DarkAccent({ children, className = "", style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
+  return (
+    <div
+      className={`relative rounded-[16px] overflow-hidden ${className}`}
+      style={{
+        background: "linear-gradient(180deg, #122849 0%, #091428 100%)",
+        boxShadow: "0 0 0 6px rgba(36,114,200,.08), 0 0 0 12px rgba(36,114,200,.04), 0 16px 32px rgba(16,35,71,.18)",
+        ...style,
+      }}
+    >
+      <div
+        className="absolute -top-10 -right-10 w-[140px] h-[140px] rounded-full pointer-events-none ind-glow-blob"
+        style={{ background: "radial-gradient(circle, rgba(36,114,200,.4) 0%, transparent 60%)" }}
+      />
+      {children}
+    </div>
+  );
+}
+
+function DiagramCard({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="bg-white border border-border-light rounded-[20px] p-7" style={{ boxShadow: "0 16px 40px rgba(16,35,71,.06)" }}>
+      {children}
+    </div>
+  );
+}
+
+function DiagramHead({ icon, title, status }: { icon: React.ReactNode; title: string; status: string }) {
+  return (
+    <div className="flex items-center justify-between pb-[18px] border-b border-border-light mb-[22px]">
+      <div className="flex items-center gap-2.5 font-mono text-[10.5px] font-bold tracking-[0.14em] uppercase text-text-heading">
+        <span className="text-accent">{icon}</span>
+        {title}
+      </div>
+      <div
+        className="inline-flex items-center gap-[7px] font-mono text-[10px] font-bold tracking-[0.14em] uppercase px-[11px] py-[5px] rounded-full"
+        style={{ color: "#22A05A", background: "rgba(34,160,90,.10)", border: "1px solid rgba(34,160,90,.30)" }}
+      >
+        <span className="w-[5px] h-[5px] rounded-full flex-shrink-0 ind-status-blink" style={{ background: "#22A05A", boxShadow: "0 0 6px #22A05A" }} />
+        {status}
+      </div>
+    </div>
+  );
+}
+
+function DiagramFoot({ left, right }: { left: React.ReactNode; right: string }) {
+  return (
+    <div className="mt-[22px] pt-4 border-t border-border-light flex justify-between font-mono text-[10px] font-bold tracking-[0.1em] uppercase text-text-muted">
+      <span>{left}</span>
+      <span>{right}</span>
+    </div>
+  );
+}
+
+function CoverageList({ items }: { items: string[] }) {
+  return (
+    <div className="pt-6 border-t border-border-light">
+      <p className="font-mono text-[10.5px] font-bold tracking-[0.14em] uppercase text-text-muted mb-3.5">What we cover</p>
+      <div className="flex flex-col gap-2.5">
+        {items.map((item) => (
+          <div key={item} className="flex items-start gap-3 text-[14.5px] font-medium text-text-heading leading-[1.6]">
+            <svg viewBox="0 0 16 16" fill="none" stroke="#2472C8" strokeWidth="2.2" className="w-4 h-4 flex-shrink-0 mt-0.5">
+              <polyline points="3,8 7,12 13,4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Industry section wrapper ─────────────────────── */
+
+function IndustrySection({
+  id, eyebrow, heading, accentPhrase, body, coverage, diagram, reverse = false,
+}: {
+  id: string; eyebrow: string; heading: string; accentPhrase: string;
+  body: string; coverage: string[]; diagram: React.ReactNode; reverse?: boolean;
+}) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section
+      id={id}
+      ref={ref}
+      className="relative py-[120px] px-5 lg:px-[60px]"
+    >
+      <div className="absolute top-0 left-5 right-5 lg:left-[60px] lg:right-[60px] h-px bg-border-light" />
+      <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+
+        {/* Text column */}
+        <motion.div
+          className={`max-w-[540px] ${reverse ? "lg:order-2" : ""}`}
+          initial={{ opacity: 0, y: 28 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
+        >
+          <Eyebrow>{eyebrow}</Eyebrow>
+          <h2
+            className="font-outfit font-black text-text-heading mb-[22px]"
+            style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04 }}
+          >
+            {heading}{" "}
+            <em className="not-italic text-accent">{accentPhrase}</em>
+          </h2>
+          <p className="text-text-body leading-[1.7] mb-9" style={{ fontSize: "clamp(15px, 1.5vw, 17px)" }}>
+            {body}
+          </p>
+          <CoverageList items={coverage} />
+        </motion.div>
+
+        {/* Diagram column */}
+        <motion.div
+          className={reverse ? "lg:order-1" : ""}
+          initial={{ opacity: 0, y: 32 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.22, ease: EASE }}
+        >
+          {diagram}
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   DIAGRAMS
+═══════════════════════════════════════════════ */
+
+function MfgDiagram() {
+  return (
+    <DiagramCard>
+      <DiagramHead icon={<Network size={13} />} title="Network · OT/IT Segmentation" status="Enforced" />
+
+      {/* Corporate IT zone */}
+      <div className="p-4 rounded-[14px] border border-border-light bg-scale-50 mb-3.5">
+        <div className="flex items-center justify-between mb-3">
+          <span className="font-mono text-[10px] font-bold tracking-[0.14em] uppercase text-text-muted">Corporate IT Zone</span>
+          <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-[9px] py-[3px] rounded-full"
+            style={{ color: "#2472C8", background: "rgba(36,114,200,.10)", border: "1px solid rgba(36,114,200,.30)" }}>
+            Trusted
+          </span>
+        </div>
+        <div className="grid grid-cols-4 gap-1.5">
+          {[{ icon: <Laptop size={14} />, name: "M365" }, { icon: <Mail size={14} />, name: "EMAIL" }, { icon: <Users size={14} />, name: "USERS" }, { icon: <Cloud size={14} />, name: "AZURE" }].map((n) => (
+            <div key={n.name} className="py-2.5 px-2 bg-white border border-border-light rounded-[10px] flex flex-col items-center gap-1.5 hover:-translate-y-px transition-transform">
+              <span className="text-accent">{n.icon}</span>
+              <span className="font-mono text-[9px] font-bold tracking-[0.04em] text-text-heading">{n.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Firewall */}
+      <DarkAccent className="mb-3.5">
+        <div className="flex items-center justify-between gap-3 px-[18px] py-[14px] flex-wrap">
+          <div className="flex items-center gap-2.5 relative z-10">
+            <div className="w-7 h-7 rounded-[8px] flex items-center justify-center flex-shrink-0"
+              style={{ background: "rgba(36,114,200,.20)", border: "1px solid rgba(36,114,200,.40)" }}>
+              <Shield size={13} style={{ color: "#3D8FE0" }} />
+            </div>
+            <span className="font-mono text-[10.5px] font-bold tracking-[0.14em] uppercase" style={{ color: "#EAF2FC" }}>
+              Firewall · Inspection
+            </span>
+          </div>
+          <div className="flex gap-2 relative z-10 flex-wrap">
+            {["Default Deny", "Logged"].map((r) => (
+              <span key={r} className="font-mono text-[9px] font-bold tracking-[0.12em] uppercase px-2 py-[3px] rounded-full"
+                style={{ color: "#7AB4EE", background: "rgba(122,180,238,.10)", border: "1px solid rgba(122,180,238,.20)" }}>
+                {r}
+              </span>
             ))}
           </div>
         </div>
-      </nav>
+      </DarkAccent>
 
-      {/* ── Industry Panels ── */}
-      {industries.map((ind, idx) => {
-        const BadgeIcon = ind.badgeIcon;
-        const isEven = idx % 2 === 1;
-
-        const intro = (
-          <FadeUp className="lg:sticky lg:top-[148px] lg:self-start">
-            <span
-              className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full text-accent text-[12px] font-extrabold tracking-[0.08em] uppercase mb-4 border"
-              style={{ background: "rgba(36,114,200,.08)", borderColor: "rgba(36,114,200,.20)" }}
-            >
-              <BadgeIcon size={14} />
-              {ind.badge}
-            </span>
-
-            <h2
-              className="font-outfit font-black text-text-heading mb-3.5"
-              style={{ fontSize: "clamp(26px,3vw,36px)", letterSpacing: "-0.02em", lineHeight: 1.12 }}
-            >
-              {ind.heading}
-            </h2>
-
-            <p className="text-[15px] text-text-muted leading-[1.7] mb-5">{ind.summary}</p>
-
-            <div className="flex flex-wrap gap-1.5 mb-5">
-              {ind.pills.map((pill) => (
-                <span
-                  key={pill}
-                  className="px-3 py-1.5 rounded-full text-[12.5px] font-bold text-text-heading bg-white border border-border-light"
-                >
-                  {pill}
-                </span>
-              ))}
+      {/* OT zone */}
+      <div className="p-4 rounded-[14px] border bg-scale-50"
+        style={{ borderColor: "rgba(232,156,31,.30)", background: "rgba(255,251,240,.6)" }}>
+        <div className="flex items-center justify-between mb-3">
+          <span className="font-mono text-[10px] font-bold tracking-[0.14em] uppercase text-text-muted">OT / Production Zone</span>
+          <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-[9px] py-[3px] rounded-full"
+            style={{ color: "#E89C1F", background: "rgba(232,156,31,.10)", border: "1px solid rgba(232,156,31,.30)" }}>
+            Restricted
+          </span>
+        </div>
+        <div className="grid grid-cols-4 gap-1.5">
+          {["PLC 01", "PLC 02", "PLC 03", "SCADA"].map((n) => (
+            <div key={n} className="py-[9px] px-2.5 bg-white border border-border-light rounded-[10px] flex items-center justify-between hover:-translate-y-px transition-transform">
+              <span className="font-mono text-[9px] font-bold tracking-[0.04em] text-text-heading">{n}</span>
+              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 ind-status-blink" style={{ background: "#22A05A", boxShadow: "0 0 6px #22A05A" }} />
             </div>
+          ))}
+        </div>
+      </div>
 
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-1.5 text-[14px] font-extrabold text-accent px-3.5 py-2.5 rounded-xl border border-accent/20 transition-all duration-150 hover:translate-x-0.5"
-              style={{ background: "rgba(36,114,200,.04)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(36,114,200,.10)")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(36,114,200,.04)")}
-            >
-              Talk to us about {ind.badge.split(" &")[0].split(" & ")[0].toLowerCase()}
-              <ArrowRight size={13} strokeWidth={2.5} />
-            </Link>
-          </FadeUp>
-        );
+      <DiagramFoot
+        left={<>Tuned to <strong className="text-accent">operational impact</strong></>}
+        right="Uptime · 99.98%"
+      />
+    </DiagramCard>
+  );
+}
 
-        const detail = (
-          <div className="flex flex-col gap-4">
-            {/* Problems */}
-            <FadeUp delay={0.1}>
-              <div className="bg-white border border-border-light rounded-xl p-[22px] hover:border-red-200 hover:shadow-[0_12px_32px_rgba(14,17,22,.05)] transition-all duration-200">
-                <div className="flex items-center gap-3 mb-3.5">
-                  <span className="w-9 h-9 inline-flex items-center justify-center rounded-[10px] bg-red-50 border border-red-200 text-red-600 flex-shrink-0">
-                    <AlertTriangle size={18} />
-                  </span>
-                  <div>
-                    <p className="text-[11px] font-black tracking-[0.14em] uppercase text-text-muted">Problems</p>
-                    <h3 className="font-outfit text-[17px] font-extrabold text-text-heading tracking-[-0.01em] leading-tight mt-0.5">
-                      What breaks first
-                    </h3>
-                  </div>
-                </div>
-                <ul className="flex flex-col gap-2.5">
-                  {ind.problems.map((p) => (
-                    <li key={p} className="flex gap-2.5 text-[14.5px] text-text-body leading-[1.55]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0 mt-[9px]" />
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </FadeUp>
+function HcDiagram() {
+  const layers = [
+    { icon: <UserCheck size={15} />, name: "Identity", detail: "MFA · Conditional access", badge: "§164.312(d)", width: "100%" },
+    { icon: <Laptop2 size={15} />, name: "Endpoint", detail: "Compliance · EDR · Logging", badge: "§164.312(b)", width: "92%" },
+    { icon: <Lock size={15} />, name: "Encryption", detail: "AES-256 at rest · TLS 1.3 in transit", badge: "§164.312(a)(2)(iv)", width: "84%" },
+  ];
 
-            {/* Actions */}
-            <FadeUp delay={0.18}>
-              <div className="bg-white border border-border-light rounded-xl p-[22px] transition-all duration-200 hover:shadow-[0_12px_32px_rgba(14,17,22,.05)]" style={{ ["--tw-border-opacity" as string]: "1" }}
-                onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(36,114,200,.30)")}
-                onMouseLeave={(e) => (e.currentTarget.style.borderColor = "")}
-              >
-                <div className="flex items-center gap-3 mb-3.5">
-                  <span
-                    className="w-9 h-9 inline-flex items-center justify-center rounded-[10px] text-accent flex-shrink-0 border"
-                    style={{ background: "rgba(36,114,200,.08)", borderColor: "rgba(36,114,200,.20)" }}
-                  >
-                    <CheckCircle2 size={18} />
-                  </span>
-                  <div>
-                    <p className="text-[11px] font-black tracking-[0.14em] uppercase text-text-muted">Actions</p>
-                    <h3 className="font-outfit text-[17px] font-extrabold text-text-heading tracking-[-0.01em] leading-tight mt-0.5">
-                      What we deploy
-                    </h3>
-                  </div>
-                </div>
-                <ul className="flex flex-col gap-2.5">
-                  {ind.actions.map((a) => (
-                    <li key={a.bold} className="flex gap-2.5 text-[14.5px] text-text-body leading-[1.55]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0 mt-[9px]" />
-                      <span>
-                        <strong className="font-extrabold text-text-heading">{a.bold}</strong>
-                        {a.rest}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </FadeUp>
+  return (
+    <DiagramCard>
+      <DiagramHead icon={<ShieldCheck size={13} />} title="Layered Defense · PHI" status="Compliant" />
 
-            {/* Outcomes */}
-            <FadeUp delay={0.26}>
-              <div className="bg-white border border-border-light rounded-xl p-[22px] hover:border-green-200 hover:shadow-[0_12px_32px_rgba(14,17,22,.05)] transition-all duration-200">
-                <div className="flex items-center gap-3 mb-3.5">
-                  <span className="w-9 h-9 inline-flex items-center justify-center rounded-[10px] bg-green-50 border border-green-200 text-green-700 flex-shrink-0">
-                    <TrendingUp size={18} />
-                  </span>
-                  <div>
-                    <p className="text-[11px] font-black tracking-[0.14em] uppercase text-text-muted">Outcomes</p>
-                    <h3 className="font-outfit text-[17px] font-extrabold text-text-heading tracking-[-0.01em] leading-tight mt-0.5">
-                      What changes
-                    </h3>
-                  </div>
-                </div>
-                <ul className="flex flex-col gap-2.5">
-                  {ind.outcomes.map((o) => (
-                    <li key={o} className="flex gap-2.5 text-[14.5px] text-text-body leading-[1.55]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-green-600 flex-shrink-0 mt-[9px]" />
-                      {o}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </FadeUp>
-            {/* Playbook link */}
-            <FadeUp delay={0.32}>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-1.5 text-[14px] font-extrabold text-accent mt-1 group transition-colors duration-150 hover:text-accent-hover"
-              >
-                {ind.playbookLabel}
-                <ArrowRight size={13} strokeWidth={2.5} className="transition-transform duration-150 group-hover:translate-x-0.5" />
-              </Link>
-            </FadeUp>
-          </div>
-        );
-
-        return (
-          <section
-            key={ind.id}
-            id={ind.id}
-            className={`py-20 border-b border-border-light ${isEven ? "bg-scale-50" : "bg-bg-page"}`}
+      <div className="flex flex-col gap-1.5">
+        {layers.map((l) => (
+          <div
+            key={l.name}
+            className="mx-auto px-[18px] py-[14px] rounded-[14px] bg-white border border-border-light flex items-center gap-3.5 hover:-translate-y-px transition-transform"
+            style={{ width: l.width }}
           >
-            <div className="max-w-site mx-auto px-5 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-              {ind.reverse ? (
-                <>
-                  <div className="lg:order-2">{intro}</div>
-                  <div className="lg:order-1">{detail}</div>
-                </>
-              ) : (
-                <>
-                  {intro}
-                  {detail}
-                </>
-              )}
+            <div className="w-8 h-8 rounded-[9px] bg-scale-50 border border-border-light flex items-center justify-center flex-shrink-0">
+              <span className="text-accent">{l.icon}</span>
             </div>
-          </section>
-        );
-      })}
+            <div className="flex-1 min-w-0">
+              <p className="font-outfit text-[13.5px] font-extrabold text-text-heading leading-[1.2]">{l.name}</p>
+              <p className="font-mono text-[10px] font-bold tracking-[0.04em] uppercase text-text-muted mt-[3px]">{l.detail}</p>
+            </div>
+            <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-[9px] py-1 rounded-full flex-shrink-0"
+              style={{ color: "#2472C8", background: "rgba(36,114,200,.10)", border: "1px solid rgba(36,114,200,.30)" }}>
+              {l.badge}
+            </span>
+          </div>
+        ))}
 
-      {/* ── Final CTA ── */}
-      <section className="bg-primary relative overflow-hidden py-16">
+        {/* PHI core — dark accent */}
+        <div style={{ width: "76%", marginLeft: "auto", marginRight: "auto", marginTop: 6 }}>
+        <DarkAccent>
+          <div className="px-5 py-4 flex items-center gap-3.5 relative z-10">
+            <div className="w-8 h-8 rounded-[9px] flex items-center justify-center flex-shrink-0"
+              style={{ background: "rgba(36,114,200,.20)", border: "1px solid rgba(36,114,200,.40)" }}>
+              <FileHeart size={14} style={{ color: "#3D8FE0" }} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-outfit text-[13.5px] font-extrabold leading-[1.2]" style={{ color: "#EAF2FC" }}>PHI · Patient Data</p>
+              <p className="font-mono text-[10px] font-bold tracking-[0.04em] uppercase mt-[3px]" style={{ color: "#7AB4EE" }}>Access logged · 90-day retention</p>
+            </div>
+            <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-[9px] py-1 rounded-full flex-shrink-0"
+              style={{ color: "#7AB4EE", background: "rgba(122,180,238,.10)", border: "1px solid rgba(122,180,238,.20)" }}>
+              Protected
+            </span>
+          </div>
+        </DarkAccent>
+        </div>
+      </div>
+
+      {/* HIPAA chips */}
+      <div className="mt-[18px] px-4 py-3 bg-scale-50 border border-border-light rounded-xl flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex gap-1.5 flex-wrap">
+          {["Access", "Audit", "Integrity", "Transmission"].map((c) => (
+            <span key={c} className="font-mono text-[9px] font-bold tracking-[0.12em] uppercase px-2 py-[3px] bg-white border border-border-light rounded-full text-text-muted">
+              {c}
+            </span>
+          ))}
+        </div>
+        <span className="font-mono text-[10px] font-bold tracking-[0.12em] uppercase" style={{ color: "#22A05A" }}>
+          All controls · documented
+        </span>
+      </div>
+    </DiagramCard>
+  );
+}
+
+function PsDiagram() {
+  const cols = [
+    { label: "Active", sub: "Matters" }, { label: "Closed", sub: "Matters" },
+    { label: "Sensitive", sub: "Walled" }, { label: "Admin", sub: "Records" },
+  ];
+  const rows = [
+    { role: "Partner",    perms: ["full", "read", "full", "read"] },
+    { role: "Associate",  perms: ["full", "meta", "none", "meta"] },
+    { role: "Paralegal",  perms: ["read", "none", "none", "none"] },
+    { role: "Admin",      perms: ["meta", "meta", "none", "full"] },
+  ];
+
+  const permStyle: Record<string, { bg: string; color: string; border?: string; label: string }> = {
+    full: { bg: "#2472C8", color: "#EAF2FC", label: "Full" },
+    read: { bg: "rgba(36,114,200,.12)", color: "#2472C8", border: "1px solid rgba(36,114,200,.25)", label: "Read" },
+    meta: { bg: "#EAF2FC", color: "#1E4D8C", border: "1px solid #B8D4F7", label: "Meta" },
+    none: { bg: "transparent", color: "rgba(30,77,140,.25)", border: "1px dashed #B8D4F7", label: "—" },
+  };
+
+  return (
+    <DiagramCard>
+      <DiagramHead icon={<KeyRound size={13} />} title="Access Matrix · Role × Matter" status="Audited" />
+
+      <div className="grid gap-1" style={{ gridTemplateColumns: "110px repeat(4, 1fr)" }}>
+        <div />
+        {cols.map((c) => (
+          <div key={c.label} className="flex flex-col items-center justify-center gap-[3px] min-h-[40px]">
+            <span className="font-outfit text-[12px] font-extrabold text-text-heading">{c.label}</span>
+            <span className="font-mono text-[8.5px] font-bold tracking-[0.12em] uppercase text-text-muted">{c.sub}</span>
+          </div>
+        ))}
+        {rows.map((row) => (
+          <>
+            <div key={row.role} className="flex items-center pl-1 min-h-[40px]">
+              <span className="font-outfit text-[12px] font-extrabold text-text-heading">{row.role}</span>
+            </div>
+            {row.perms.map((p, ci) => {
+              const s = permStyle[p];
+              return (
+                <div
+                  key={ci}
+                  className="flex items-center justify-center gap-1.5 rounded-[8px] min-h-[40px] font-mono text-[10px] font-bold tracking-[0.04em] uppercase"
+                  style={{ background: s.bg, color: s.color, border: s.border }}
+                >
+                  {p !== "none" && <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "currentColor" }} />}
+                  {s.label}
+                </div>
+              );
+            })}
+          </>
+        ))}
+      </div>
+
+      {/* Conflict bar */}
+      <DarkAccent className="mt-[18px]">
+        <div className="flex items-center gap-3.5 px-5 py-4 relative z-10">
+          <div className="w-[30px] h-[30px] rounded-[8px] flex items-center justify-center flex-shrink-0"
+            style={{ background: "rgba(36,114,200,.20)", border: "1px solid rgba(36,114,200,.40)" }}>
+            <ShieldAlert size={14} style={{ color: "#3D8FE0" }} />
+          </div>
+          <p className="text-[13px] font-medium leading-[1.4]" style={{ color: "#7AB4EE" }}>
+            <strong style={{ color: "#EAF2FC", fontWeight: 700 }}>Ethical walls enforced.</strong>{" "}
+            Conflicting matters automatically separated by configuration — no shared access paths, no manual oversight required.
+          </p>
+        </div>
+      </DarkAccent>
+
+      <DiagramFoot
+        left={<>Last access · <strong className="text-accent">logged 2 min ago</strong></>}
+        right="All folders · encrypted"
+      />
+    </DiagramCard>
+  );
+}
+
+function SmbDiagram() {
+  const scaleRows = [
+    { year: "Year 0", size: "20", unit: "ppl", active: 4, capacity: 2, tag: "Founded" },
+    { year: "Year 1", size: "50", unit: "ppl", active: 10, capacity: 4, tag: "Growing" },
+    { year: "Year 2", size: "150+", unit: "ppl", active: 20, capacity: 8, tag: "Scale" },
+  ];
+
+  return (
+    <DiagramCard>
+      <DiagramHead icon={<GitBranch size={13} />} title="Architecture · Same Pattern" status="Stable" />
+
+      {/* Legend */}
+      <div className="flex items-center gap-3.5 pb-3.5 mb-2 border-b border-border-light flex-wrap">
+        <span className="font-mono text-[9.5px] font-bold tracking-[0.14em] uppercase text-text-muted">Nodes</span>
+        <span className="flex items-center gap-1.5 font-mono text-[10px] font-bold tracking-[0.04em] text-text-heading">
+          <span className="w-2.5 h-2.5 rounded-[2px] flex-shrink-0" style={{ background: "#2472C8" }} />Active
+        </span>
+        <span className="flex items-center gap-1.5 font-mono text-[10px] font-bold tracking-[0.04em] text-text-heading">
+          <span className="w-2.5 h-2.5 rounded-[2px] border flex-shrink-0" style={{ background: "rgba(36,114,200,.18)", borderColor: "rgba(36,114,200,.30)" }} />Capacity
+        </span>
+      </div>
+
+      {scaleRows.map((row, ri) => (
+        <div
+          key={row.year}
+          className={`grid items-center gap-4 py-[14px] ${ri > 0 ? "border-t border-dashed border-border-light" : ""}`}
+          style={{ gridTemplateColumns: "110px 1fr 70px" }}
+        >
+          <div className="flex flex-col gap-1">
+            <span className="font-mono text-[10px] font-bold tracking-[0.14em] uppercase text-text-muted">{row.year}</span>
+            <span className="font-outfit text-[22px] font-extrabold text-text-heading leading-none" style={{ letterSpacing: "-0.02em" }}>
+              {row.size}<span className="font-sans text-[11.5px] font-medium text-text-muted ml-1">{row.unit}</span>
+            </span>
+          </div>
+          <div className="flex items-center gap-1 flex-wrap">
+            {Array.from({ length: row.active }).map((_, i) => (
+              <span
+                key={`a-${i}`}
+                className="w-3 h-3 rounded-[3px] ind-node-pop"
+                style={{ background: "#2472C8", animationDelay: `${ri * 0.15 + i * 0.04}s` }}
+              />
+            ))}
+            {Array.from({ length: row.capacity }).map((_, i) => (
+              <span
+                key={`c-${i}`}
+                className="w-3 h-3 rounded-[3px] ind-node-pop"
+                style={{ background: "rgba(36,114,200,.18)", border: "1px solid rgba(36,114,200,.30)", animationDelay: `${ri * 0.15 + (row.active + i) * 0.04}s` }}
+              />
+            ))}
+          </div>
+          <span className="font-mono text-[10px] font-bold tracking-[0.12em] uppercase text-accent text-right">{row.tag}</span>
+        </div>
+      ))}
+
+      <div className="mt-[22px] px-4 py-4 bg-scale-50 border border-border-light rounded-xl flex items-center justify-between gap-3 flex-wrap">
+        <p className="font-outfit text-[14.5px] font-extrabold text-text-heading" style={{ letterSpacing: "-0.005em" }}>
+          Same architecture. <em className="not-italic text-accent">No rebuilds.</em>
+        </p>
+        <span className="font-mono text-[10px] font-bold tracking-[0.12em] uppercase text-text-muted">One fixed monthly cost</span>
+      </div>
+    </DiagramCard>
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   PAGE
+═══════════════════════════════════════════════ */
+
+export default function Industries() {
+  const heroRef = useRef(null);
+  const heroInView = useInView(heroRef, { once: true });
+
+  const tiles = [
+    { href: "#manufacturing", num: "/01", Icon: Factory,   name: "Manufacturing",         tag: "Production uptime · OT/IT segmentation" },
+    { href: "#healthcare",    num: "/02", Icon: HeartPulse, name: "Healthcare",            tag: "HIPAA technical safeguards" },
+    { href: "#professional",  num: "/03", Icon: Scale,      name: "Professional Services", tag: "Client confidentiality · matter-based access" },
+    { href: "#smb",           num: "/04", Icon: Building2,  name: "Growing Business",      tag: "Scaling teams · stable architecture" },
+  ];
+
+  return (
+    <main className="pt-[68px] bg-bg-page">
+
+      {/* ══ HERO ══ */}
+      <section
+        ref={heroRef}
+        className="relative px-5 lg:px-[60px] pt-[120px] pb-[100px] overflow-hidden"
+      >
+        {/* Grid overlay */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage:
-              "linear-gradient(rgba(184,212,247,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(184,212,247,.04) 1px, transparent 1px)",
+            backgroundImage: "linear-gradient(rgba(36,114,200,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(36,114,200,.04) 1px, transparent 1px)",
             backgroundSize: "56px 56px",
+            maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%)",
           }}
         />
-        <div
-          className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle, rgba(36,114,200,.18) 0%, transparent 65%)" }}
-        />
 
-        <div className="relative z-10 max-w-site mx-auto px-5 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_0.8fr] gap-8 items-center">
-            <FadeUp>
-              <p className="text-[12px] font-black tracking-[0.14em] uppercase text-accent mb-3">Next step</p>
-              <h2
-                className="font-outfit font-black text-text-heading-on-dark mb-2.5"
-                style={{ fontSize: "clamp(26px,2.8vw,36px)", letterSpacing: "-0.02em", lineHeight: 1.12 }}
+        <div className="relative z-10 max-w-[1280px] mx-auto">
+
+          {/* Top: headline | lead + CTA */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-end mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, ease: EASE }}
+            >
+              <Eyebrow>Industries We Serve</Eyebrow>
+              <h1
+                className="font-outfit font-black text-text-heading"
+                style={{ fontSize: "clamp(48px, 7vw, 96px)", letterSpacing: "-0.045em", lineHeight: 0.98 }}
               >
-                Tell us your industry. We&apos;ll map the right controls.
-              </h2>
-              <p className="text-[15px] leading-[1.7] max-w-[60ch]" style={{ color: "rgba(234,240,255,.72)" }}>
-                A short call is enough to know if we&apos;re a fit. No pitch deck, no pressure — just a clear read on where you stand and what should change first.
+                Built for your industry.
+                <em className="not-italic text-accent block">Not adapted for it.</em>
+              </h1>
+            </motion.div>
+
+            <motion.div
+              className="pb-1.5"
+              initial={{ opacity: 0, y: 24 }}
+              animate={heroInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+            >
+              <p className="text-text-body leading-[1.7] mb-9" style={{ fontSize: "clamp(16px, 1.7vw, 19px)" }}>
+                Manufacturing, healthcare, professional services, and growing businesses each operate under different conditions. We adjust how we work to fit those conditions — not the other way around.
               </p>
-            </FadeUp>
-            <FadeUp delay={0.15} className="flex flex-wrap gap-3 lg:justify-end">
-              <Link href="/contact" className="btn btn-white">
-                Talk to an Engineer <ArrowRight size={14} strokeWidth={2.5} />
+              <Link href="/contact" className="btn btn-primary">
+                Talk to us <ArrowRight size={14} strokeWidth={2.5} />
               </Link>
-              <Link href="/services" className="btn btn-outline-white">
-                View Services <ArrowRight size={14} strokeWidth={2.5} />
-              </Link>
-            </FadeUp>
+            </motion.div>
           </div>
+
+          {/* Industry tiles */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {tiles.map((t, i) => (
+              <motion.a
+                key={t.href}
+                href={t.href}
+                className="group relative bg-white border border-border-light rounded-[16px] p-6 flex flex-col min-h-[200px] no-underline"
+                style={{ boxShadow: "0 4px 16px rgba(16,35,71,.04)" }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={heroInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.25 + i * 0.07, ease: EASE }}
+                whileHover={{ y: -3, borderColor: "#2472C8", boxShadow: "0 12px 28px rgba(36,114,200,.12)", transition: { duration: 0.2 } }}
+              >
+                <div className="flex items-center justify-between mb-[22px]">
+                  <span className="font-mono text-[10.5px] font-bold tracking-[0.14em] uppercase text-accent">{t.num}</span>
+                  <span
+                    className="w-7 h-7 rounded-full flex items-center justify-center text-accent transition-all duration-200"
+                    style={{ background: "#EAF2FC", border: "1px solid #B8D4F7" }}
+                  >
+                    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3 h-3 group-hover:rotate-[-45deg] group-hover:bg-accent group-hover:text-white transition-all duration-200">
+                      <path d="M3 11L11 3M11 3H5M11 3V9" />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  className="w-10 h-10 rounded-[11px] flex items-center justify-center mb-4 transition-all duration-200"
+                  style={{ background: "#EAF2FC", border: "1px solid #B8D4F7" }}
+                >
+                  <t.Icon size={18} className="text-accent" />
+                </div>
+                <p className="font-outfit text-[16px] font-extrabold text-text-heading leading-[1.2] mb-1.5" style={{ letterSpacing: "-0.015em" }}>
+                  {t.name}
+                </p>
+                <p className="text-[12.5px] font-medium text-text-muted leading-[1.5] mt-auto">{t.tag}</p>
+              </motion.a>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ══ 01 — MANUFACTURING ══ */}
+      <IndustrySection
+        id="manufacturing"
+        eyebrow="01 · Manufacturing"
+        heading="Production environments require IT that"
+        accentPhrase="does not fail."
+        body="Manufacturing IT operates under different constraints than office IT. A network outage hits the line. A vulnerability on the OT side carries direct operational consequences. The corporate side and the production side need different rules — and a real boundary between them."
+        coverage={[
+          "Plant network design with redundancy and uptime targets",
+          "Segmentation between operational technology and corporate IT",
+          "Compliance support — CMMC, NIST, customer-driven requirements",
+        ]}
+        diagram={<MfgDiagram />}
+      />
+
+      {/* ══ 02 — HEALTHCARE ══ */}
+      <IndustrySection
+        id="healthcare"
+        eyebrow="02 · Healthcare"
+        heading="You handle the patients."
+        accentPhrase="We handle the technology."
+        body="Healthcare environments operate under HIPAA's technical safeguards — specific controls around access, encryption, audit logging, and incident response. We implement and maintain those controls as layered defenses around PHI, so clinical operations don't have to manage them."
+        coverage={[
+          "HIPAA-aligned access controls, encryption, and audit logging",
+          "Endpoint and identity hardening for clinical and administrative users",
+          "Tested backup and recovery procedures for clinical continuity",
+        ]}
+        diagram={<HcDiagram />}
+        reverse
+      />
+
+      {/* ══ 03 — PROFESSIONAL SERVICES ══ */}
+      <IndustrySection
+        id="professional"
+        eyebrow="03 · Professional Services"
+        heading="Client confidentiality is the work —"
+        accentPhrase="not a side concern."
+        body="For law firms, accounting practices, and consultancies, the systems holding client data are the same systems used every day. We structure access by role and by matter so confidentiality is enforced by configuration — not by trust alone — and conflicts of interest are walled off automatically."
+        coverage={[
+          "Microsoft 365 governance — SharePoint, Teams, OneDrive structured for access",
+          "Email security and identity protection against targeted attacks",
+          "Endpoint encryption and mobile device management for hybrid work",
+        ]}
+        diagram={<PsDiagram />}
+      />
+
+      {/* ══ 04 — GROWING BUSINESS ══ */}
+      <IndustrySection
+        id="smb"
+        eyebrow="04 · Growing Business"
+        heading="IT that scales with the business —"
+        accentPhrase="without rebuilding."
+        body="Most SMB IT environments are built to fit current needs and start showing strain as the business grows. We design environments where the architecture stays the same from 20 employees to 200 — more nodes, same patterns, same operational standards."
+        coverage={[
+          "Architecture designed to scale without redesign",
+          "Predictable monthly cost as the business grows",
+          "Direct access to senior engineers — no escalation tiers",
+        ]}
+        diagram={<SmbDiagram />}
+        reverse
+      />
+
+      {/* ══ CTA ══ */}
+      <section className="relative px-5 lg:px-[60px] py-[120px]">
+        <div className="absolute top-0 left-5 right-5 lg:left-[60px] lg:right-[60px] h-px bg-border-light" />
+        <div className="max-w-[1280px] mx-auto">
+          <DarkAccent className="!rounded-[22px]">
+            {/* Extra top-right glow */}
+            <div
+              className="absolute -top-[100px] -right-[100px] w-[360px] h-[360px] rounded-full pointer-events-none ind-glow-blob"
+              style={{ background: "radial-gradient(circle, rgba(36,114,200,.40) 0%, transparent 60%)" }}
+            />
+            {/* Grid */}
+            <div
+              className="absolute inset-0 pointer-events-none rounded-[22px] overflow-hidden"
+              style={{
+                backgroundImage: "linear-gradient(rgba(122,180,238,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(122,180,238,.04) 1px, transparent 1px)",
+                backgroundSize: "48px 48px",
+                maskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, transparent 100%)",
+                WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, transparent 100%)",
+              }}
+            />
+
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-16 items-end px-[72px] py-[80px]">
+
+              {/* Left */}
+              <div>
+                <Eyebrow dark>What Comes Next</Eyebrow>
+                <h2
+                  className="font-outfit font-black"
+                  style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04, color: "#EAF2FC" }}
+                >
+                  Tell us your industry.
+                  <em className="not-italic block" style={{ color: "#3D8FE0" }}>We&apos;ll map the right controls.</em>
+                </h2>
+              </div>
+
+              {/* Right */}
+              <div className="flex flex-col gap-6 pb-1.5">
+                <p className="leading-[1.65]" style={{ fontSize: "15.5px", color: "#7AB4EE" }}>
+                  A short call is enough to understand your environment. We&apos;ll tell you where your gaps are and what we&apos;d change first.
+                </p>
+                <div className="flex gap-1.5 flex-wrap">
+                  {["No pitch deck", "No obligation", "Senior engineer"].map((tag) => (
+                    <span
+                      key={tag}
+                      className="font-mono text-[10px] font-bold tracking-[0.14em] uppercase px-[11px] py-[5px] rounded-full"
+                      style={{ color: "#7AB4EE", background: "rgba(122,180,238,.08)", border: "1px solid rgba(122,180,238,.20)" }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-3 flex-wrap">
+                  <Link href="/contact" className="btn btn-white">
+                    Talk to an engineer <ArrowRight size={14} strokeWidth={2.5} />
+                  </Link>
+                  <Link href="/services" className="btn btn-outline-white">
+                    View services <ArrowRight size={14} strokeWidth={2.5} />
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+          </DarkAccent>
         </div>
       </section>
 
