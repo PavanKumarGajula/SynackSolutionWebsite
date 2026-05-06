@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Network, Shield, Laptop, Mail, Users, Cloud,
   ShieldCheck, UserCheck, Laptop2, Lock, FileHeart,
-  KeyRound, ShieldAlert, GitBranch, ArrowRight,
+  KeyRound, ShieldAlert, GitBranch, Building2, ArrowRight,
 } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -443,61 +443,83 @@ function SmbDiagram() {
   );
 }
 
+function ConstructionDiagram() {
+  const sites = [
+    { name: "Job Site A", detail: "Cellular + wired failover" },
+    { name: "Job Site B", detail: "SD-WAN · LTE backup" },
+    { name: "Field Trailer", detail: "Portable AP · VPN tunnel" },
+  ];
+
+  return (
+    <DiagramCard>
+      <DiagramHead icon={<Network size={13} />} title="Site Connectivity · Field to Office" status="Active" />
+
+      {/* HQ */}
+      <DarkAccent className="mb-3.5">
+        <div className="flex items-center gap-3.5 px-[18px] py-[14px] relative z-10">
+          <div className="w-8 h-8 rounded-[9px] flex items-center justify-center flex-shrink-0"
+            style={{ background: "rgba(36,114,200,.20)", border: "1px solid rgba(36,114,200,.40)" }}>
+            <Building2 size={14} style={{ color: "#3D8FE0" }} />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-outfit text-[13.5px] font-extrabold leading-[1.2]" style={{ color: "#EAF2FC" }}>HQ / Back Office</p>
+            <p className="font-mono text-[10px] font-bold tracking-[0.04em] uppercase mt-[3px]" style={{ color: "#7AB4EE" }}>
+              Project files · Contracts · HR
+            </p>
+          </div>
+          <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-[9px] py-1 rounded-full flex-shrink-0"
+            style={{ color: "#7AB4EE", background: "rgba(122,180,238,.10)", border: "1px solid rgba(122,180,238,.20)" }}>
+            Azure AD
+          </span>
+        </div>
+      </DarkAccent>
+
+      {/* Sites */}
+      <div className="flex flex-col gap-1.5 mb-3.5">
+        {sites.map((s) => (
+          <div key={s.name} className="flex items-center justify-between gap-3 px-[14px] py-[11px] bg-white border border-border-light rounded-[10px] hover:-translate-y-px transition-transform">
+            <div className="flex items-center gap-2.5">
+              <span className="w-[5px] h-[5px] rounded-full flex-shrink-0 ind-status-blink" style={{ background: "#22A05A", boxShadow: "0 0 6px #22A05A" }} />
+              <span className="font-outfit text-[13px] font-extrabold text-text-heading">{s.name}</span>
+            </div>
+            <span className="font-mono text-[9.5px] font-bold tracking-[0.04em] uppercase text-text-muted">{s.detail}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Tags */}
+      <div className="px-4 py-3 bg-scale-50 border border-border-light rounded-xl flex items-center gap-2 flex-wrap">
+        {["Cellular Failover", "VPN Tunnel", "Cloud Sync", "Encrypted"].map((tag) => (
+          <span key={tag} className="font-mono text-[9px] font-bold tracking-[0.12em] uppercase px-2 py-[3px] bg-white border border-border-light rounded-full text-text-muted">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <DiagramFoot
+        left={<>Field access · <strong className="text-accent">encrypted end-to-end</strong></>}
+        right="3 active sites"
+      />
+    </DiagramCard>
+  );
+}
+
 /* ═══════════════════════════════════════════════
    PAGE
 ═══════════════════════════════════════════════ */
 
 export default function Industries() {
-  const collageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const container = collageRef.current;
-    if (!container) return;
-    const cards = Array.from(container.querySelectorAll<HTMLElement>(".collage-card"));
-    let raf = 0;
-    let tx = 0, ty = 0;
-    const onMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      tx = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
-      ty = ((e.clientY - rect.top) / rect.height - 0.5) * 12;
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        cards.forEach((card, i) => {
-          const depth = [0.6, 0.3, 0.9, 0.45][i] ?? 0.5;
-          card.style.translate = `${tx * depth}px ${ty * depth}px`;
-        });
-      });
-    };
-    container.addEventListener("mousemove", onMove);
-    return () => { container.removeEventListener("mousemove", onMove); cancelAnimationFrame(raf); };
-  }, []);
-
   return (
     <main className="pt-[68px] bg-bg-page">
 
       {/* ══ HERO ══ */}
       <section className="relative min-h-screen flex flex-col overflow-hidden bg-bg-page">
 
-        {/* Corner registration marks */}
-        <div className="absolute top-6 left-6 w-5 h-5 pointer-events-none z-20" style={{ borderTop: "1.5px solid rgba(36,114,200,.35)", borderLeft: "1.5px solid rgba(36,114,200,.35)" }} />
-        <div className="absolute top-6 right-6 w-5 h-5 pointer-events-none z-20" style={{ borderTop: "1.5px solid rgba(36,114,200,.35)", borderRight: "1.5px solid rgba(36,114,200,.35)" }} />
-        <div className="absolute bottom-6 left-6 w-5 h-5 pointer-events-none z-20" style={{ borderBottom: "1.5px solid rgba(36,114,200,.35)", borderLeft: "1.5px solid rgba(36,114,200,.35)" }} />
-        <div className="absolute bottom-6 right-6 w-5 h-5 pointer-events-none z-20" style={{ borderBottom: "1.5px solid rgba(36,114,200,.35)", borderRight: "1.5px solid rgba(36,114,200,.35)" }} />
-
-        {/* Masthead bar */}
-        <div className="border-b border-border-light px-8 lg:px-[60px] py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-            <span className="font-mono text-[10.5px] font-bold tracking-[0.17em] uppercase text-text-muted">Industries We Serve</span>
-          </div>
-          <span className="font-mono text-[10px] font-bold tracking-[0.14em] uppercase text-text-muted">04 verticals</span>
-        </div>
-
         {/* Main grid */}
         <div className="flex-1 grid grid-cols-1 lg:grid-cols-2">
 
           {/* Left — text */}
-          <div className="flex flex-col justify-center px-8 lg:px-[60px] py-16 lg:py-24 lg:border-r border-border-light">
+          <div className="flex flex-col justify-center px-8 lg:px-[60px] py-16 lg:py-24">
             <Eyebrow>Our Focus</Eyebrow>
             <h1
               className="font-outfit font-black text-text-heading mb-7"
@@ -507,9 +529,9 @@ export default function Industries() {
               <em className="not-italic text-accent block">— Not adapted<br />for it.</em>
             </h1>
             <p className="text-text-body leading-[1.7] mb-10 max-w-[46ch]" style={{ fontSize: "clamp(15px, 1.4vw, 17px)" }}>
-              Manufacturing, healthcare, professional services, and growing businesses each operate under different conditions. We adjust how we work to fit those conditions.
+              A plant floor running Windows NT — isolated, not replaced. A clinic that can&apos;t afford a four-hour outage — backups verified weekly. A law firm where one email to opposing counsel ends a career — flagged before sending, contained when it slips through. Different industries, same standard.
             </p>
-            <div className="flex flex-wrap gap-3 mb-14">
+            <div className="flex flex-wrap gap-3">
               <Link href="/contact" className="btn btn-primary">
                 Talk to us <ArrowRight size={14} strokeWidth={2.5} />
               </Link>
@@ -517,105 +539,48 @@ export default function Industries() {
                 View services <ArrowRight size={14} strokeWidth={2.5} />
               </Link>
             </div>
-            <div className="border-t border-border-light pt-6 flex flex-wrap gap-x-6 gap-y-2">
-              {["OT / IT Segmentation", "HIPAA Controls", "Matter-based Access", "Scaling Architecture"].map((p) => (
-                <span key={p} className="flex items-center gap-2 font-mono text-[10.5px] font-bold tracking-[0.14em] uppercase text-text-muted">
-                  <span className="w-1 h-1 rounded-full bg-accent flex-shrink-0" />
-                  {p}
-                </span>
-              ))}
-            </div>
           </div>
 
-          {/* Right — photo collage */}
+          {/* Right — 2×2 + tall grid */}
           <div
-            ref={collageRef}
-            className="relative hidden lg:block overflow-hidden"
-            style={{ minHeight: "560px" }}
+            className="hidden lg:grid overflow-hidden p-5"
+            style={{
+              gridTemplateColumns: "1fr 1fr 1.15fr",
+              gridTemplateRows: "1fr 1fr",
+              gap: "8px",
+            }}
           >
-            <div
-              className="absolute inset-0 pointer-events-none z-0"
-              style={{
-                backgroundImage: "linear-gradient(rgba(36,114,200,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(36,114,200,.04) 1px, transparent 1px)",
-                backgroundSize: "56px 56px",
-              }}
-            />
-
-            {/* Card 1 — Manufacturing */}
-            <div className="collage-card collage-1">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=900&h=700&fit=crop&q=85" alt="Manufacturing" />
-              <div className="absolute top-3 left-3 z-10">
-                <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-2 py-1 rounded-[5px]"
-                  style={{ color: "#EAF2FC", background: "rgba(16,35,71,.6)", backdropFilter: "blur(6px)", border: "1px solid rgba(255,255,255,.12)" }}>
-                  /01 Manufacturing
-                </span>
-              </div>
-              <div className="absolute bottom-3 left-3 z-10">
-                <p className="font-mono text-[9px] font-bold tracking-[0.1em] uppercase" style={{ color: "rgba(234,242,252,.65)" }}>OT/IT Segmentation</p>
-              </div>
-            </div>
-
-            {/* Card 2 — Healthcare */}
-            <div className="collage-card collage-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&h=500&fit=crop&q=85" alt="Healthcare" />
-              <div className="absolute top-3 left-3 z-10">
-                <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-2 py-1 rounded-[5px]"
-                  style={{ color: "#EAF2FC", background: "rgba(16,35,71,.6)", backdropFilter: "blur(6px)", border: "1px solid rgba(255,255,255,.12)" }}>
-                  /02 Healthcare
-                </span>
-              </div>
-              <div className="absolute bottom-3 left-3 z-10">
-                <p className="font-mono text-[9px] font-bold tracking-[0.1em] uppercase" style={{ color: "rgba(234,242,252,.65)" }}>HIPAA Controls</p>
-              </div>
-            </div>
-
-            {/* Card 3 — Professional Services */}
-            <div className="collage-card collage-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=700&h=600&fit=crop&q=85" alt="Professional Services" />
-              <div className="absolute top-3 left-3 z-10">
-                <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-2 py-1 rounded-[5px]"
-                  style={{ color: "#EAF2FC", background: "rgba(16,35,71,.6)", backdropFilter: "blur(6px)", border: "1px solid rgba(255,255,255,.12)" }}>
-                  /03 Professional
-                </span>
-              </div>
-              <div className="absolute bottom-3 left-3 z-10">
-                <p className="font-mono text-[9px] font-bold tracking-[0.1em] uppercase" style={{ color: "rgba(234,242,252,.65)" }}>Matter-based Access</p>
-              </div>
-            </div>
-
-            {/* Card 4 — Growing Business */}
-            <div className="collage-card collage-4">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700&h=900&fit=crop&q=85" alt="Growing Business" />
-              <div className="absolute top-3 left-3 z-10">
-                <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-2 py-1 rounded-[5px]"
-                  style={{ color: "#EAF2FC", background: "rgba(16,35,71,.6)", backdropFilter: "blur(6px)", border: "1px solid rgba(255,255,255,.12)" }}>
-                  /04 Growing Business
-                </span>
-              </div>
-              <div className="absolute bottom-3 left-3 z-10 flex items-center gap-2">
-                <p className="font-mono text-[9px] font-bold tracking-[0.1em] uppercase" style={{ color: "rgba(234,242,252,.65)" }}>Scaling Architecture</p>
-                <span className="font-mono text-[8px] font-bold tracking-[0.12em] uppercase px-1.5 py-0.5 rounded-[4px]"
-                  style={{ color: "#EAF2FC", background: "rgba(36,114,200,.5)", border: "1px solid rgba(36,114,200,.4)" }}>
-                  +more
-                </span>
-              </div>
-            </div>
-
+            {[
+              { col: 1, row: 1,      label: "/01", name: "Manufacturing",      tag: "OT/IT Segmentation",    src: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=900&h=700&fit=crop&q=85" },
+              { col: 2, row: 1,      label: "/02", name: "Healthcare",         tag: "HIPAA Controls",        src: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&h=500&fit=crop&q=85" },
+              { col: 3, row: "1 / 3",label: "/05", name: "Construction",       tag: "Civil & Infrastructure", src: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=700&h=1200&fit=crop&q=85" },
+              { col: 1, row: 2,      label: "/03", name: "Professional",       tag: "Matter-based Access",   src: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=700&h=600&fit=crop&q=85" },
+              { col: 2, row: 2,      label: "/04", name: "Growing Business",   tag: "Scaling Architecture",  src: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700&h=900&fit=crop&q=85" },
+            ].map((card, i) => (
+              <motion.div
+                key={card.name}
+                className="photo-grid-card relative rounded-[12px] overflow-hidden"
+                style={{ gridColumn: card.col, gridRow: card.row, background: "#0A1628" }}
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.7, delay: 0.1 + i * 0.08, ease: EASE }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={card.src} alt={card.name} className="photo-grid-img" />
+                <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(16,35,71,.15) 0%, rgba(16,35,71,.55) 100%)" }} />
+                <div className="absolute top-2.5 left-2.5 z-10">
+                  <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-2 py-1 rounded-[5px]"
+                    style={{ color: "#EAF2FC", background: "rgba(16,35,71,.65)", backdropFilter: "blur(6px)", border: "1px solid rgba(255,255,255,.12)" }}>
+                    {card.label} {card.name}
+                  </span>
+                </div>
+                <div className="absolute bottom-2.5 left-2.5 z-10">
+                  <p className="font-mono text-[9px] font-bold tracking-[0.1em] uppercase" style={{ color: "rgba(234,242,252,.65)" }}>{card.tag}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
-        </div>
 
-        {/* Scroll hint */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 z-10">
-          <span className="font-mono text-[9.5px] font-bold tracking-[0.17em] uppercase text-text-muted opacity-50">Scroll</span>
-          <svg viewBox="0 0 12 18" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3 h-[18px] text-text-muted"
-            style={{ animation: "scrollHintAnim 1.8s ease-out infinite" }}>
-            <line x1="6" y1="2" x2="6" y2="10" strokeLinecap="round" />
-            <polyline points="3,7 6,11 9,7" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
         </div>
 
       </section>
@@ -680,6 +645,21 @@ export default function Industries() {
         ]}
         diagram={<SmbDiagram />}
         reverse
+      />
+
+      {/* ══ 05 — CONSTRUCTION & CIVIL ══ */}
+      <IndustrySection
+        id="construction"
+        eyebrow="05 · Construction & Civil"
+        heading="Infrastructure projects demand IT that"
+        accentPhrase="moves with the work."
+        body="Construction environments are distributed by nature — multiple job sites, field crews, and back-office teams all working off the same data. We connect sites reliably, protect sensitive project files, and keep the office and field in sync without IT becoming a bottleneck."
+        coverage={[
+          "Reliable site connectivity — cellular failover, SD-WAN, VPN tunnels",
+          "Secure access to drawings, contracts, and bid documents",
+          "Microsoft 365 and cloud document management for distributed teams",
+        ]}
+        diagram={<ConstructionDiagram />}
       />
 
       {/* ══ CTA ══ */}
