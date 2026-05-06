@@ -515,30 +515,70 @@ export default function Industries() {
       {/* ══ HERO ══ */}
       <section className="relative min-h-screen flex flex-col overflow-hidden bg-bg-page">
 
+        {/* Subtle background grid */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "linear-gradient(rgba(36,114,200,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(36,114,200,.045) 1px, transparent 1px)",
+            backgroundSize: "56px 56px",
+            maskImage: "radial-gradient(ellipse 70% 80% at 30% 50%, black 0%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(ellipse 70% 80% at 30% 50%, black 0%, transparent 100%)",
+          }}
+        />
+
+        {/* Ambient glow behind text */}
+        <div className="absolute top-1/2 left-[20%] -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(36,114,200,.07) 0%, transparent 65%)" }} />
+
         {/* Main grid */}
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2">
+        <div className="relative z-10 flex-1 grid grid-cols-1 lg:grid-cols-2">
 
           {/* Left — text */}
           <div className="flex flex-col justify-center px-8 lg:px-[60px] py-16 lg:py-24">
-            <Eyebrow>Our Focus</Eyebrow>
-            <h1
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.05, ease: EASE }}
+            >
+              <Eyebrow>Our Focus</Eyebrow>
+            </motion.div>
+
+            <motion.h1
               className="font-outfit font-black text-text-heading mb-7"
               style={{ fontSize: "clamp(44px, 6vw, 84px)", letterSpacing: "-0.045em", lineHeight: 0.96 }}
+              initial={{ opacity: 0, y: 32 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.14, ease: EASE }}
             >
               Built for your<br />industry.
               <em className="not-italic text-accent block">— Not adapted<br />for it.</em>
-            </h1>
-            <p className="text-text-body leading-[1.7] mb-10 max-w-[46ch]" style={{ fontSize: "clamp(15px, 1.4vw, 17px)" }}>
+            </motion.h1>
+
+            <motion.p
+              className="text-text-body leading-[1.7] mb-10 max-w-[46ch]"
+              style={{ fontSize: "clamp(15px, 1.4vw, 17px)" }}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.28, ease: EASE }}
+            >
               A plant floor running Windows NT — isolated, not replaced. A clinic that can&apos;t afford a four-hour outage — backups verified weekly. A law firm where one email to opposing counsel ends a career — flagged before sending, contained when it slips through. Different industries, same standard.
-            </p>
-            <div className="flex flex-wrap gap-3">
+            </motion.p>
+
+            <motion.div
+              className="flex flex-wrap gap-3"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.42, ease: EASE }}
+            >
               <Link href="/contact" className="btn btn-primary">
                 Talk to us <ArrowRight size={14} strokeWidth={2.5} />
               </Link>
               <Link href="/services" className="btn btn-outline">
                 View services <ArrowRight size={14} strokeWidth={2.5} />
               </Link>
-            </div>
+            </motion.div>
+
           </div>
 
           {/* Right — 2×2 + tall grid */}
@@ -551,19 +591,20 @@ export default function Industries() {
             }}
           >
             {[
-              { col: 1, row: 1,      label: "/01", name: "Manufacturing",      tag: "OT/IT Segmentation",    src: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=900&h=700&fit=crop&q=85" },
-              { col: 2, row: 1,      label: "/02", name: "Healthcare",         tag: "HIPAA Controls",        src: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&h=500&fit=crop&q=85" },
-              { col: 3, row: "1 / 3",label: "/05", name: "Construction",       tag: "Civil & Infrastructure", src: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=700&h=1200&fit=crop&q=85" },
-              { col: 1, row: 2,      label: "/03", name: "Professional",       tag: "Matter-based Access",   src: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=700&h=600&fit=crop&q=85" },
-              { col: 2, row: 2,      label: "/04", name: "Growing Business",   tag: "Scaling Architecture",  src: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700&h=900&fit=crop&q=85" },
+              { col: 1, row: 1,       label: "/01", name: "Manufacturing",    tag: "OT/IT Segmentation",    src: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=900&h=700&fit=crop&q=85" },
+              { col: 2, row: 1,       label: "/02", name: "Healthcare",       tag: "HIPAA Controls",        src: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&h=500&fit=crop&q=85" },
+              { col: 3, row: "1 / 3", label: "/05", name: "Construction",     tag: "Civil & Infrastructure", src: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=700&h=1200&fit=crop&q=85" },
+              { col: 1, row: 2,       label: "/03", name: "Professional",     tag: "Matter-based Access",   src: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=700&h=600&fit=crop&q=85" },
+              { col: 2, row: 2,       label: "/04", name: "Growing Business", tag: "Scaling Architecture",  src: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700&h=900&fit=crop&q=85" },
             ].map((card, i) => (
               <motion.div
                 key={card.name}
-                className="photo-grid-card relative rounded-[12px] overflow-hidden"
+                className="photo-grid-card relative rounded-[12px] overflow-hidden cursor-pointer"
                 style={{ gridColumn: card.col, gridRow: card.row, background: "#0A1628" }}
-                initial={{ opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.7, delay: 0.1 + i * 0.08, ease: EASE }}
+                initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.3 + i * 0.1, ease: EASE }}
+                whileHover={{ scale: 1.025, transition: { duration: 0.3, ease: EASE } }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={card.src} alt={card.name} className="photo-grid-img" />
