@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import {
-  Factory, HeartPulse, Scale, Building2,
   Network, Shield, Laptop, Mail, Users, Cloud,
   ShieldCheck, UserCheck, Laptop2, Lock, FileHeart,
   KeyRound, ShieldAlert, GitBranch, ArrowRight,
@@ -449,108 +448,176 @@ function SmbDiagram() {
 ═══════════════════════════════════════════════ */
 
 export default function Industries() {
-  const heroRef = useRef(null);
-  const heroInView = useInView(heroRef, { once: true });
+  const collageRef = useRef<HTMLDivElement>(null);
 
-  const tiles = [
-    { href: "#manufacturing", num: "/01", Icon: Factory,   name: "Manufacturing",         tag: "Production uptime · OT/IT segmentation" },
-    { href: "#healthcare",    num: "/02", Icon: HeartPulse, name: "Healthcare",            tag: "HIPAA technical safeguards" },
-    { href: "#professional",  num: "/03", Icon: Scale,      name: "Professional Services", tag: "Client confidentiality · matter-based access" },
-    { href: "#smb",           num: "/04", Icon: Building2,  name: "Growing Business",      tag: "Scaling teams · stable architecture" },
-  ];
+  useEffect(() => {
+    const container = collageRef.current;
+    if (!container) return;
+    const cards = Array.from(container.querySelectorAll<HTMLElement>(".collage-card"));
+    let raf = 0;
+    let tx = 0, ty = 0;
+    const onMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      tx = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
+      ty = ((e.clientY - rect.top) / rect.height - 0.5) * 12;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        cards.forEach((card, i) => {
+          const depth = [0.6, 0.3, 0.9, 0.45][i] ?? 0.5;
+          card.style.translate = `${tx * depth}px ${ty * depth}px`;
+        });
+      });
+    };
+    container.addEventListener("mousemove", onMove);
+    return () => { container.removeEventListener("mousemove", onMove); cancelAnimationFrame(raf); };
+  }, []);
 
   return (
     <main className="pt-[68px] bg-bg-page">
 
       {/* ══ HERO ══ */}
-      <section
-        ref={heroRef}
-        className="relative px-5 lg:px-[60px] pt-[120px] pb-[100px] overflow-hidden"
-      >
-        {/* Grid overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "linear-gradient(rgba(36,114,200,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(36,114,200,.04) 1px, transparent 1px)",
-            backgroundSize: "56px 56px",
-            maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%)",
-          }}
-        />
+      <section className="relative min-h-screen flex flex-col overflow-hidden bg-bg-page">
 
-        <div className="relative z-10 max-w-[1280px] mx-auto">
+        {/* Corner registration marks */}
+        <div className="absolute top-6 left-6 w-5 h-5 pointer-events-none z-20" style={{ borderTop: "1.5px solid rgba(36,114,200,.35)", borderLeft: "1.5px solid rgba(36,114,200,.35)" }} />
+        <div className="absolute top-6 right-6 w-5 h-5 pointer-events-none z-20" style={{ borderTop: "1.5px solid rgba(36,114,200,.35)", borderRight: "1.5px solid rgba(36,114,200,.35)" }} />
+        <div className="absolute bottom-6 left-6 w-5 h-5 pointer-events-none z-20" style={{ borderBottom: "1.5px solid rgba(36,114,200,.35)", borderLeft: "1.5px solid rgba(36,114,200,.35)" }} />
+        <div className="absolute bottom-6 right-6 w-5 h-5 pointer-events-none z-20" style={{ borderBottom: "1.5px solid rgba(36,114,200,.35)", borderRight: "1.5px solid rgba(36,114,200,.35)" }} />
 
-          {/* Top: headline | lead + CTA */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-end mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={heroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, ease: EASE }}
+        {/* Masthead bar */}
+        <div className="border-b border-border-light px-8 lg:px-[60px] py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+            <span className="font-mono text-[10.5px] font-bold tracking-[0.17em] uppercase text-text-muted">Industries We Serve</span>
+          </div>
+          <span className="font-mono text-[10px] font-bold tracking-[0.14em] uppercase text-text-muted">04 verticals</span>
+        </div>
+
+        {/* Main grid */}
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2">
+
+          {/* Left — text */}
+          <div className="flex flex-col justify-center px-8 lg:px-[60px] py-16 lg:py-24 lg:border-r border-border-light">
+            <Eyebrow>Our Focus</Eyebrow>
+            <h1
+              className="font-outfit font-black text-text-heading mb-7"
+              style={{ fontSize: "clamp(44px, 6vw, 84px)", letterSpacing: "-0.045em", lineHeight: 0.96 }}
             >
-              <Eyebrow>Industries We Serve</Eyebrow>
-              <h1
-                className="font-outfit font-black text-text-heading"
-                style={{ fontSize: "clamp(48px, 7vw, 96px)", letterSpacing: "-0.045em", lineHeight: 0.98 }}
-              >
-                Built for your industry.
-                <em className="not-italic text-accent block">Not adapted for it.</em>
-              </h1>
-            </motion.div>
-
-            <motion.div
-              className="pb-1.5"
-              initial={{ opacity: 0, y: 24 }}
-              animate={heroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
-            >
-              <p className="text-text-body leading-[1.7] mb-9" style={{ fontSize: "clamp(16px, 1.7vw, 19px)" }}>
-                Manufacturing, healthcare, professional services, and growing businesses each operate under different conditions. We adjust how we work to fit those conditions — not the other way around.
-              </p>
+              Built for your<br />industry.
+              <em className="not-italic text-accent block">— Not adapted<br />for it.</em>
+            </h1>
+            <p className="text-text-body leading-[1.7] mb-10 max-w-[46ch]" style={{ fontSize: "clamp(15px, 1.4vw, 17px)" }}>
+              Manufacturing, healthcare, professional services, and growing businesses each operate under different conditions. We adjust how we work to fit those conditions.
+            </p>
+            <div className="flex flex-wrap gap-3 mb-14">
               <Link href="/contact" className="btn btn-primary">
                 Talk to us <ArrowRight size={14} strokeWidth={2.5} />
               </Link>
-            </motion.div>
+              <Link href="/services" className="btn btn-outline">
+                View services <ArrowRight size={14} strokeWidth={2.5} />
+              </Link>
+            </div>
+            <div className="border-t border-border-light pt-6 flex flex-wrap gap-x-6 gap-y-2">
+              {["OT / IT Segmentation", "HIPAA Controls", "Matter-based Access", "Scaling Architecture"].map((p) => (
+                <span key={p} className="flex items-center gap-2 font-mono text-[10.5px] font-bold tracking-[0.14em] uppercase text-text-muted">
+                  <span className="w-1 h-1 rounded-full bg-accent flex-shrink-0" />
+                  {p}
+                </span>
+              ))}
+            </div>
           </div>
 
-          {/* Industry tiles */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {tiles.map((t, i) => (
-              <motion.a
-                key={t.href}
-                href={t.href}
-                className="group relative bg-white border border-border-light rounded-[16px] p-6 flex flex-col min-h-[200px] no-underline"
-                style={{ boxShadow: "0 4px 16px rgba(16,35,71,.04)" }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={heroInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.25 + i * 0.07, ease: EASE }}
-                whileHover={{ y: -3, borderColor: "#2472C8", boxShadow: "0 12px 28px rgba(36,114,200,.12)", transition: { duration: 0.2 } }}
-              >
-                <div className="flex items-center justify-between mb-[22px]">
-                  <span className="font-mono text-[10.5px] font-bold tracking-[0.14em] uppercase text-accent">{t.num}</span>
-                  <span
-                    className="w-7 h-7 rounded-full flex items-center justify-center text-accent transition-all duration-200"
-                    style={{ background: "#EAF2FC", border: "1px solid #B8D4F7" }}
-                  >
-                    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3 h-3 group-hover:rotate-[-45deg] group-hover:bg-accent group-hover:text-white transition-all duration-200">
-                      <path d="M3 11L11 3M11 3H5M11 3V9" />
-                    </svg>
-                  </span>
-                </div>
-                <div
-                  className="w-10 h-10 rounded-[11px] flex items-center justify-center mb-4 transition-all duration-200"
-                  style={{ background: "#EAF2FC", border: "1px solid #B8D4F7" }}
-                >
-                  <t.Icon size={18} className="text-accent" />
-                </div>
-                <p className="font-outfit text-[16px] font-extrabold text-text-heading leading-[1.2] mb-1.5" style={{ letterSpacing: "-0.015em" }}>
-                  {t.name}
-                </p>
-                <p className="text-[12.5px] font-medium text-text-muted leading-[1.5] mt-auto">{t.tag}</p>
-              </motion.a>
-            ))}
-          </div>
+          {/* Right — photo collage */}
+          <div
+            ref={collageRef}
+            className="relative hidden lg:block overflow-hidden"
+            style={{ minHeight: "560px" }}
+          >
+            <div
+              className="absolute inset-0 pointer-events-none z-0"
+              style={{
+                backgroundImage: "linear-gradient(rgba(36,114,200,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(36,114,200,.04) 1px, transparent 1px)",
+                backgroundSize: "56px 56px",
+              }}
+            />
 
+            {/* Card 1 — Manufacturing */}
+            <div className="collage-card collage-1">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=900&h=700&fit=crop&q=85" alt="Manufacturing" />
+              <div className="absolute top-3 left-3 z-10">
+                <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-2 py-1 rounded-[5px]"
+                  style={{ color: "#EAF2FC", background: "rgba(16,35,71,.6)", backdropFilter: "blur(6px)", border: "1px solid rgba(255,255,255,.12)" }}>
+                  /01 Manufacturing
+                </span>
+              </div>
+              <div className="absolute bottom-3 left-3 z-10">
+                <p className="font-mono text-[9px] font-bold tracking-[0.1em] uppercase" style={{ color: "rgba(234,242,252,.65)" }}>OT/IT Segmentation</p>
+              </div>
+            </div>
+
+            {/* Card 2 — Healthcare */}
+            <div className="collage-card collage-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&h=500&fit=crop&q=85" alt="Healthcare" />
+              <div className="absolute top-3 left-3 z-10">
+                <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-2 py-1 rounded-[5px]"
+                  style={{ color: "#EAF2FC", background: "rgba(16,35,71,.6)", backdropFilter: "blur(6px)", border: "1px solid rgba(255,255,255,.12)" }}>
+                  /02 Healthcare
+                </span>
+              </div>
+              <div className="absolute bottom-3 left-3 z-10">
+                <p className="font-mono text-[9px] font-bold tracking-[0.1em] uppercase" style={{ color: "rgba(234,242,252,.65)" }}>HIPAA Controls</p>
+              </div>
+            </div>
+
+            {/* Card 3 — Professional Services */}
+            <div className="collage-card collage-3">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=700&h=600&fit=crop&q=85" alt="Professional Services" />
+              <div className="absolute top-3 left-3 z-10">
+                <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-2 py-1 rounded-[5px]"
+                  style={{ color: "#EAF2FC", background: "rgba(16,35,71,.6)", backdropFilter: "blur(6px)", border: "1px solid rgba(255,255,255,.12)" }}>
+                  /03 Professional
+                </span>
+              </div>
+              <div className="absolute bottom-3 left-3 z-10">
+                <p className="font-mono text-[9px] font-bold tracking-[0.1em] uppercase" style={{ color: "rgba(234,242,252,.65)" }}>Matter-based Access</p>
+              </div>
+            </div>
+
+            {/* Card 4 — Growing Business */}
+            <div className="collage-card collage-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700&h=900&fit=crop&q=85" alt="Growing Business" />
+              <div className="absolute top-3 left-3 z-10">
+                <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-2 py-1 rounded-[5px]"
+                  style={{ color: "#EAF2FC", background: "rgba(16,35,71,.6)", backdropFilter: "blur(6px)", border: "1px solid rgba(255,255,255,.12)" }}>
+                  /04 Growing Business
+                </span>
+              </div>
+              <div className="absolute bottom-3 left-3 z-10 flex items-center gap-2">
+                <p className="font-mono text-[9px] font-bold tracking-[0.1em] uppercase" style={{ color: "rgba(234,242,252,.65)" }}>Scaling Architecture</p>
+                <span className="font-mono text-[8px] font-bold tracking-[0.12em] uppercase px-1.5 py-0.5 rounded-[4px]"
+                  style={{ color: "#EAF2FC", background: "rgba(36,114,200,.5)", border: "1px solid rgba(36,114,200,.4)" }}>
+                  +more
+                </span>
+              </div>
+            </div>
+
+          </div>
         </div>
+
+        {/* Scroll hint */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 z-10">
+          <span className="font-mono text-[9.5px] font-bold tracking-[0.17em] uppercase text-text-muted opacity-50">Scroll</span>
+          <svg viewBox="0 0 12 18" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3 h-[18px] text-text-muted"
+            style={{ animation: "scrollHintAnim 1.8s ease-out infinite" }}>
+            <line x1="6" y1="2" x2="6" y2="10" strokeLinecap="round" />
+            <polyline points="3,7 6,11 9,7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+
       </section>
 
       {/* ══ 01 — MANUFACTURING ══ */}

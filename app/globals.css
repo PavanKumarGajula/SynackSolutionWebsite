@@ -127,6 +127,79 @@
 .ind-glow-blob    { animation: indGlow 4s ease-in-out infinite; }
 .ind-node-pop     { animation: indNodePop 0.3s ease forwards; opacity: 0; }
 
+/* ── Industries hero collage ── */
+@keyframes collageIn1 { to { opacity: 1; transform: translateY(0) rotate(-1deg); } }
+@keyframes collageIn2 { to { opacity: 1; transform: translateY(0) rotate(1.4deg); } }
+@keyframes collageIn3 { to { opacity: 1; transform: translateY(0) rotate(0.7deg); } }
+@keyframes collageIn4 { to { opacity: 1; transform: translateY(0) rotate(-1.1deg); } }
+@keyframes ornamentIn { to { opacity: 1; } }
+@keyframes scrollHintAnim {
+  0%   { transform: translateY(0);  opacity: .7; }
+  50%  { transform: translateY(4px); opacity: 1; }
+  100% { transform: translateY(8px); opacity: 0; }
+}
+
+.collage-card {
+  position: absolute;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #FFFFFF;
+  box-shadow: 0 1px 0 rgba(255,255,255,.4) inset, 0 12px 32px rgba(16,35,71,.12);
+  cursor: pointer;
+  opacity: 0;
+  transition: box-shadow .5s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1);
+  will-change: transform;
+}
+.collage-card img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: grayscale(35%) contrast(1.06) brightness(.94) saturate(.95);
+  transition: filter .6s, transform .8s cubic-bezier(.22,1,.36,1);
+}
+.collage-card::before {
+  content: ''; position: absolute; inset: 0; border-radius: 14px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+  pointer-events: none; z-index: 2;
+}
+.collage-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(16,35,71,.25) 0%, rgba(36,114,200,.12) 45%, rgba(16,35,71,.55) 100%);
+  pointer-events: none; z-index: 1; transition: opacity .4s;
+}
+.collage-card:hover {
+  box-shadow: 0 1px 0 rgba(255,255,255,.4) inset, 0 24px 48px rgba(36,114,200,.25);
+  z-index: 10 !important;
+}
+.collage-card:hover img { filter: grayscale(0%) contrast(1.06) brightness(1.02) saturate(1); transform: scale(1.06); }
+.collage-card:hover::after { opacity: .55; }
+
+.collage-1 {
+  top:0; left:0; width:58%; height:56%;
+  transform: translateY(16px) rotate(-1deg);
+  animation: collageIn1 .9s cubic-bezier(.22,1,.36,1) .10s forwards; z-index:3;
+}
+.collage-2 {
+  top:4%; right:0; width:38%; height:36%;
+  transform: translateY(16px) rotate(1.4deg);
+  animation: collageIn2 .9s cubic-bezier(.22,1,.36,1) .22s forwards; z-index:2;
+}
+.collage-3 {
+  bottom:0; left:6%; width:42%; height:40%;
+  transform: translateY(16px) rotate(.7deg);
+  animation: collageIn3 .9s cubic-bezier(.22,1,.36,1) .36s forwards; z-index:4;
+}
+.collage-4 {
+  bottom:4%; right:4%; width:46%; height:52%;
+  transform: translateY(16px) rotate(-1.1deg);
+  animation: collageIn4 .9s cubic-bezier(.22,1,.36,1) .48s forwards; z-index:5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .collage-card { opacity: 1 !important; animation: none !important; }
+  .collage-1 { transform: rotate(-1deg); }
+  .collage-2 { transform: rotate(1.4deg); }
+  .collage-3 { transform: rotate(.7deg); }
+  .collage-4 { transform: rotate(-1.1deg); }
+}
+
 /* ── Building Scene keyframes ── */
 @keyframes b-hover { 0%,100% { transform: translateY(0); }    50% { transform: translateY(-8px); } }
 @keyframes b-blink { 0%,100% { opacity: 1; box-shadow: 0 0 8px #2472C8; } 50% { opacity: .3; box-shadow: none; } }
