@@ -130,7 +130,7 @@ function IndustrySection({
             style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04 }}
           >
             {heading}{" "}
-            <em className="not-italic text-accent">{accentPhrase}</em>
+            <em className="not-italic">{accentPhrase}</em>
           </h2>
           <p className="text-text-body leading-[1.7] mb-9" style={{ fontSize: "clamp(15px, 1.5vw, 17px)" }}>
             {body}
@@ -250,7 +250,7 @@ function MfgSection() {
           <Eyebrow>01 · Manufacturing — Plant-floor reality</Eyebrow>
           <h2 className="font-outfit font-black text-text-heading mb-[22px]"
             style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04 }}>
-            Your line is the business. <em className="not-italic text-accent">We keep it running.</em>
+            Your line is the business. <em className="not-italic">We keep it running.</em>
           </h2>
           <p className="text-text-body leading-[1.7]" style={{ fontSize: "clamp(15px, 1.5vw, 17px)" }}>
             Manufacturing IT lives with realities you can&apos;t engineer away — the 1998 CNC controller, the line manager who&apos;s been burned by IT before, the insurance renewal demanding segmentation you don&apos;t have. We build around your systems instead of asking you to change them.
@@ -408,7 +408,7 @@ function HcSection() {
           <div className="absolute bottom-[18px] left-[18px] right-[18px] z-10 flex items-end justify-between gap-4">
             <p className="font-outfit font-extrabold leading-[1.15] max-w-[22ch]"
               style={{ fontSize: "clamp(17px, 1.8vw, 21px)", letterSpacing: "-0.022em", color: "#EAF2FC", textShadow: "0 2px 10px rgba(0,0,0,.45)" }}>
-              Compliance is what we leave behind. <em className="not-italic" style={{ color: "#3D8FE0" }}>Patient care is what we protect.</em>
+              Compliance is what we leave behind. <em className="not-italic">Patient care is what we protect.</em>
             </p>
             <p className="font-mono text-[9px] font-bold tracking-[0.18em] uppercase text-right flex-shrink-0"
               style={{ color: "#7AB4EE", opacity: 0.85, textShadow: "0 1px 4px rgba(0,0,0,.5)" }}>§164.312<br />(a) (b) (c) (e)</p>
@@ -422,7 +422,7 @@ function HcSection() {
           <Eyebrow>02 · Healthcare — Subject to §164.312</Eyebrow>
           <h2 className="font-outfit font-black text-text-heading mb-[22px]"
             style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04 }}>
-            The fine isn&apos;t the cost. <em className="not-italic text-accent">The investigation is.</em>
+            The fine isn&apos;t the cost. <em className="not-italic">The investigation is.</em>
           </h2>
           <p className="text-text-body leading-[1.7]" style={{ fontSize: "clamp(15px, 1.5vw, 17px)" }}>
             A HIPAA breach isn&apos;t a single fine — it&apos;s six years of records subpoenaed, depositions taken, and a reputation that recovers slower than the lawsuit settles. We keep the practice operating so the audit never has to.
@@ -488,7 +488,7 @@ function PsSection() {
             <Eyebrow>03 · Professional Services — Privileged matter</Eyebrow>
             <h2 className="font-outfit font-black text-text-heading mb-[22px]"
               style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04 }}>
-              One misdirected email can end a career. <em className="not-italic text-accent">We make sure it doesn&apos;t.</em>
+              One misdirected email can end a career. <em className="not-italic">We make sure it doesn&apos;t.</em>
             </h2>
             <p className="text-text-body leading-[1.7]" style={{ fontSize: "clamp(15px, 1.5vw, 17px)" }}>
               Law firms and accounting practices rarely get destroyed by breaches. They get destroyed by small moments. We build the controls that catch them.
@@ -658,7 +658,7 @@ function SmbSection() {
             <Eyebrow>04 · Growing Business — In transition</Eyebrow>
             <h2 className="font-outfit font-black text-text-heading max-w-[22ch]"
               style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04 }}>
-              You didn&apos;t fail because you grew. <em className="not-italic text-accent">You failed because nobody planned for it.</em>
+              You didn&apos;t fail because you grew. <em className="not-italic">You failed because nobody planned for it.</em>
             </h2>
           </div>
           <p className="text-text-body leading-[1.7] max-w-[44ch] pb-2" style={{ fontSize: "clamp(15px, 1.5vw, 17px)" }}>
@@ -786,7 +786,7 @@ function SmbSection() {
         <div className="mt-14 pt-7 border-t border-border-light flex items-center justify-between gap-6 flex-wrap">
           <p className="font-outfit font-extrabold text-text-heading leading-[1.2]"
             style={{ fontSize: "clamp(20px, 2vw, 26px)", letterSpacing: "-0.022em" }}>
-            Same architecture. <em className="not-italic text-accent">No rebuilds.</em>
+            Same architecture. <em className="not-italic">No rebuilds.</em>
           </p>
           <span className="font-mono text-[10px] font-bold tracking-[0.18em] uppercase text-text-muted">One fixed monthly cost</span>
         </div>
@@ -871,7 +871,7 @@ export default function Industries() {
               transition={{ duration: 0.75, delay: 0.14, ease: EASE }}
             >
               Built for your<br />industry.
-              <em className="not-italic text-accent block">— Not adapted<br />for it.</em>
+              <em className="not-italic block">— Not adapted<br />for it.</em>
             </motion.h1>
 
             <motion.p
@@ -1023,7 +1023,7 @@ export default function Industries() {
               <h2 className="font-outfit font-black max-w-[22ch]"
                 style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04, color: "#EAF2FC" }}>
                 Tell us your industry.
-                <em className="not-italic block" style={{ color: "#3D8FE0" }}>We&apos;ll map the right controls.</em>
+                <em className="not-italic block">We&apos;ll map the right controls.</em>
               </h2>
 
               <p style={{ fontSize: "15.5px", color: "#7AB4EE", lineHeight: 1.65, maxWidth: "52ch" }}>

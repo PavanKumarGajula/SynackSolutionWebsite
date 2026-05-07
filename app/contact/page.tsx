@@ -53,7 +53,7 @@ export default function Contact() {
       </section>
 
       {/* Form + Contact */}
-      <section className="bg-bg-section py-20">
+      <section className="bg-bg-page py-20">
         <div className="max-w-site mx-auto px-5 lg:px-10 grid md:grid-cols-2 gap-16 items-start">
 
           {/* Form */}
