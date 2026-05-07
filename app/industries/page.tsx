@@ -1,13 +1,11 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
-import { useRef } from "react";
+import Image from "next/image";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import {
-  Network, Shield, Laptop, Mail, Users, Cloud,
-  ShieldCheck, UserCheck, Laptop2, Lock, FileHeart,
-  KeyRound, ShieldAlert, GitBranch, Building2, ArrowRight,
-} from "lucide-react";
+import { Network, Building2, ArrowRight } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -159,289 +157,6 @@ function IndustrySection({
    DIAGRAMS
 ═══════════════════════════════════════════════ */
 
-function MfgDiagram() {
-  return (
-    <DiagramCard>
-      <DiagramHead icon={<Network size={13} />} title="Network · OT/IT Segmentation" status="Enforced" />
-
-      {/* Corporate IT zone */}
-      <div className="p-4 rounded-[14px] border border-border-light bg-scale-50 mb-3.5">
-        <div className="flex items-center justify-between mb-3">
-          <span className="font-mono text-[10px] font-bold tracking-[0.14em] uppercase text-text-muted">Corporate IT Zone</span>
-          <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-[9px] py-[3px] rounded-full"
-            style={{ color: "#2472C8", background: "rgba(36,114,200,.10)", border: "1px solid rgba(36,114,200,.30)" }}>
-            Trusted
-          </span>
-        </div>
-        <div className="grid grid-cols-4 gap-1.5">
-          {[{ icon: <Laptop size={14} />, name: "M365" }, { icon: <Mail size={14} />, name: "EMAIL" }, { icon: <Users size={14} />, name: "USERS" }, { icon: <Cloud size={14} />, name: "AZURE" }].map((n) => (
-            <div key={n.name} className="py-2.5 px-2 bg-white border border-border-light rounded-[10px] flex flex-col items-center gap-1.5 hover:-translate-y-px transition-transform">
-              <span className="text-accent">{n.icon}</span>
-              <span className="font-mono text-[9px] font-bold tracking-[0.04em] text-text-heading">{n.name}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Firewall */}
-      <DarkAccent className="mb-3.5">
-        <div className="flex items-center justify-between gap-3 px-[18px] py-[14px] flex-wrap">
-          <div className="flex items-center gap-2.5 relative z-10">
-            <div className="w-7 h-7 rounded-[8px] flex items-center justify-center flex-shrink-0"
-              style={{ background: "rgba(36,114,200,.20)", border: "1px solid rgba(36,114,200,.40)" }}>
-              <Shield size={13} style={{ color: "#3D8FE0" }} />
-            </div>
-            <span className="font-mono text-[10.5px] font-bold tracking-[0.14em] uppercase" style={{ color: "#EAF2FC" }}>
-              Firewall · Inspection
-            </span>
-          </div>
-          <div className="flex gap-2 relative z-10 flex-wrap">
-            {["Default Deny", "Logged"].map((r) => (
-              <span key={r} className="font-mono text-[9px] font-bold tracking-[0.12em] uppercase px-2 py-[3px] rounded-full"
-                style={{ color: "#7AB4EE", background: "rgba(122,180,238,.10)", border: "1px solid rgba(122,180,238,.20)" }}>
-                {r}
-              </span>
-            ))}
-          </div>
-        </div>
-      </DarkAccent>
-
-      {/* OT zone */}
-      <div className="p-4 rounded-[14px] border bg-scale-50"
-        style={{ borderColor: "rgba(232,156,31,.30)", background: "rgba(255,251,240,.6)" }}>
-        <div className="flex items-center justify-between mb-3">
-          <span className="font-mono text-[10px] font-bold tracking-[0.14em] uppercase text-text-muted">OT / Production Zone</span>
-          <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-[9px] py-[3px] rounded-full"
-            style={{ color: "#E89C1F", background: "rgba(232,156,31,.10)", border: "1px solid rgba(232,156,31,.30)" }}>
-            Restricted
-          </span>
-        </div>
-        <div className="grid grid-cols-4 gap-1.5">
-          {["PLC 01", "PLC 02", "PLC 03", "SCADA"].map((n) => (
-            <div key={n} className="py-[9px] px-2.5 bg-white border border-border-light rounded-[10px] flex items-center justify-between hover:-translate-y-px transition-transform">
-              <span className="font-mono text-[9px] font-bold tracking-[0.04em] text-text-heading">{n}</span>
-              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 ind-status-blink" style={{ background: "#22A05A", boxShadow: "0 0 6px #22A05A" }} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <DiagramFoot
-        left={<>Tuned to <strong className="text-accent">operational impact</strong></>}
-        right="Uptime · 99.98%"
-      />
-    </DiagramCard>
-  );
-}
-
-function HcDiagram() {
-  const layers = [
-    { icon: <UserCheck size={15} />, name: "Identity", detail: "MFA · Conditional access", badge: "§164.312(d)", width: "100%" },
-    { icon: <Laptop2 size={15} />, name: "Endpoint", detail: "Compliance · EDR · Logging", badge: "§164.312(b)", width: "92%" },
-    { icon: <Lock size={15} />, name: "Encryption", detail: "AES-256 at rest · TLS 1.3 in transit", badge: "§164.312(a)(2)(iv)", width: "84%" },
-  ];
-
-  return (
-    <DiagramCard>
-      <DiagramHead icon={<ShieldCheck size={13} />} title="Layered Defense · PHI" status="Compliant" />
-
-      <div className="flex flex-col gap-1.5">
-        {layers.map((l) => (
-          <div
-            key={l.name}
-            className="mx-auto px-[18px] py-[14px] rounded-[14px] bg-white border border-border-light flex items-center gap-3.5 hover:-translate-y-px transition-transform"
-            style={{ width: l.width }}
-          >
-            <div className="w-8 h-8 rounded-[9px] bg-scale-50 border border-border-light flex items-center justify-center flex-shrink-0">
-              <span className="text-accent">{l.icon}</span>
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="font-outfit text-[13.5px] font-extrabold text-text-heading leading-[1.2]">{l.name}</p>
-              <p className="font-mono text-[10px] font-bold tracking-[0.04em] uppercase text-text-muted mt-[3px]">{l.detail}</p>
-            </div>
-            <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-[9px] py-1 rounded-full flex-shrink-0"
-              style={{ color: "#2472C8", background: "rgba(36,114,200,.10)", border: "1px solid rgba(36,114,200,.30)" }}>
-              {l.badge}
-            </span>
-          </div>
-        ))}
-
-        {/* PHI core — dark accent */}
-        <div style={{ width: "76%", marginLeft: "auto", marginRight: "auto", marginTop: 6 }}>
-        <DarkAccent>
-          <div className="px-5 py-4 flex items-center gap-3.5 relative z-10">
-            <div className="w-8 h-8 rounded-[9px] flex items-center justify-center flex-shrink-0"
-              style={{ background: "rgba(36,114,200,.20)", border: "1px solid rgba(36,114,200,.40)" }}>
-              <FileHeart size={14} style={{ color: "#3D8FE0" }} />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="font-outfit text-[13.5px] font-extrabold leading-[1.2]" style={{ color: "#EAF2FC" }}>PHI · Patient Data</p>
-              <p className="font-mono text-[10px] font-bold tracking-[0.04em] uppercase mt-[3px]" style={{ color: "#7AB4EE" }}>Access logged · 90-day retention</p>
-            </div>
-            <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-[9px] py-1 rounded-full flex-shrink-0"
-              style={{ color: "#7AB4EE", background: "rgba(122,180,238,.10)", border: "1px solid rgba(122,180,238,.20)" }}>
-              Protected
-            </span>
-          </div>
-        </DarkAccent>
-        </div>
-      </div>
-
-      {/* HIPAA chips */}
-      <div className="mt-[18px] px-4 py-3 bg-scale-50 border border-border-light rounded-xl flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex gap-1.5 flex-wrap">
-          {["Access", "Audit", "Integrity", "Transmission"].map((c) => (
-            <span key={c} className="font-mono text-[9px] font-bold tracking-[0.12em] uppercase px-2 py-[3px] bg-white border border-border-light rounded-full text-text-muted">
-              {c}
-            </span>
-          ))}
-        </div>
-        <span className="font-mono text-[10px] font-bold tracking-[0.12em] uppercase" style={{ color: "#22A05A" }}>
-          All controls · documented
-        </span>
-      </div>
-    </DiagramCard>
-  );
-}
-
-function PsDiagram() {
-  const cols = [
-    { label: "Active", sub: "Matters" }, { label: "Closed", sub: "Matters" },
-    { label: "Sensitive", sub: "Walled" }, { label: "Admin", sub: "Records" },
-  ];
-  const rows = [
-    { role: "Partner",    perms: ["full", "read", "full", "read"] },
-    { role: "Associate",  perms: ["full", "meta", "none", "meta"] },
-    { role: "Paralegal",  perms: ["read", "none", "none", "none"] },
-    { role: "Admin",      perms: ["meta", "meta", "none", "full"] },
-  ];
-
-  const permStyle: Record<string, { bg: string; color: string; border?: string; label: string }> = {
-    full: { bg: "#2472C8", color: "#EAF2FC", label: "Full" },
-    read: { bg: "rgba(36,114,200,.12)", color: "#2472C8", border: "1px solid rgba(36,114,200,.25)", label: "Read" },
-    meta: { bg: "#EAF2FC", color: "#1E4D8C", border: "1px solid #B8D4F7", label: "Meta" },
-    none: { bg: "transparent", color: "rgba(30,77,140,.25)", border: "1px dashed #B8D4F7", label: "—" },
-  };
-
-  return (
-    <DiagramCard>
-      <DiagramHead icon={<KeyRound size={13} />} title="Access Matrix · Role × Matter" status="Audited" />
-
-      <div className="grid gap-1" style={{ gridTemplateColumns: "110px repeat(4, 1fr)" }}>
-        <div />
-        {cols.map((c) => (
-          <div key={c.label} className="flex flex-col items-center justify-center gap-[3px] min-h-[40px]">
-            <span className="font-outfit text-[12px] font-extrabold text-text-heading">{c.label}</span>
-            <span className="font-mono text-[8.5px] font-bold tracking-[0.12em] uppercase text-text-muted">{c.sub}</span>
-          </div>
-        ))}
-        {rows.map((row) => (
-          <>
-            <div key={row.role} className="flex items-center pl-1 min-h-[40px]">
-              <span className="font-outfit text-[12px] font-extrabold text-text-heading">{row.role}</span>
-            </div>
-            {row.perms.map((p, ci) => {
-              const s = permStyle[p];
-              return (
-                <div
-                  key={ci}
-                  className="flex items-center justify-center gap-1.5 rounded-[8px] min-h-[40px] font-mono text-[10px] font-bold tracking-[0.04em] uppercase"
-                  style={{ background: s.bg, color: s.color, border: s.border }}
-                >
-                  {p !== "none" && <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "currentColor" }} />}
-                  {s.label}
-                </div>
-              );
-            })}
-          </>
-        ))}
-      </div>
-
-      {/* Conflict bar */}
-      <DarkAccent className="mt-[18px]">
-        <div className="flex items-center gap-3.5 px-5 py-4 relative z-10">
-          <div className="w-[30px] h-[30px] rounded-[8px] flex items-center justify-center flex-shrink-0"
-            style={{ background: "rgba(36,114,200,.20)", border: "1px solid rgba(36,114,200,.40)" }}>
-            <ShieldAlert size={14} style={{ color: "#3D8FE0" }} />
-          </div>
-          <p className="text-[13px] font-medium leading-[1.4]" style={{ color: "#7AB4EE" }}>
-            <strong style={{ color: "#EAF2FC", fontWeight: 700 }}>Ethical walls enforced.</strong>{" "}
-            Conflicting matters automatically separated by configuration — no shared access paths, no manual oversight required.
-          </p>
-        </div>
-      </DarkAccent>
-
-      <DiagramFoot
-        left={<>Last access · <strong className="text-accent">logged 2 min ago</strong></>}
-        right="All folders · encrypted"
-      />
-    </DiagramCard>
-  );
-}
-
-function SmbDiagram() {
-  const scaleRows = [
-    { year: "Year 0", size: "20", unit: "ppl", active: 4, capacity: 2, tag: "Founded" },
-    { year: "Year 1", size: "50", unit: "ppl", active: 10, capacity: 4, tag: "Growing" },
-    { year: "Year 2", size: "150+", unit: "ppl", active: 20, capacity: 8, tag: "Scale" },
-  ];
-
-  return (
-    <DiagramCard>
-      <DiagramHead icon={<GitBranch size={13} />} title="Architecture · Same Pattern" status="Stable" />
-
-      {/* Legend */}
-      <div className="flex items-center gap-3.5 pb-3.5 mb-2 border-b border-border-light flex-wrap">
-        <span className="font-mono text-[9.5px] font-bold tracking-[0.14em] uppercase text-text-muted">Nodes</span>
-        <span className="flex items-center gap-1.5 font-mono text-[10px] font-bold tracking-[0.04em] text-text-heading">
-          <span className="w-2.5 h-2.5 rounded-[2px] flex-shrink-0" style={{ background: "#2472C8" }} />Active
-        </span>
-        <span className="flex items-center gap-1.5 font-mono text-[10px] font-bold tracking-[0.04em] text-text-heading">
-          <span className="w-2.5 h-2.5 rounded-[2px] border flex-shrink-0" style={{ background: "rgba(36,114,200,.18)", borderColor: "rgba(36,114,200,.30)" }} />Capacity
-        </span>
-      </div>
-
-      {scaleRows.map((row, ri) => (
-        <div
-          key={row.year}
-          className={`grid items-center gap-4 py-[14px] ${ri > 0 ? "border-t border-dashed border-border-light" : ""}`}
-          style={{ gridTemplateColumns: "110px 1fr 70px" }}
-        >
-          <div className="flex flex-col gap-1">
-            <span className="font-mono text-[10px] font-bold tracking-[0.14em] uppercase text-text-muted">{row.year}</span>
-            <span className="font-outfit text-[22px] font-extrabold text-text-heading leading-none" style={{ letterSpacing: "-0.02em" }}>
-              {row.size}<span className="font-sans text-[11.5px] font-medium text-text-muted ml-1">{row.unit}</span>
-            </span>
-          </div>
-          <div className="flex items-center gap-1 flex-wrap">
-            {Array.from({ length: row.active }).map((_, i) => (
-              <span
-                key={`a-${i}`}
-                className="w-3 h-3 rounded-[3px] ind-node-pop"
-                style={{ background: "#2472C8", animationDelay: `${ri * 0.15 + i * 0.04}s` }}
-              />
-            ))}
-            {Array.from({ length: row.capacity }).map((_, i) => (
-              <span
-                key={`c-${i}`}
-                className="w-3 h-3 rounded-[3px] ind-node-pop"
-                style={{ background: "rgba(36,114,200,.18)", border: "1px solid rgba(36,114,200,.30)", animationDelay: `${ri * 0.15 + (row.active + i) * 0.04}s` }}
-              />
-            ))}
-          </div>
-          <span className="font-mono text-[10px] font-bold tracking-[0.12em] uppercase text-accent text-right">{row.tag}</span>
-        </div>
-      ))}
-
-      <div className="mt-[22px] px-4 py-4 bg-scale-50 border border-border-light rounded-xl flex items-center justify-between gap-3 flex-wrap">
-        <p className="font-outfit text-[14.5px] font-extrabold text-text-heading" style={{ letterSpacing: "-0.005em" }}>
-          Same architecture. <em className="not-italic text-accent">No rebuilds.</em>
-        </p>
-        <span className="font-mono text-[10px] font-bold tracking-[0.12em] uppercase text-text-muted">One fixed monthly cost</span>
-      </div>
-    </DiagramCard>
-  );
-}
 
 function ConstructionDiagram() {
   const sites = [
@@ -501,6 +216,610 @@ function ConstructionDiagram() {
         right="3 active sites"
       />
     </DiagramCard>
+  );
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION HELPERS
+═══════════════════════════════════════════════ */
+
+function TransitionMark({ to }: { to: string }) {
+  return (
+    <div className="relative h-0 z-10 pointer-events-none">
+      <div className="absolute left-1/2 -translate-x-1/2 -top-[7px] inline-flex items-center gap-2 px-3 py-[3px] bg-bg-page whitespace-nowrap"
+        style={{ fontFamily: "var(--font-dm-sans)", fontSize: "9px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#1E4D8C" }}>
+        <span className="w-[5px] h-[5px] rounded-full bg-accent flex-shrink-0" />
+        Next <strong className="text-text-heading font-bold ml-1">· {to}</strong>
+      </div>
+    </div>
+  );
+}
+
+/* ── /01 Manufacturing ── */
+function MfgSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <section id="manufacturing" ref={ref} className="relative py-[120px] px-5 lg:px-[60px]">
+      <div className="absolute top-0 left-5 right-5 lg:left-[60px] lg:right-[60px] h-px bg-border-light" />
+      <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-stretch">
+
+        <motion.div className="flex flex-col justify-center max-w-[540px]"
+          initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.1, ease: EASE }}>
+          <Eyebrow>01 · Manufacturing — Plant-floor reality</Eyebrow>
+          <h2 className="font-outfit font-black text-text-heading mb-[22px]"
+            style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04 }}>
+            Your line is the business. <em className="not-italic text-accent">We keep it running.</em>
+          </h2>
+          <p className="text-text-body leading-[1.7]" style={{ fontSize: "clamp(15px, 1.5vw, 17px)" }}>
+            Manufacturing IT lives with realities you can&apos;t engineer away — the 1998 CNC controller, the line manager who&apos;s been burned by IT before, the insurance renewal demanding segmentation you don&apos;t have. We build around your systems instead of asking you to change them.
+          </p>
+
+          {/* Three anxiety signals */}
+          <div className="mt-9 pt-7 border-t border-border-light grid grid-cols-3 gap-[18px]">
+            {([
+              {
+                label: "Reality", name: "Legacy machines you can't replace",
+                icon: <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full"><rect x="5" y="7" width="28" height="20" rx="1.5"/><line x1="9" y1="12" x2="29" y2="12"/><line x1="9" y1="17" x2="22" y2="17"/><line x1="9" y1="22" x2="26" y2="22"/><line x1="14" y1="27" x2="14" y2="31"/><line x1="24" y1="27" x2="24" y2="31"/><line x1="11" y1="31" x2="27" y2="31"/></svg>,
+              },
+              {
+                label: "Pressure", name: "Insurance demands you can't dodge",
+                icon: <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full"><path d="M10 5L25 5L30 10L30 33L10 33Z"/><polyline points="25,5 25,10 30,10"/><line x1="14" y1="16" x2="22" y2="16"/><line x1="14" y1="20" x2="26" y2="20"/><circle cx="23" cy="27" r="4"/><line x1="20" y1="29" x2="22" y2="31"/><line x1="22" y1="31" x2="26" y2="25"/></svg>,
+              },
+              {
+                label: "Trust", name: "Rebuilt one shift at a time",
+                icon: <svg viewBox="0 0 38 38" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full"><path d="M7 14 Q7 8 13 8 L25 8"/><polyline points="22,5 25,8 22,11"/><path d="M31 24 Q31 30 25 30 L13 30"/><polyline points="16,33 13,30 16,27"/><circle cx="19" cy="19" r="1.5" fill="currentColor"/></svg>,
+              },
+            ] as { label: string; name: string; icon: React.ReactNode }[]).map((s) => (
+              <div key={s.label} className="flex flex-col gap-[10px]">
+                <div className="w-[38px] h-[38px] text-accent">{s.icon}</div>
+                <span className="font-mono text-[9.5px] font-bold tracking-[0.18em] uppercase text-text-muted">{s.label}</span>
+                <span className="font-outfit text-[14px] font-extrabold text-text-heading leading-[1.2]" style={{ letterSpacing: "-0.015em" }}>{s.name}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div className="rounded-[20px] overflow-hidden border border-border-light flex flex-col"
+          style={{ boxShadow: "0 16px 40px rgba(16,35,71,.08)", minHeight: "540px" }}
+          initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.22, ease: EASE }}>
+
+          {/* Corporate IT pane */}
+          <div className="mfg-pane relative overflow-hidden" style={{ flex: 1, minHeight: "200px" }}>
+            <Image fill src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&h=500&fit=crop&q=85" alt="Corporate IT" className="mfg-pane-img" sizes="(max-width:1024px) 100vw, 50vw" />
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg,rgba(16,35,71,.40) 0%,rgba(16,35,71,.10) 45%,rgba(16,35,71,.55) 100%)" }} />
+            <span className="absolute top-[18px] left-[18px] z-10 inline-flex items-center gap-[6px] px-[11px] py-[5px] rounded-full font-mono text-[9.5px] font-bold tracking-[0.14em] uppercase text-text-heading" style={{ background: "rgba(255,255,255,.94)", backdropFilter: "blur(8px)" }}>
+              <span className="w-[5px] h-[5px] rounded-full bg-accent flex-shrink-0" />Corporate IT
+            </span>
+            <span className="absolute top-[18px] right-[18px] z-10 inline-flex items-center px-[11px] py-[5px] rounded-full font-mono text-[9px] font-bold tracking-[0.14em] uppercase" style={{ background: "rgba(36,114,200,.15)", border: "1px solid rgba(36,114,200,.35)", color: "#3D8FE0", backdropFilter: "blur(8px)" }}>Modern</span>
+            <span className="absolute bottom-[18px] left-[18px] z-10 font-mono text-[9px] font-bold tracking-[0.16em] uppercase" style={{ color: "rgba(234,242,252,.85)", textShadow: "0 1px 4px rgba(0,0,0,.5)" }}>M365 · Azure · Patched · Audited</span>
+          </div>
+
+          {/* Firewall divider */}
+          <div className="relative flex items-center justify-between gap-3 px-6 py-[18px] overflow-hidden flex-wrap"
+            style={{ background: "linear-gradient(180deg,#102347 0%,#0A1628 100%)" }}>
+            <div className="absolute -top-[30px] -right-[30px] w-[140px] h-[140px] rounded-full pointer-events-none ind-glow-blob"
+              style={{ background: "radial-gradient(circle,rgba(36,114,200,.45) 0%,transparent 60%)" }} />
+            <div className="flex items-center gap-3 relative z-10">
+              <motion.div className="w-8 h-8 rounded-[9px] flex items-center justify-center flex-shrink-0"
+                style={{ background: "rgba(36,114,200,.20)", border: "1px solid rgba(36,114,200,.40)" }}
+                animate={{ boxShadow: ["0 0 0 0px rgba(36,114,200,0)", "0 0 0 7px rgba(36,114,200,.15)", "0 0 0 0px rgba(36,114,200,0)"] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}>
+                <svg viewBox="0 0 16 16" fill="none" stroke="#3D8FE0" strokeWidth="2.2" className="w-[15px] h-[15px]">
+                  <path d="M8 1L2 4v4c0 3.5 2.5 6.5 6 7 3.5-.5 6-3.5 6-7V4L8 1z"/>
+                </svg>
+              </motion.div>
+              <div className="flex flex-col gap-[2px]">
+                <span className="font-mono text-[11px] font-bold tracking-[0.14em] uppercase" style={{ color: "#EAF2FC" }}>Segmentation · Enforced</span>
+                <span className="font-mono text-[9.5px] font-bold tracking-[0.12em] uppercase opacity-70" style={{ color: "#7AB4EE" }}>Default deny outbound · No internet</span>
+              </div>
+            </div>
+            <div className="flex gap-[6px] relative z-10">
+              {["Jump box only", "Logged"].map((r) => (
+                <span key={r} className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-2 py-[4px] rounded-full"
+                  style={{ color: "#7AB4EE", background: "rgba(122,180,238,.10)", border: "1px solid rgba(122,180,238,.20)" }}>{r}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* OT pane */}
+          <div className="mfg-pane relative overflow-hidden" style={{ flex: 1, minHeight: "200px" }}>
+            <Image fill src="https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=900&h=500&fit=crop&q=85" alt="Production floor" className="mfg-pane-img" sizes="(max-width:1024px) 100vw, 50vw" />
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg,rgba(16,35,71,.40) 0%,rgba(16,35,71,.10) 45%,rgba(16,35,71,.55) 100%)" }} />
+            <span className="absolute top-[18px] left-[18px] z-10 inline-flex items-center gap-[6px] px-[11px] py-[5px] rounded-full font-mono text-[9.5px] font-bold tracking-[0.14em] uppercase text-text-heading" style={{ background: "rgba(255,255,255,.94)", backdropFilter: "blur(8px)" }}>
+              <span className="w-[5px] h-[5px] rounded-full bg-accent flex-shrink-0" />OT / Production
+            </span>
+            <span className="absolute top-[18px] right-[18px] z-10 inline-flex items-center px-[11px] py-[5px] rounded-full font-mono text-[9px] font-bold tracking-[0.14em] uppercase" style={{ background: "rgba(232,156,31,.18)", border: "1px solid rgba(232,156,31,.40)", color: "#FFBE6B", backdropFilter: "blur(8px)" }}>Legacy</span>
+            <span className="absolute bottom-[18px] left-[18px] z-10 font-mono text-[9px] font-bold tracking-[0.16em] uppercase" style={{ color: "rgba(234,242,252,.85)", textShadow: "0 1px 4px rgba(0,0,0,.5)" }}>Win NT · AS/400 · PLC · Still running</span>
+          </div>
+
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ── /02 Healthcare ── */
+function HcSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const annos = [
+    { dotTop: "22%", dotLeft: "32%", lineLeft: "calc(32% + 14px)", lineW: "28%", tagTop: "calc(22% - 16px)", tagSide: { right: "18px" }, ref: "MFA · 0.4s", name: "Sign-in verified", ring: "hc-ring" },
+    { dotTop: "46%", dotLeft: "22%", lineLeft: "18px", lineW: "calc(22% - 18px)", tagTop: "calc(46% - 16px)", tagSide: { left: "18px" }, ref: "Backup · 4h RTO", name: "Last verified 04:12", ring: "hc-ring hc-ring-2" },
+    { dotTop: "38%", dotLeft: "64%", lineLeft: "calc(64% + 14px)", lineW: "calc(36% - 32px)", tagTop: "calc(38% - 16px)", tagSide: { right: "18px" }, ref: "Audit · 6 yrs", name: "OCR-ready format", ring: "hc-ring hc-ring-3" },
+    { dotTop: "62%", dotLeft: "28%", lineLeft: "18px", lineW: "calc(28% - 18px)", tagTop: "calc(62% - 16px)", tagSide: { left: "18px" }, ref: "Encryption · AES-256", name: "At rest · in transit", ring: "hc-ring hc-ring-4" },
+  ];
+
+  return (
+    <section id="healthcare" ref={ref} className="relative py-[120px] px-5 lg:px-[60px]">
+      <div className="absolute top-0 left-5 right-5 lg:left-[60px] lg:right-[60px] h-px bg-border-light" />
+      <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-stretch">
+
+        {/* Photo — left */}
+        <motion.div className="relative rounded-[20px] overflow-hidden order-2 lg:order-1"
+          style={{ minHeight: "540px", boxShadow: "0 16px 40px rgba(16,35,71,.10)", border: "1px solid #B8D4F7" }}
+          initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.1, ease: EASE }}>
+          <Image fill src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1100&h=900&fit=crop&q=85" alt="Clinical environment" className="hc-photo-img" sizes="(max-width:1024px) 100vw, 50vw" />
+          <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg,rgba(16,35,71,.40) 0%,rgba(16,35,71,.20) 35%,rgba(16,35,71,.55) 100%)" }} />
+
+          {/* All-clear badge */}
+          <div className="absolute top-[18px] left-[18px] z-10 inline-flex items-center gap-[7px] px-3 py-[6px] rounded-full font-mono text-[9.5px] font-bold tracking-[0.14em] uppercase text-text-heading"
+            style={{ background: "rgba(255,255,255,.94)", backdropFilter: "blur(8px)" }}>
+            <span className="w-[5px] h-[5px] rounded-full flex-shrink-0 ind-status-blink" style={{ background: "#22A05A", boxShadow: "0 0 5px #22A05A" }} />
+            All Clear · Monitored
+          </div>
+
+          {/* Annotation dots + lines + tags */}
+          {annos.map((a, i) => (
+            <React.Fragment key={i}>
+              {/* Dot */}
+              <motion.div className="absolute z-10 pointer-events-none" style={{ top: a.dotTop, left: a.dotLeft }}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={inView ? { scale: 1, opacity: 1 } : {}}
+                transition={{ duration: 0.35, delay: 0.5 + i * 0.18, ease: EASE }}>
+                <div className="relative w-[14px] h-[14px] rounded-full bg-accent" style={{ border: "2px solid #F4F7FB", boxShadow: "0 0 0 3px rgba(36,114,200,.25)" }}>
+                  <div className={a.ring} />
+                </div>
+              </motion.div>
+              {/* Line */}
+              <motion.div className="absolute z-10 pointer-events-none"
+                style={{ top: `calc(${a.dotTop} + 7px)`, left: a.lineLeft, width: a.lineW, height: "1px", background: "#2472C8", transformOrigin: "left center" }}
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={inView ? { scaleX: 1, opacity: 0.7 } : {}}
+                transition={{ duration: 0.38, delay: 0.6 + i * 0.18, ease: EASE }} />
+              {/* Tag */}
+              <motion.div className="absolute z-10 pointer-events-none" style={{ top: a.tagTop, ...a.tagSide }}
+                initial={{ opacity: 0, x: "left" in a.tagSide ? -10 : 10 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.38, delay: 0.7 + i * 0.18, ease: EASE }}>
+                <div className="inline-flex flex-col gap-[2px] px-3 py-2 rounded-[10px] bg-white border border-border-light" style={{ backdropFilter: "blur(8px)", boxShadow: "0 4px 14px rgba(16,35,71,.10)" }}>
+                  <span className="font-mono text-[9px] font-bold tracking-[0.16em] uppercase text-accent">{a.ref}</span>
+                  <span className="font-outfit text-[12.5px] font-extrabold text-text-heading" style={{ letterSpacing: "-0.005em", lineHeight: 1.15 }}>{a.name}</span>
+                </div>
+              </motion.div>
+            </React.Fragment>
+          ))}
+
+          {/* Footer quote */}
+          <div className="absolute bottom-[18px] left-[18px] right-[18px] z-10 flex items-end justify-between gap-4">
+            <p className="font-outfit font-extrabold leading-[1.15] max-w-[22ch]"
+              style={{ fontSize: "clamp(17px, 1.8vw, 21px)", letterSpacing: "-0.022em", color: "#EAF2FC", textShadow: "0 2px 10px rgba(0,0,0,.45)" }}>
+              Compliance is what we leave behind. <em className="not-italic" style={{ color: "#3D8FE0" }}>Patient care is what we protect.</em>
+            </p>
+            <p className="font-mono text-[9px] font-bold tracking-[0.18em] uppercase text-right flex-shrink-0"
+              style={{ color: "#7AB4EE", opacity: 0.85, textShadow: "0 1px 4px rgba(0,0,0,.5)" }}>§164.312<br />(a) (b) (c) (e)</p>
+          </div>
+        </motion.div>
+
+        {/* Text — right */}
+        <motion.div className="flex flex-col justify-center max-w-[540px] order-1 lg:order-2"
+          initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.22, ease: EASE }}>
+          <Eyebrow>02 · Healthcare — Subject to §164.312</Eyebrow>
+          <h2 className="font-outfit font-black text-text-heading mb-[22px]"
+            style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04 }}>
+            The fine isn&apos;t the cost. <em className="not-italic text-accent">The investigation is.</em>
+          </h2>
+          <p className="text-text-body leading-[1.7]" style={{ fontSize: "clamp(15px, 1.5vw, 17px)" }}>
+            A HIPAA breach isn&apos;t a single fine — it&apos;s six years of records subpoenaed, depositions taken, and a reputation that recovers slower than the lawsuit settles. We keep the practice operating so the audit never has to.
+          </p>
+
+          {/* Consequences timeline */}
+          <div className="mt-9 pt-7 border-t border-border-light">
+            <p className="font-mono text-[10.5px] font-bold tracking-[0.14em] uppercase text-text-muted mb-[18px]">After a breach</p>
+            <div className="relative flex flex-col gap-4 pl-[22px]">
+              <div className="absolute top-[6px] bottom-[6px] left-[5px] w-px bg-border-light" />
+              {([
+                { when: "Day 0",    event: "OCR investigation opens",       now: true },
+                { when: "Day +30",  event: "Breach notification window",    now: false },
+                { when: "90 days",  event: "Public disclosure required",    now: false },
+                { when: "6 years",  event: "Records remain subpoenaed",     now: false },
+              ] as { when: string; event: string; now: boolean }[]).map((row) => (
+                <div key={row.when} className="relative grid gap-[18px] items-baseline" style={{ gridTemplateColumns: "110px 1fr" }}>
+                  <div className={`absolute -left-[22px] top-[5px] w-[11px] h-[11px] rounded-full border-[1.5px] border-accent ${row.now ? "bg-accent" : "bg-white"}`}
+                    style={{ boxShadow: row.now ? "0 0 0 3px rgba(36,114,200,.20)" : "none" }} />
+                  <span className="font-mono text-[10px] font-bold tracking-[0.16em] uppercase text-accent">{row.when}</span>
+                  <span className="text-[14px] font-semibold text-text-heading leading-[1.4]">{row.event}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}
+
+/* ── /03 Professional Services ── */
+function PsSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const OUTCOME = "inline-flex items-center gap-[10px] px-6 py-[14px] border-t border-border-light bg-scale-50";
+  const CHECK = (
+    <span className="flex-shrink-0 w-[22px] h-[22px] rounded-full bg-accent flex items-center justify-center">
+      <svg viewBox="0 0 14 14" fill="none" stroke="#EAF2FC" strokeWidth="3" className="w-3 h-3"><polyline points="3,7 6,10 11,4"/></svg>
+    </span>
+  );
+
+  return (
+    <section id="professional" ref={ref} className="relative py-[120px] px-5 lg:px-[60px]">
+      <div className="absolute top-0 left-5 right-5 lg:left-[60px] lg:right-[60px] h-px bg-border-light" />
+      <div className="max-w-[1280px] mx-auto">
+
+        {/* Header */}
+        <motion.div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12 mb-14 items-start"
+          initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.1, ease: EASE }}>
+          <div className="hidden lg:flex flex-col gap-[14px] pt-2 pr-6 border-r border-border-light">
+            {[["Section", "No. 03", false], ["Subject", "Privileged matter", false], ["Filed", "3 risk moments", false]].map(([label, val]) => (
+              <div key={String(label)} className="flex flex-col gap-[3px]">
+                <span className="font-mono text-[9.5px] font-bold tracking-[0.18em] uppercase text-text-muted">{label}</span>
+                <span className="font-mono text-[11px] font-bold tracking-[0.04em] text-text-heading">{val}</span>
+              </div>
+            ))}
+          </div>
+          <div className="max-w-[60ch]">
+            <Eyebrow>03 · Professional Services — Privileged matter</Eyebrow>
+            <h2 className="font-outfit font-black text-text-heading mb-[22px]"
+              style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04 }}>
+              One misdirected email can end a career. <em className="not-italic text-accent">We make sure it doesn&apos;t.</em>
+            </h2>
+            <p className="text-text-body leading-[1.7]" style={{ fontSize: "clamp(15px, 1.5vw, 17px)" }}>
+              Law firms and accounting practices rarely get destroyed by breaches. They get destroyed by small moments. We build the controls that catch them.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Three moment cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[18px]">
+          {[0, 1, 2].map((i) => (
+            <motion.div key={i} className="bg-white border border-border-light rounded-[16px] overflow-hidden flex flex-col"
+              style={{ boxShadow: "0 4px 16px rgba(16,35,71,.04)" }}
+              initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.65, delay: 0.25 + i * 0.1, ease: EASE }}
+              whileHover={{ y: -3, borderColor: "#2472C8", boxShadow: "0 16px 36px rgba(36,114,200,.14)", transition: { duration: 0.2 } }}>
+
+              {/* Card head */}
+              <div className="px-6 pt-[22px] pb-4 border-b border-dashed border-border-light">
+                <span className="font-mono text-[10px] font-bold tracking-[0.18em] uppercase text-accent mb-2 block">/ Moment 0{i + 1}</span>
+                <p className="font-outfit text-[19px] font-extrabold text-text-heading leading-[1.2] mb-[6px]" style={{ letterSpacing: "-0.018em" }}>
+                  {["The wrong recipient", "The lost laptop", "The lateral move"][i]}
+                </p>
+                <p className="text-[12.5px] font-medium text-text-muted leading-[1.5]">
+                  {[
+                    "An associate hits send. The address autocompletes to opposing counsel.",
+                    "Reported missing from JFK at 19:42. Privileged files on disk.",
+                    "A partner gives notice. The clock on data exfiltration starts immediately.",
+                  ][i]}
+                </p>
+              </div>
+
+              {/* Card body — visual */}
+              <div className="flex-1 px-6 py-[22px]">
+                {i === 0 && (
+                  <div className="bg-scale-50 border border-border-light rounded-[10px] p-[14px] font-mono text-[10.5px] leading-[1.7]">
+                    {[["To", "j.opposing@othersidefirm.com", true, false], ["Cc", "m.partner@ourfirm.com", false, true], ["Subj", "Re: Henderson — settlement strategy", false, false], ["Att", "privileged-memo.pdf", false, false]].map(([k, v, flag, strike], ri) => (
+                      <div key={String(k)} className={`grid gap-2 py-1 ${ri > 0 ? "border-t border-border-light" : ""}`} style={{ gridTemplateColumns: "50px 1fr" }}>
+                        <span className="font-bold tracking-[0.08em] uppercase text-text-muted text-[9.5px]">{k}</span>
+                        <span className={flag ? "text-[#c34e0c] bg-[rgba(232,156,31,.14)] px-[6px] py-[1px] rounded-[4px] inline-block" : strike ? "line-through text-text-muted" : "text-text-heading"}>{v}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {i === 1 && (
+                  <div className="bg-scale-50 border border-border-light rounded-[10px] p-[14px]">
+                    {[["Status", "Reported", true], ["Disk", "Encrypted · AES-256", true], ["Wipe", "Issued 19:51", true], ["Confirmed", "21:08 · device offline", true]].map(([k, v, ok], ri) => (
+                      <div key={String(k)} className={`flex items-center justify-between py-[6px] font-mono text-[10.5px] tracking-[0.04em] ${ri > 0 ? "border-t border-border-light" : ""}`}>
+                        <span className="font-bold tracking-[0.12em] uppercase text-text-muted text-[9.5px]">{k}</span>
+                        <span className="font-bold flex items-center gap-[6px]" style={{ color: ok ? "#22A05A" : "#0A1628" }}>
+                          {ok && <span className="w-[6px] h-[6px] rounded-full flex-shrink-0" style={{ background: "#22A05A", boxShadow: "0 0 4px #22A05A" }} />}{v}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {i === 2 && (
+                  <div className="bg-scale-50 border border-border-light rounded-[10px] p-[16px] pt-[14px]">
+                    <div className="flex justify-between font-mono text-[9px] font-bold tracking-[0.14em] uppercase text-text-heading mb-1">
+                      <span>Notice given</span><span>Day +30</span><span>Departure</span>
+                    </div>
+                    <div className="relative h-1 bg-border-light rounded-full mx-[6px] my-[18px]">
+                      <motion.div className="absolute inset-0 rounded-full" style={{ background: "linear-gradient(90deg,#2472C8,#3D8FE0)", transformOrigin: "left" }}
+                        initial={{ scaleX: 0 }}
+                        animate={inView ? { scaleX: 1 } : {}}
+                        transition={{ duration: 1.1, delay: 0.55, ease: EASE }} />
+                      {[0, 50, 100].map((pct, pi) => (
+                        <span key={pi} className="absolute top-1/2 -translate-y-1/2 w-[10px] h-[10px] rounded-full"
+                          style={{ left: `${pct}%`, transform: `translate(-50%,-50%)`, background: pi === 1 ? "#2472C8" : "#FFFFFF", border: "2px solid #2472C8", boxShadow: pi === 1 ? "0 0 0 4px rgba(36,114,200,.25)" : "none" }} />
+                      ))}
+                    </div>
+                    <div className="flex justify-between font-mono text-[9px] font-bold tracking-[0.14em] uppercase text-text-muted">
+                      <span>Audit on</span><span>Reviewing</span><span>Wipe + revoke</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Outcome */}
+              <div className={OUTCOME}>
+                {CHECK}
+                <p className="text-[12.5px] font-semibold text-text-heading leading-[1.4]">
+                  {[
+                    <><strong className="text-accent font-bold">External recipient warning fires.</strong> Send delayed 5 min for review.</>,
+                    <><strong className="text-accent font-bold">No exposure.</strong> Encryption holds whether the device is recovered or not.</>,
+                    <><strong className="text-accent font-bold">Departure playbook.</strong> Email forwarding flagged, downloads logged, files inventoried.</>,
+                  ][i]}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Animated number counter ── */
+function CountUp({ value, inView, delay = 0 }: { value: string; inView: boolean; delay?: number }) {
+  const [display, setDisplay] = useState("0");
+  useEffect(() => {
+    if (!inView) return;
+    const isPlus = value.endsWith("+");
+    const num = parseInt(value);
+    const duration = 900;
+    const startAt = performance.now() + delay * 1000;
+    let frame: number;
+    const tick = (now: number) => {
+      if (now < startAt) { frame = requestAnimationFrame(tick); return; }
+      if (isNaN(num)) { setDisplay(value); return; }
+      const elapsed = now - startAt;
+      const t = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setDisplay(t < 1 ? String(Math.floor(eased * num)) + (isPlus ? "+" : "") : value);
+      if (t < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [inView, value, delay]);
+  return <>{display}</>;
+}
+
+/* ── /04 Growing Business ── */
+function SmbSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  const points = [
+    {
+      count: "30", unit: "ppl", tag: "First break", event: "File-share chaos.",
+      fix: "SharePoint set up by the nephew works for ten people. At thirty, nobody can find anything and everyone has full access to everything.",
+      chartX: 20, chartY: 70,
+      glyph: <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full"><path d="M4 10h20v12a2 2 0 01-2 2H6a2 2 0 01-2-2V10z"/><path d="M4 10l2-6h7l1 3h8l1 3"/><line x1="9" y1="16" x2="19" y2="16"/><line x1="9" y1="20" x2="14" y2="20"/></svg>,
+    },
+    {
+      count: "75", unit: "ppl", tag: "Second break", event: "First IT questionnaire.",
+      fix: "Cyber insurance renewal asks for evidence of controls you don't have: MFA, endpoint management, backup verification.",
+      chartX: 40, chartY: 50,
+      glyph: <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full"><rect x="7" y="3" width="14" height="22" rx="1.5"/><line x1="10" y1="9" x2="18" y2="9"/><line x1="10" y1="13" x2="18" y2="13"/><polyline points="10,19 12,21 18,15"/></svg>,
+    },
+    {
+      count: "120", unit: "ppl", tag: "Third break", event: "Identity sprawl.",
+      fix: "Shared logins. Admin access given to whoever asks. Nobody offboarded properly in two years.",
+      chartX: 60, chartY: 33,
+      glyph: <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full"><circle cx="10" cy="9" r="3"/><circle cx="18" cy="9" r="3"/><path d="M4 22c0-4 2.7-6 6-6h8c3.3 0 6 2 6 6"/><line x1="19" y1="4" x2="25" y2="4"/><line x1="22" y1="1" x2="22" y2="7"/></svg>,
+    },
+    {
+      count: "200+", unit: "ppl", tag: "Fourth break", event: "Compliance pressure.",
+      fix: "Customers start asking for SOC 2 reports. Contracts require it. We structure the evidence trail.",
+      chartX: 80, chartY: 22,
+      glyph: <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full"><path d="M14 3L5 7v7c0 5.5 3.9 10.3 9 11 5.1-.7 9-5.5 9-11V7L14 3z"/><polyline points="10,14 13,17 19,11"/></svg>,
+    },
+  ];
+
+  const curvePath = "M 0,280 C 80,280 120,196 200,196 C 290,196 310,140 400,140 C 490,140 510,92 600,92 C 690,92 710,62 800,62 C 890,62 920,50 1000,50";
+  const fillPath = curvePath + " L 1000,280 L 0,280 Z";
+
+  return (
+    <section id="smb" ref={ref} className="relative py-[120px] px-5 lg:px-[60px]">
+      <div className="absolute top-0 left-5 right-5 lg:left-[60px] lg:right-[60px] h-px bg-border-light" />
+      <div className="max-w-[1280px] mx-auto">
+
+        {/* Header */}
+        <motion.div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-0 items-end"
+          initial={{ opacity: 0, y: 28 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.1, ease: EASE }}>
+          <div>
+            <Eyebrow>04 · Growing Business — In transition</Eyebrow>
+            <h2 className="font-outfit font-black text-text-heading max-w-[22ch]"
+              style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04 }}>
+              You didn&apos;t fail because you grew. <em className="not-italic text-accent">You failed because nobody planned for it.</em>
+            </h2>
+          </div>
+          <p className="text-text-body leading-[1.7] max-w-[44ch] pb-2" style={{ fontSize: "clamp(15px, 1.5vw, 17px)" }}>
+            The same breakpoints arrive at the same headcounts, in the same order. We&apos;ve seen the trajectory before — and we run the transitions before they become emergencies.
+          </p>
+        </motion.div>
+
+        {/* Chart — desktop */}
+        <div className="hidden lg:block relative" style={{ paddingTop: "64px" }}>
+
+          {/* Y-axis labels */}
+          <div className="absolute top-4 left-0 font-mono text-[9.5px] font-bold tracking-[0.18em] uppercase text-text-muted">Complexity / Risk</div>
+          <div className="absolute top-4 right-0 font-mono text-[9.5px] font-bold tracking-[0.18em] uppercase text-text-muted">Series B ready</div>
+
+          {/* Chart canvas */}
+          <div className="relative w-full" style={{ height: "280px" }}>
+
+            {/* Faint horizontal grid */}
+            <div className="absolute inset-0 pointer-events-none" style={{
+              backgroundImage: "linear-gradient(rgba(36,114,200,.06) 1px, transparent 1px)",
+              backgroundSize: "100% 70px",
+            }} />
+
+            {/* Growth curve */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1000 280" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="smbGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#2472C8" stopOpacity="0.13" />
+                  <stop offset="100%" stopColor="#2472C8" stopOpacity="0.01" />
+                </linearGradient>
+              </defs>
+              <motion.path d={fillPath} fill="url(#smbGrad)"
+                initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: 1.9 }} />
+              <motion.path d={curvePath} fill="none" stroke="#2472C8" strokeWidth="2.5" strokeLinecap="round"
+                initial={{ pathLength: 0 }} animate={inView ? { pathLength: 1 } : {}}
+                transition={{ duration: 2.0, delay: 0.3, ease: EASE }} />
+            </svg>
+
+            {/* Baseline */}
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-border-light" />
+
+            {/* Breakpoint markers */}
+            {points.map((p, i) => (
+              <div key={p.count} className="absolute group cursor-pointer"
+                style={{ left: `${p.chartX}%`, top: `${p.chartY}%`, transform: "translate(-50%, -50%)", zIndex: 2 }}>
+
+                {/* Card above */}
+                <motion.div className="absolute bg-white border border-border-light rounded-[12px] group-hover:border-accent transition-colors"
+                  style={{ bottom: "calc(100% + 20px)", left: "50%", transform: "translateX(-50%)",
+                           minWidth: "185px", padding: "14px 16px",
+                           boxShadow: "0 4px 14px rgba(16,35,71,.06)", whiteSpace: "nowrap" }}
+                  initial={{ opacity: 0, y: 6 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.55 + i * 0.4, ease: EASE }}>
+                  <p className="font-mono text-[9.5px] font-bold tracking-[0.18em] uppercase text-text-muted mb-[5px]">
+                    {p.tag} · <strong className="text-accent">{p.count} {p.unit}</strong>
+                  </p>
+                  <p className="font-outfit text-[14px] font-extrabold text-text-heading leading-[1.2]"
+                    style={{ letterSpacing: "-0.015em" }}>{p.event}</p>
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 w-px bg-border-light" style={{ height: "20px" }} />
+                </motion.div>
+
+                {/* Marker dot */}
+                <motion.div className="w-[14px] h-[14px] rounded-full bg-white border-2 border-accent group-hover:bg-accent transition-colors"
+                  initial={{ scale: 0, opacity: 0 }} animate={inView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.4, delay: 0.5 + i * 0.4, ease: EASE }} />
+
+                {/* Glyph below */}
+                <motion.div className="absolute text-accent"
+                  style={{ top: "calc(100% + 16px)", left: "50%", transform: "translateX(-50%)", width: "26px", height: "26px" }}
+                  initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
+                  transition={{ duration: 0.5, delay: 0.6 + i * 0.4, ease: EASE }}>
+                  {p.glyph}
+                </motion.div>
+
+                {/* Headcount number */}
+                <motion.div className="absolute font-outfit font-black text-text-heading text-center whitespace-nowrap"
+                  style={{ top: "calc(100% + 50px)", left: "50%", transform: "translateX(-50%)",
+                           fontSize: "clamp(18px, 2vw, 24px)", letterSpacing: "-0.03em", lineHeight: 1 }}
+                  initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
+                  transition={{ duration: 0.5, delay: 0.65 + i * 0.4, ease: EASE }}>
+                  <CountUp value={p.count} inView={inView} delay={0.65 + i * 0.4} />
+                  <span className="font-sans font-semibold text-text-muted ml-[3px]" style={{ fontSize: "11px" }}>{p.unit}</span>
+                </motion.div>
+
+              </div>
+            ))}
+          </div>
+
+          {/* X-axis labels */}
+          <div className="flex justify-between" style={{ paddingTop: "108px" }}>
+            {["Early stage", "Growth", "Scale-up", "Enterprise"].map((label, i) => (
+              <span key={label} className="font-mono text-[9.5px] font-bold tracking-[0.18em] uppercase text-text-muted"
+                style={{ width: "25%", textAlign: (i === 0 ? "left" : i === 3 ? "right" : "center") as React.CSSProperties["textAlign"] }}>
+                {label}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* List — mobile */}
+        <div className="lg:hidden mt-12">
+          {points.map((bp, i) => (
+            <motion.div key={bp.count}
+              className="grid items-start gap-5 py-6 border-t border-border-light last:border-b"
+              style={{ gridTemplateColumns: "72px 1fr" }}
+              initial={{ opacity: 0, x: -16 }} animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.55, delay: 0.25 + i * 0.08, ease: EASE }}>
+              <span className="font-outfit font-black text-text-heading leading-none"
+                style={{ fontSize: "clamp(28px, 7vw, 38px)", letterSpacing: "-0.04em" }}>
+                <CountUp value={bp.count} inView={inView} delay={0.25 + i * 0.08} />
+                <span className="font-sans text-[11px] font-semibold text-text-muted ml-1">{bp.unit}</span>
+              </span>
+              <div>
+                <span className="font-mono text-[10px] font-bold tracking-[0.16em] uppercase text-accent block mb-1">{bp.tag}</span>
+                <span className="font-outfit font-extrabold text-text-heading leading-[1.15] block mb-2"
+                  style={{ fontSize: "17px", letterSpacing: "-0.02em" }}>{bp.event}</span>
+                <p className="text-[13.5px] font-medium text-text-body leading-[1.6]">{bp.fix}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Close line */}
+        <div className="mt-14 pt-7 border-t border-border-light flex items-center justify-between gap-6 flex-wrap">
+          <p className="font-outfit font-extrabold text-text-heading leading-[1.2]"
+            style={{ fontSize: "clamp(20px, 2vw, 26px)", letterSpacing: "-0.022em" }}>
+            Same architecture. <em className="not-italic text-accent">No rebuilds.</em>
+          </p>
+          <span className="font-mono text-[10px] font-bold tracking-[0.18em] uppercase text-text-muted">One fixed monthly cost</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Also Serving strip ── */
+function AlsoSection() {
+  return (
+    <section className="relative px-5 lg:px-[60px] py-14">
+      <div className="absolute top-0 left-5 right-5 lg:left-[60px] lg:right-[60px] h-px bg-border-light" />
+      <div className="max-w-[1280px] mx-auto flex items-center gap-8 flex-wrap">
+        <span className="font-mono text-[10.5px] font-bold tracking-[0.18em] uppercase flex-shrink-0 text-text-muted">
+          Also serving · <strong className="text-accent">Other sectors</strong>
+        </span>
+        <div className="flex flex-wrap gap-2">
+          {["Retail", "Finance", "Education", "Nonprofit", "Real Estate", "Insurance"].map((pill) => (
+            <span key={pill} className="px-3 py-[6px] bg-white border border-border-light rounded-full text-[12.5px] font-semibold text-text-heading transition-colors hover:border-accent"
+              style={{ letterSpacing: "-0.005em" }}>
+              {pill}
+            </span>
+          ))}
+        </div>
+        <p className="font-sans text-[13px] font-medium text-text-muted ml-auto">
+          Not seeing yours?{" "}
+          <Link href="/contact" className="text-accent font-semibold no-underline hover:underline">
+            Let&apos;s talk →
+          </Link>
+        </p>
+      </div>
+    </section>
   );
 }
 
@@ -606,8 +925,7 @@ export default function Industries() {
                 transition={{ duration: 0.8, delay: 0.3 + i * 0.1, ease: EASE }}
                 whileHover={{ scale: 1.025, transition: { duration: 0.3, ease: EASE } }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={card.src} alt={card.name} className="photo-grid-img" />
+                <Image fill src={card.src} alt={card.name} className="photo-grid-img" sizes="(max-width:1024px) 100vw, 33vw" />
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(16,35,71,.15) 0%, rgba(16,35,71,.55) 100%)" }} />
                 <div className="absolute top-2.5 left-2.5 z-10">
                   <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-2 py-1 rounded-[5px]"
@@ -627,66 +945,24 @@ export default function Industries() {
       </section>
 
       {/* ══ 01 — MANUFACTURING ══ */}
-      <IndustrySection
-        id="manufacturing"
-        eyebrow="01 · Manufacturing"
-        heading="Production environments require IT that"
-        accentPhrase="does not fail."
-        body="Manufacturing IT operates under different constraints than office IT. A network outage hits the line. A vulnerability on the OT side carries direct operational consequences. The corporate side and the production side need different rules — and a real boundary between them."
-        coverage={[
-          "Plant network design with redundancy and uptime targets",
-          "Segmentation between operational technology and corporate IT",
-          "Compliance support — CMMC, NIST, customer-driven requirements",
-        ]}
-        diagram={<MfgDiagram />}
-      />
+      <MfgSection />
+
+      <TransitionMark to="02 Healthcare" />
 
       {/* ══ 02 — HEALTHCARE ══ */}
-      <IndustrySection
-        id="healthcare"
-        eyebrow="02 · Healthcare"
-        heading="You handle the patients."
-        accentPhrase="We handle the technology."
-        body="Healthcare environments operate under HIPAA's technical safeguards — specific controls around access, encryption, audit logging, and incident response. We implement and maintain those controls as layered defenses around PHI, so clinical operations don't have to manage them."
-        coverage={[
-          "HIPAA-aligned access controls, encryption, and audit logging",
-          "Endpoint and identity hardening for clinical and administrative users",
-          "Tested backup and recovery procedures for clinical continuity",
-        ]}
-        diagram={<HcDiagram />}
-        reverse
-      />
+      <HcSection />
+
+      <TransitionMark to="03 Professional Services" />
 
       {/* ══ 03 — PROFESSIONAL SERVICES ══ */}
-      <IndustrySection
-        id="professional"
-        eyebrow="03 · Professional Services"
-        heading="Client confidentiality is the work —"
-        accentPhrase="not a side concern."
-        body="For law firms, accounting practices, and consultancies, the systems holding client data are the same systems used every day. We structure access by role and by matter so confidentiality is enforced by configuration — not by trust alone — and conflicts of interest are walled off automatically."
-        coverage={[
-          "Microsoft 365 governance — SharePoint, Teams, OneDrive structured for access",
-          "Email security and identity protection against targeted attacks",
-          "Endpoint encryption and mobile device management for hybrid work",
-        ]}
-        diagram={<PsDiagram />}
-      />
+      <PsSection />
+
+      <TransitionMark to="04 Growing Business" />
 
       {/* ══ 04 — GROWING BUSINESS ══ */}
-      <IndustrySection
-        id="smb"
-        eyebrow="04 · Growing Business"
-        heading="IT that scales with the business —"
-        accentPhrase="without rebuilding."
-        body="Most SMB IT environments are built to fit current needs and start showing strain as the business grows. We design environments where the architecture stays the same from 20 employees to 200 — more nodes, same patterns, same operational standards."
-        coverage={[
-          "Architecture designed to scale without redesign",
-          "Predictable monthly cost as the business grows",
-          "Direct access to senior engineers — no escalation tiers",
-        ]}
-        diagram={<SmbDiagram />}
-        reverse
-      />
+      <SmbSection />
+
+      <TransitionMark to="05 Construction & Civil" />
 
       {/* ══ 05 — CONSTRUCTION & CIVIL ══ */}
       <IndustrySection
@@ -703,69 +979,68 @@ export default function Industries() {
         diagram={<ConstructionDiagram />}
       />
 
+      {/* ══ ALSO SERVING ══ */}
+      <AlsoSection />
+
       {/* ══ CTA ══ */}
       <section className="relative px-5 lg:px-[60px] py-[120px]">
         <div className="absolute top-0 left-5 right-5 lg:left-[60px] lg:right-[60px] h-px bg-border-light" />
-        <div className="max-w-[1280px] mx-auto">
-          <DarkAccent className="!rounded-[22px]">
-            {/* Extra top-right glow */}
-            <div
-              className="absolute -top-[100px] -right-[100px] w-[360px] h-[360px] rounded-full pointer-events-none ind-glow-blob"
-              style={{ background: "radial-gradient(circle, rgba(36,114,200,.40) 0%, transparent 60%)" }}
-            />
-            {/* Grid */}
-            <div
-              className="absolute inset-0 pointer-events-none rounded-[22px] overflow-hidden"
+        <div className="max-w-[920px] mx-auto">
+          <div className="relative rounded-[22px] text-center overflow-hidden px-8 py-[80px] lg:px-16"
+            style={{
+              background: "linear-gradient(180deg, #102347 0%, #0A1628 100%)",
+              boxShadow: "0 0 0 6px rgba(36,114,200,.08), 0 0 0 12px rgba(36,114,200,.04), 0 24px 56px rgba(16,35,71,.18)",
+            }}>
+
+            {/* Top glow */}
+            <div className="absolute -top-[120px] left-1/2 -translate-x-1/2 w-[460px] h-[460px] rounded-full pointer-events-none ind-glow-blob"
+              style={{ background: "radial-gradient(circle, rgba(36,114,200,.42) 0%, transparent 60%)" }} />
+
+            {/* Grid overlay */}
+            <div className="absolute inset-0 pointer-events-none rounded-[22px] overflow-hidden"
               style={{
                 backgroundImage: "linear-gradient(rgba(122,180,238,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(122,180,238,.04) 1px, transparent 1px)",
                 backgroundSize: "48px 48px",
                 maskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, transparent 100%)",
                 WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, transparent 100%)",
-              }}
-            />
+              }} />
 
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-16 items-end px-[72px] py-[80px]">
+            {/* Content */}
+            <div className="relative z-10 flex flex-col items-center gap-7">
 
-              {/* Left */}
-              <div>
-                <Eyebrow dark>What Comes Next</Eyebrow>
-                <h2
-                  className="font-outfit font-black"
-                  style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04, color: "#EAF2FC" }}
-                >
-                  Tell us your industry.
-                  <em className="not-italic block" style={{ color: "#3D8FE0" }}>We&apos;ll map the right controls.</em>
-                </h2>
+              {/* Tags */}
+              <div className="flex flex-wrap gap-1.5 justify-center">
+                {["No pitch deck", "No obligation", "Senior engineer", "Any industry"].map((tag) => (
+                  <span key={tag} className="font-mono text-[10px] font-bold tracking-[0.14em] uppercase px-[11px] py-[5px] rounded-full"
+                    style={{ color: "#7AB4EE", background: "rgba(122,180,238,.08)", border: "1px solid rgba(122,180,238,.20)" }}>
+                    {tag}
+                  </span>
+                ))}
               </div>
 
-              {/* Right */}
-              <div className="flex flex-col gap-6 pb-1.5">
-                <p className="leading-[1.65]" style={{ fontSize: "15.5px", color: "#7AB4EE" }}>
-                  A short call is enough to understand your environment. We&apos;ll tell you where your gaps are and what we&apos;d change first.
-                </p>
-                <div className="flex gap-1.5 flex-wrap">
-                  {["No pitch deck", "No obligation", "Senior engineer"].map((tag) => (
-                    <span
-                      key={tag}
-                      className="font-mono text-[10px] font-bold tracking-[0.14em] uppercase px-[11px] py-[5px] rounded-full"
-                      style={{ color: "#7AB4EE", background: "rgba(122,180,238,.08)", border: "1px solid rgba(122,180,238,.20)" }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex gap-3 flex-wrap">
-                  <Link href="/contact" className="btn btn-white">
-                    Talk to an engineer <ArrowRight size={14} strokeWidth={2.5} />
-                  </Link>
-                  <Link href="/services" className="btn btn-outline-white">
-                    View services <ArrowRight size={14} strokeWidth={2.5} />
-                  </Link>
-                </div>
+              <Eyebrow dark>What Comes Next</Eyebrow>
+
+              <h2 className="font-outfit font-black max-w-[22ch]"
+                style={{ fontSize: "clamp(34px, 4.4vw, 54px)", letterSpacing: "-0.04em", lineHeight: 1.04, color: "#EAF2FC" }}>
+                Tell us your industry.
+                <em className="not-italic block" style={{ color: "#3D8FE0" }}>We&apos;ll map the right controls.</em>
+              </h2>
+
+              <p style={{ fontSize: "15.5px", color: "#7AB4EE", lineHeight: 1.65, maxWidth: "52ch" }}>
+                A short call is enough to understand your environment. We&apos;ll tell you where your gaps are and what we&apos;d change first.
+              </p>
+
+              <div className="flex gap-3 flex-wrap justify-center">
+                <Link href="/contact" className="btn btn-white">
+                  Talk to an engineer <ArrowRight size={14} strokeWidth={2.5} />
+                </Link>
+                <Link href="/services" className="btn btn-outline-white">
+                  View services <ArrowRight size={14} strokeWidth={2.5} />
+                </Link>
               </div>
 
             </div>
-          </DarkAccent>
+          </div>
         </div>
       </section>
 

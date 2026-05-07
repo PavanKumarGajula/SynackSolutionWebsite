@@ -12,9 +12,8 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>();
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (_data: FormData) => {
     await new Promise(r => setTimeout(r, 1000));
-    console.log(data);
     setSubmitted(true);
   };
 
