@@ -3,15 +3,18 @@ import { ArrowRight } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import Eyebrow from "@/components/Eyebrow";
 import CtaSection from "@/components/CtaSection";
+import TimelineSection from "@/components/TimelineSection";
 
 /* ── Page-scoped keyframes ── */
 const css = `
-  @keyframes ab-blink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-  @keyframes ab-glow  { 0%,100% { opacity: .7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
-  .ab-blink { animation: ab-blink 1.5s ease infinite; }
-  .ab-glow  { animation: ab-glow  5s ease-in-out infinite; }
+  @keyframes ab-blink   { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  @keyframes ab-glow    { 0%,100% { opacity: .7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
+  @keyframes ab-twinkle { 0%,100% { opacity: .25; transform: scale(1); } 50% { opacity: .7; transform: scale(1.15); } }
+  .ab-blink   { animation: ab-blink   1.5s ease infinite; }
+  .ab-glow    { animation: ab-glow    5s ease-in-out infinite; }
+  .ab-twinkle { animation: ab-twinkle 4s ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce) {
-    .ab-blink, .ab-glow { animation: none !important; }
+    .ab-blink, .ab-glow, .ab-twinkle { animation: none !important; }
   }
 `;
 
@@ -64,128 +67,159 @@ export default function About() {
       <style>{css}</style>
 
       {/* ── HERO ── */}
-      <section className="relative bg-bg-page pt-20 pb-20 overflow-hidden">
-        {/* Blueprint grid — fades toward edges */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(184,212,247,.4) 1px, transparent 1px), linear-gradient(90deg, rgba(184,212,247,.4) 1px, transparent 1px)",
-            backgroundSize: "56px 56px",
-            WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, black 0%, transparent 80%)",
-            maskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, black 0%, transparent 80%)",
-            opacity: 0.6,
-          }}
-        />
-        {/* Single soft glow */}
-        <div
-          className="absolute pointer-events-none"
-          style={{ top: "-20%", right: "-5%", width: 560, height: 560, background: "radial-gradient(circle, rgba(36,114,200,.07) 0%, transparent 65%)" }}
-        />
+      <section className="relative bg-bg-page overflow-hidden" style={{ paddingTop: 0 }}>
+        {/* Glows */}
+        <div className="absolute pointer-events-none" style={{ bottom: 0, left: -100, width: 480, height: 480, background: "radial-gradient(circle, rgba(36,114,200,.15) 0%, transparent 60%)" }} />
+        <div className="absolute pointer-events-none" style={{ top: 100, right: -80, width: 360, height: 360, background: "radial-gradient(circle, rgba(36,114,200,.08) 0%, transparent 60%)" }} />
+        {/* Concentric rings */}
+        <div className="absolute pointer-events-none" style={{ bottom: -200, left: "50%", transform: "translateX(-50%)", width: 1100, height: 1100, borderRadius: "50%", border: "1px solid #B8D4F7", opacity: 0.35 }}>
+          <div style={{ position: "absolute", inset: 80, borderRadius: "50%", border: "1px solid #B8D4F7", opacity: 0.7 }} />
+          <div style={{ position: "absolute", inset: 180, borderRadius: "50%", border: "1px solid #B8D4F7", opacity: 0.5 }} />
+        </div>
+        {/* Sparkles */}
+        {[
+          { top: 180, left: "8%",  size: 22, delay: "0s",   opacity: 0.55 },
+          { top: 90,  right: "12%",size: 18, delay: "1.4s", opacity: 0.55 },
+          { top: 320, left: "14%", size: 16, delay: "2.6s", opacity: 0.35 },
+          { top: 240, right: "8%", size: 24, delay: ".8s",  opacity: 0.55 },
+        ].map((s, i) => (
+          <div key={i} className="ab-twinkle absolute pointer-events-none" style={{ top: s.top, left: s.left, right: (s as {right?:string}).right, width: s.size, height: s.size, color: "#2472C8", opacity: s.opacity, animationDelay: s.delay }}>
+            <svg viewBox="0 0 24 24" style={{ width: "100%", height: "100%" }}><path d="M12 2 L13 10 L21 11 L13 12 L12 21 L11 12 L3 11 L11 10 Z" fill="currentColor"/></svg>
+          </div>
+        ))}
 
+        {/* ── Center content ── */}
+        <div className="max-w-site mx-auto px-5 lg:px-10 relative z-10 pt-20 text-center">
+          <FadeUp>
+            <div className="inline-flex items-center gap-2.5 mb-8 rounded-full" style={{ padding: "6px 16px 6px 8px", background: "#FFFFFF", border: "1px solid #B8D4F7", boxShadow: "0 4px 14px rgba(16,35,71,.05)" }}>
+              <span className="inline-flex items-center gap-1.5 rounded-full" style={{ padding: "4px 10px", background: "rgba(34,160,90,.10)", fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.10em", textTransform: "uppercase", color: "#22A05A" }}>
+                <span className="ab-blink w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#22A05A" }} />
+                About SynAck
+              </span>
+              <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13, fontWeight: 600, color: "#0A1628" }}>Engineering-first MSP · NY · NJ · MD · MN</span>
+            </div>
+          </FadeUp>
+
+          <FadeUp delay={0.1}>
+            <h1 className="font-outfit font-black mx-auto mb-7" style={{ fontSize: "clamp(48px,7vw,88px)", letterSpacing: "-0.045em", lineHeight: 0.98, maxWidth: "18ch", color: "#0A1628" }}>
+              Most IT problems aren&apos;t technical.{" "}
+              <span className="text-accent">They&apos;re ownership problems.</span>
+            </h1>
+          </FadeUp>
+
+          <FadeUp delay={0.2}>
+            <p className="mx-auto mb-20 font-medium text-text-muted" style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: "50ch", lineHeight: 1.7 }}>
+              We don&apos;t manage tickets. We own environments. The difference shows up over time.
+            </p>
+          </FadeUp>
+
+          <FadeUp delay={0.25}>
+            <div className="flex items-center justify-center gap-3.5 mb-20">
+              <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "14px 24px", background: "#102347", color: "#EAF2FC", fontFamily: "var(--font-dm-sans)", fontSize: 14, fontWeight: 700, borderRadius: 999, textDecoration: "none", boxShadow: "0 8px 20px rgba(16,35,71,.15)" }}>
+                Free assessment <ArrowRight size={14} strokeWidth={2.5} />
+              </Link>
+              <Link href="/services" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "14px 24px", background: "transparent", color: "#0A1628", fontFamily: "var(--font-dm-sans)", fontSize: 14, fontWeight: 700, borderRadius: 999, border: "1px solid #B8D4F7", textDecoration: "none" }}>
+                How we work
+              </Link>
+            </div>
+          </FadeUp>
+        </div>
+
+        {/* ── Card grid ── */}
         <div className="max-w-site mx-auto px-5 lg:px-10 relative z-10">
-          <div className="grid md:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-center">
+          <div style={{ display: "grid", gridTemplateColumns: "1.15fr 0.95fr 1fr 1fr 1.15fr", gap: 16, alignItems: "end" }}>
 
-            {/* Left — text */}
-            <div>
-              <FadeUp>
-                <Eyebrow>About SynAck</Eyebrow>
-              </FadeUp>
-              <FadeUp delay={0.1}>
-                <h1 className="font-outfit text-[clamp(40px,5vw,68px)] font-black tracking-[-0.045em] leading-[1.0] text-text-heading mb-6">
-                  Most IT problems aren&apos;t technical.{" "}
-                  <span className="text-accent">They&apos;re ownership problems.</span>
-                </h1>
-              </FadeUp>
-              <FadeUp delay={0.2}>
-                <p className="text-[clamp(15px,1.5vw,17px)] leading-[1.75] text-text-body max-w-[48ch]">
-                  Systems patched but never owned. Vendors managed but never coordinated. Risks logged but never closed.{" "}
-                  <strong className="text-text-heading font-semibold">The same gaps, different company name.</strong>
-                </p>
-              </FadeUp>
-              {/* Meta bar */}
-              <FadeUp delay={0.3}>
-                <div className="flex items-center gap-6 mt-8 pt-6 border-t border-border-light flex-wrap">
-                  {[
-                    { label: "Founded",   value: "Maryland, USA"     },
-                    { label: "Operating", value: "NY · NJ · MD · MN" },
-                    { label: "Run by",    value: "Engineers"          },
-                  ].map((m, i) => (
-                    <div key={i} className="flex items-center gap-6">
-                      {i > 0 && <div className="w-px h-5 bg-border-light" />}
-                      <div className="flex flex-col gap-0.5">
-                        <span className="text-[9.5px] font-bold tracking-[0.14em] uppercase text-text-muted">{m.label}</span>
-                        <span className="text-[13px] font-semibold text-text-heading">{m.value}</span>
-                      </div>
-                    </div>
+            {/* Card 1 — dark, 340px, network viz */}
+            <FadeUp delay={0.3}>
+              <div style={{ height: 340, background: "linear-gradient(160deg,#102347,#0A1628)", border: "1px solid rgba(122,180,238,.18)", borderRadius: 22, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.12)", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, background: "radial-gradient(circle, rgba(36,114,200,.4) 0%, transparent 60%)", pointerEvents: "none" }} />
+                <span className="ab-blink" style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 10px", background: "rgba(122,180,238,.10)", border: "1px solid rgba(122,180,238,.20)", borderRadius: 999, fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#3D8FE0", alignSelf: "flex-start", position: "relative", zIndex: 1, animationName: "none" }}>
+                  <span className="ab-blink w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#22A05A" }} />
+                  Currently managing
+                </span>
+                <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", margin: "16px 0", position: "relative", zIndex: 1 }}>
+                  <svg viewBox="0 0 240 160" style={{ width: "100%", maxHeight: 160 }}>
+                    {[[[120,80],[40,30]],[[120,80],[200,30]],[[120,80],[30,80]],[[120,80],[210,80]],[[120,80],[40,130]],[[120,80],[200,130]]].map(([a,b],i) => (
+                      <path key={i} d={`M${a[0]},${a[1]} L${b[0]},${b[1]}`} stroke="rgba(122,180,238,.25)" strokeWidth="1" strokeDasharray="2 3" fill="none"/>
+                    ))}
+                    {[[40,30],[200,30],[30,80],[210,80],[40,130],[200,130]].map(([cx,cy],i) => (
+                      <circle key={i} cx={cx} cy={cy} r="6" fill="#3D8FE0" opacity=".9"/>
+                    ))}
+                    <rect x="100" y="64" width="40" height="32" rx="8" fill="#3D8FE0"/>
+                    <text x="120" y="84" textAnchor="middle" fontFamily="Outfit" fontSize="11" fontWeight="800" fill="#102347">SA</text>
+                  </svg>
+                </div>
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <div style={{ fontFamily: "var(--font-outfit)", fontSize: 18, fontWeight: 800, letterSpacing: "-0.02em", color: "#EAF2FC", marginBottom: 4 }}>Managed environment</div>
+                  <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11.5, color: "#7AB4EE", fontWeight: 500 }}>247 endpoints across four states</div>
+                </div>
+              </div>
+            </FadeUp>
+
+            {/* Card 2 — white, 260px, big stat */}
+            <FadeUp delay={0.38}>
+              <div style={{ height: 260, background: "#FFFFFF", border: "1px solid #B8D4F7", borderRadius: 22, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.08)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
+                <div style={{ fontFamily: "var(--font-outfit)", fontSize: 56, fontWeight: 900, color: "#0A1628", letterSpacing: "-0.05em", lineHeight: 1, marginBottom: 12 }}>247</div>
+                <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13, fontWeight: 500, color: "#1E4D8C", maxWidth: "18ch", lineHeight: 1.4 }}>Endpoints under management</div>
+              </div>
+            </FadeUp>
+
+            {/* Card 3 — dark, 300px, identity */}
+            <FadeUp delay={0.46}>
+              <div style={{ height: 300, background: "linear-gradient(160deg,#102347,#0A1628)", border: "1px solid rgba(122,180,238,.18)", borderRadius: 22, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.12)", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, background: "radial-gradient(circle, rgba(36,114,200,.4) 0%, transparent 60%)", pointerEvents: "none" }} />
+                <div style={{ width: 56, height: 56, borderRadius: 16, background: "rgba(36,114,200,.20)", border: "1px solid rgba(122,180,238,.25)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", zIndex: 1 }}>
+                  <svg viewBox="0 0 24 24" style={{ width: 24, height: 24, stroke: "#3D8FE0", strokeWidth: 2, fill: "none" }}>
+                    <rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4" strokeLinecap="round"/>
+                  </svg>
+                </div>
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <div style={{ fontFamily: "var(--font-outfit)", fontSize: 22, fontWeight: 800, letterSpacing: "-0.025em", color: "#EAF2FC", lineHeight: 1.15, marginBottom: 6 }}>Identity.<br/>Not network.</div>
+                  <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12.5, color: "#7AB4EE", fontWeight: 500, lineHeight: 1.5 }}>The perimeter moved years ago. We secure accordingly.</div>
+                </div>
+              </div>
+            </FadeUp>
+
+            {/* Card 4 — dark, 270px, uptime + bars */}
+            <FadeUp delay={0.52}>
+              <div style={{ height: 270, background: "linear-gradient(160deg,#102347,#0A1628)", border: "1px solid rgba(122,180,238,.18)", borderRadius: 22, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.12)", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, background: "radial-gradient(circle, rgba(36,114,200,.4) 0%, transparent 60%)", pointerEvents: "none" }} />
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <div style={{ fontFamily: "var(--font-outfit)", fontSize: 22, fontWeight: 800, letterSpacing: "-0.025em", color: "#EAF2FC", lineHeight: 1.15, marginBottom: 6 }}>99.98%</div>
+                  <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12.5, color: "#7AB4EE", fontWeight: 500 }}>Uptime, sustained</div>
+                </div>
+                <div style={{ display: "flex", alignItems: "flex-end", gap: 6, height: 70, position: "relative", zIndex: 1 }}>
+                  {[30, 55, 40, 75, 100].map((h, i) => (
+                    <div key={i} style={{ flex: 1, borderRadius: "4px 4px 0 0", height: `${h}%`, background: i === 4 ? "#3D8FE0" : "rgba(122,180,238,.25)", boxShadow: i === 4 ? "0 0 14px rgba(61,143,224,.5)" : "none" }} />
                   ))}
                 </div>
-              </FadeUp>
-            </div>
+              </div>
+            </FadeUp>
 
-            {/* Right — single clean dark panel */}
-            <FadeUp delay={0.15}>
-              <div
-                className="relative rounded-[20px] overflow-hidden"
-                style={{
-                  background: "linear-gradient(160deg, #102347 0%, #0A1628 100%)",
-                  boxShadow: "0 2px 0 rgba(61,143,224,.12) inset, 0 32px 64px rgba(10,22,40,.22)",
-                  border: "1px solid rgba(36,114,200,.14)",
-                }}
-              >
-                {/* Subtle inner glow — top right */}
-                <div
-                  className="absolute pointer-events-none rounded-full"
-                  style={{ top: -60, right: -60, width: 220, height: 220, background: "radial-gradient(circle, rgba(36,114,200,.28) 0%, transparent 65%)" }}
-                />
-
-                {/* Header strip */}
-                <div
-                  className="flex items-center justify-between px-7 py-4 border-b"
-                  style={{ borderColor: "rgba(122,180,238,.10)" }}
-                >
-                  <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", color: "#3D8FE0", textTransform: "uppercase" }}>
-                    SynAck / About
-                  </span>
-                  <span className="flex items-center gap-1.5" style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9.5, fontWeight: 700, color: "#22A05A", letterSpacing: "0.10em" }}>
-                    <span className="ab-blink w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#22A05A" }} />
-                    Active
-                  </span>
-                </div>
-
-                {/* Central statement */}
-                <div className="px-7 pt-8 pb-7 relative z-10">
-                  <p
-                    className="font-outfit font-black leading-[1.1] mb-8"
-                    style={{ fontSize: "clamp(26px, 3.2vw, 38px)", letterSpacing: "-0.03em", color: "#EAF2FC" }}
-                  >
-                    Own the environment.{" "}
-                    <span style={{ color: "#3D8FE0" }}>End to end.</span>
-                  </p>
-
-                  {/* Four beliefs — clean lines, no code syntax */}
-                  <div className="flex flex-col" style={{ gap: 0 }}>
-                    {[
-                      { n: "01", text: "Full responsibility. No partial ownership." },
-                      { n: "02", text: "No silent patches. No undocumented changes." },
-                      { n: "03", text: "Measure incidents prevented, not response time." },
-                      { n: "04", text: "Senior engineers on every environment." },
-                    ].map((row, i, arr) => (
-                      <div
-                        key={row.n}
-                        className="flex items-start gap-4 py-4"
-                        style={{ borderBottom: i < arr.length - 1 ? "1px solid rgba(122,180,238,.08)" : "none" }}
-                      >
-                        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, color: "rgba(61,143,224,.5)", letterSpacing: "0.06em", paddingTop: 2, flexShrink: 0 }}>
-                          {row.n}
-                        </span>
-                        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 14, fontWeight: 500, color: "#B8D4F7", lineHeight: 1.55 }}>
-                          {row.text}
-                        </span>
-                      </div>
+            {/* Card 5 — white, 340px, regions + globe */}
+            <FadeUp delay={0.58}>
+              <div style={{ height: 340, background: "#FFFFFF", border: "1px solid #B8D4F7", borderRadius: 22, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.08)", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <div>
+                  <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
+                    <div style={{ fontFamily: "var(--font-outfit)", fontSize: 56, fontWeight: 900, letterSpacing: "-0.05em", color: "#0A1628", lineHeight: 0.95 }}>4</div>
+                    <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1E4D8C" }}>Regions</div>
+                  </div>
+                  <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13, fontWeight: 500, color: "#1E4D8C", marginTop: 4 }}>Where we currently operate.</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 16 }}>
+                    {[{l:"New York",dark:true},{l:"New Jersey",dark:true},{l:"Maryland",dark:false},{l:"Minnesota",dark:false}].map((r,i) => (
+                      <span key={i} style={{ padding: "5px 12px", borderRadius: 999, fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", background: r.dark ? "#102347" : "#EAF2FC", color: r.dark ? "#3D8FE0" : "#2472C8", border: r.dark ? "none" : "1px solid #B8D4F7" }}>{r.l}</span>
                     ))}
                   </div>
                 </div>
+                <svg style={{ alignSelf: "flex-end", width: 80, height: 80 }} viewBox="0 0 80 80">
+                  <circle cx="40" cy="40" r="36" fill="#102347"/>
+                  <ellipse cx="40" cy="40" rx="36" ry="14" fill="none" stroke="#7AB4EE" strokeWidth=".8" opacity=".4"/>
+                  <ellipse cx="40" cy="40" rx="14" ry="36" fill="none" stroke="#7AB4EE" strokeWidth=".8" opacity=".4"/>
+                  <circle cx="40" cy="40" r="36" fill="none" stroke="#7AB4EE" strokeWidth=".8" opacity=".4"/>
+                  <path d="M18 32 Q28 28 38 34 Q46 30 56 36 Q60 40 58 46 Q50 50 42 48 Q32 52 22 46 Z" fill="#3D8FE0" opacity=".7"/>
+                  <circle cx="48" cy="34" r="2.5" fill="#22A05A"/>
+                  <circle cx="32" cy="44" r="2.5" fill="#22A05A"/>
+                </svg>
               </div>
             </FadeUp>
 
@@ -194,361 +228,188 @@ export default function About() {
       </section>
 
       {/* ── THE NAME ── */}
-      <section className="bg-bg-page py-24 border-t border-border-light">
-        <div className="max-w-[760px] mx-auto px-5 lg:px-10">
+      <section className="bg-bg-page py-20">
+        <div className="max-w-site mx-auto px-5 lg:px-10">
+          <div className="grid md:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-center">
 
-          {/* Centered text block */}
-          <FadeUp><Eyebrow>The Name</Eyebrow></FadeUp>
-          <FadeUp delay={0.1}>
-            <h2 className="font-outfit text-[clamp(34px,4.4vw,54px)] font-black tracking-[-0.04em] leading-[1.04] text-text-heading mb-6">
-              Why SynAck.
-            </h2>
-          </FadeUp>
-          <FadeUp delay={0.2}>
-            <p className="text-[clamp(15px,1.5vw,17px)] text-text-body leading-[1.75]">
-              SynAck is the TCP three-way handshake —{" "}
-              <strong className="text-text-heading font-bold">SYN. SYN-ACK. ACK.</strong>{" "}
-              The sequence that establishes every reliable connection on the internet. The name is deliberate. Both sides agree before anything moves.{" "}
-              <span className="text-accent">Acknowledged. Established. Documented.</span>{" "}
-              That&apos;s how we operate.
-            </p>
-          </FadeUp>
-
-          {/* Handshake diagram */}
-          <FadeUp delay={0.2}>
-            <div
-              className="mt-10 rounded-[20px] overflow-hidden"
-              style={{ border: "1px solid #B8D4F7", boxShadow: "0 8px 40px rgba(16,35,71,.09)" }}
-            >
-              {/* Dark header */}
-              <div
-                className="flex items-center justify-between px-7 py-4"
-                style={{ background: "linear-gradient(90deg, #102347 0%, #0D1D3B 100%)" }}
-              >
-                <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#3D8FE0" }}>
-                  TCP/IP — Three-way Handshake
-                </span>
-                <span className="flex items-center gap-1.5" style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, color: "#22A05A", letterSpacing: "0.08em" }}>
-                  <span className="ab-blink w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#22A05A" }} />
-                  ESTABLISHED
-                </span>
-              </div>
-
-              {/* Party row */}
-              <div
-                className="grid grid-cols-2 border-b border-border-light"
-                style={{ background: "#F8FAFD" }}
-              >
-                {[
-                  { side: "left",  role: "Client", name: "SynAck",       initials: "SA", dark: true  },
-                  { side: "right", role: "Server", name: "Your Business", initials: "YB", dark: false },
-                ].map(p => (
-                  <div
-                    key={p.role}
-                    className={`flex items-center gap-3 px-7 py-5 ${p.side === "right" ? "justify-end flex-row-reverse" : ""}`}
-                  >
-                    <div
-                      className="flex items-center justify-center rounded-[10px] flex-shrink-0"
-                      style={{
-                        width: 40, height: 40,
-                        background: p.dark ? "linear-gradient(160deg,#102347,#0A1628)" : "#FFFFFF",
-                        border: p.dark ? "none" : "1.5px solid #B8D4F7",
-                        fontFamily: "var(--font-outfit)",
-                        fontSize: 13,
-                        fontWeight: 800,
-                        color: p.dark ? "#3D8FE0" : "#1E4D8C",
-                        letterSpacing: "-0.01em",
-                      }}
-                    >
-                      {p.initials}
-                    </div>
-                    <div className={p.side === "right" ? "text-right" : ""}>
-                      <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1E4D8C", marginBottom: 2 }}>{p.role}</div>
-                      <div style={{ fontFamily: "var(--font-outfit)", fontSize: 15, fontWeight: 800, letterSpacing: "-0.02em", color: "#0A1628" }}>{p.name}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Steps */}
-              <div style={{ background: "#FFFFFF" }}>
-                {[
-                  { num: "01", label: "SYN",     dir: "right", desc: "Connection requested"  },
-                  { num: "02", label: "SYN-ACK", dir: "left",  desc: "Request acknowledged"  },
-                  { num: "03", label: "ACK",     dir: "right", desc: "Connection established" },
-                ].map((s, i, arr) => (
-                  <div
-                    key={s.num}
-                    className="px-7 py-5"
-                    style={{ borderBottom: i < arr.length - 1 ? "1px solid #EAF2FC" : "none" }}
-                  >
-                    {/* Step label + description */}
-                    <div className={`flex items-baseline gap-3 mb-3 ${s.dir === "left" ? "justify-end" : ""}`}>
-                      <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9.5, fontWeight: 700, color: "rgba(36,114,200,.45)", letterSpacing: "0.06em" }}>{s.num}</span>
-                      <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", color: "#2472C8" }}>{s.label}</span>
-                      <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12, fontWeight: 400, color: "#1E4D8C" }}>— {s.desc}</span>
-                    </div>
-                    {/* Arrow track */}
-                    <div className="relative flex items-center h-3">
-                      {s.dir === "right" ? (
-                        <>
-                          <div className="flex-1 h-[2px] rounded-full" style={{ background: "linear-gradient(90deg, #2472C8 0%, rgba(36,114,200,.25) 100%)" }} />
-                          <div style={{ width: 0, height: 0, borderTop: "6px solid transparent", borderBottom: "6px solid transparent", borderLeft: "9px solid #2472C8" }} />
-                        </>
-                      ) : (
-                        <>
-                          <div style={{ width: 0, height: 0, borderTop: "6px solid transparent", borderBottom: "6px solid transparent", borderRight: "9px solid #2472C8" }} />
-                          <div className="flex-1 h-[2px] rounded-full" style={{ background: "linear-gradient(90deg, rgba(36,114,200,.25) 0%, #2472C8 100%)" }} />
-                        </>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Footer */}
-              <div
-                className="px-7 py-4 border-t border-border-light"
-                style={{ background: "#F8FAFD", fontFamily: "var(--font-dm-sans)", fontSize: 11.5, color: "#1E4D8C", lineHeight: 1.6 }}
-              >
-                Ownership established. Control transferred. Every action documented from this point forward.
-              </div>
+            {/* Left — text */}
+            <div>
+              <FadeUp><Eyebrow>The Name</Eyebrow></FadeUp>
+              <FadeUp delay={0.1}>
+                <h2 className="font-outfit text-[clamp(34px,4.4vw,54px)] font-black tracking-[-0.04em] leading-[1.04] text-text-heading mt-2 mb-6">
+                  Why SynAck.
+                </h2>
+              </FadeUp>
+              <FadeUp delay={0.2}>
+                <p className="text-[clamp(15px,1.5vw,17px)] text-text-body leading-[1.75] mb-4">
+                  SynAck is the TCP three-way handshake —{" "}
+                  <strong className="text-text-heading font-bold">SYN. SYN-ACK. ACK.</strong>{" "}
+                  The sequence that establishes every reliable connection on the internet.
+                </p>
+                <p className="text-[clamp(15px,1.5vw,17px)] text-text-body leading-[1.75]">
+                  The name is deliberate. Both sides agree before anything moves.{" "}
+                  <span className="text-accent font-semibold">Acknowledged. Established. Documented.</span>{" "}
+                  That&apos;s how we operate.
+                </p>
+              </FadeUp>
             </div>
-          </FadeUp>
 
+            {/* Right — diagram */}
+            <FadeUp delay={0.15}>
+              <div
+                className="rounded-[20px] overflow-hidden"
+                style={{ border: "1px solid #B8D4F7", boxShadow: "0 8px 40px rgba(16,35,71,.09)" }}
+              >
+                {/* Dark header */}
+                <div
+                  className="flex items-center justify-between px-6 py-3.5"
+                  style={{ background: "linear-gradient(90deg, #102347 0%, #0D1D3B 100%)" }}
+                >
+                  <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#3D8FE0" }}>
+                    TCP/IP — Three-way Handshake
+                  </span>
+                  <span className="flex items-center gap-1.5" style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, color: "#22A05A", letterSpacing: "0.08em" }}>
+                    <span className="ab-blink w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#22A05A" }} />
+                    ESTABLISHED
+                  </span>
+                </div>
+
+                {/* Party row */}
+                <div className="grid grid-cols-2 border-b border-border-light" style={{ background: "#F8FAFD" }}>
+                  {[
+                    { side: "left",  role: "Client", name: "SynAck",        initials: "SA", dark: true  },
+                    { side: "right", role: "Server", name: "Your Business",  initials: "YB", dark: false },
+                  ].map(p => (
+                    <div
+                      key={p.role}
+                      className={`flex items-center gap-3 px-6 py-4 ${p.side === "right" ? "justify-end flex-row-reverse" : ""}`}
+                    >
+                      <div
+                        className="flex items-center justify-center rounded-[9px] flex-shrink-0"
+                        style={{
+                          width: 36, height: 36,
+                          background: p.dark ? "linear-gradient(160deg,#102347,#0A1628)" : "#FFFFFF",
+                          border: p.dark ? "none" : "1.5px solid #B8D4F7",
+                          fontFamily: "var(--font-outfit)",
+                          fontSize: 12,
+                          fontWeight: 800,
+                          color: p.dark ? "#3D8FE0" : "#1E4D8C",
+                        }}
+                      >
+                        {p.initials}
+                      </div>
+                      <div className={p.side === "right" ? "text-right" : ""}>
+                        <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1E4D8C", marginBottom: 2 }}>{p.role}</div>
+                        <div style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 800, letterSpacing: "-0.02em", color: "#0A1628" }}>{p.name}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Steps */}
+                <div style={{ background: "#FFFFFF" }}>
+                  {[
+                    { num: "01", label: "SYN",     dir: "right", desc: "Connection requested"  },
+                    { num: "02", label: "SYN-ACK", dir: "left",  desc: "Request acknowledged"  },
+                    { num: "03", label: "ACK",     dir: "right", desc: "Connection established" },
+                  ].map((s, i, arr) => (
+                    <div
+                      key={s.num}
+                      className="px-6 py-4"
+                      style={{ borderBottom: i < arr.length - 1 ? "1px solid #EAF2FC" : "none" }}
+                    >
+                      <div className={`flex items-baseline gap-2.5 mb-2.5 ${s.dir === "left" ? "justify-end" : ""}`}>
+                        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9, fontWeight: 700, color: "rgba(36,114,200,.4)", letterSpacing: "0.06em" }}>{s.num}</span>
+                        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", color: "#2472C8" }}>{s.label}</span>
+                        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11.5, fontWeight: 400, color: "#1E4D8C" }}>— {s.desc}</span>
+                      </div>
+                      <div className="flex items-center h-2.5">
+                        {s.dir === "right" ? (
+                          <>
+                            <div className="flex-1 h-[2px] rounded-full" style={{ background: "linear-gradient(90deg, #2472C8 0%, rgba(36,114,200,.2) 100%)" }} />
+                            <div style={{ width: 0, height: 0, borderTop: "5px solid transparent", borderBottom: "5px solid transparent", borderLeft: "8px solid #2472C8" }} />
+                          </>
+                        ) : (
+                          <>
+                            <div style={{ width: 0, height: 0, borderTop: "5px solid transparent", borderBottom: "5px solid transparent", borderRight: "8px solid #2472C8" }} />
+                            <div className="flex-1 h-[2px] rounded-full" style={{ background: "linear-gradient(90deg, rgba(36,114,200,.2) 0%, #2472C8 100%)" }} />
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Footer */}
+                <div
+                  className="px-6 py-3.5 border-t border-border-light"
+                  style={{ background: "#F8FAFD", fontFamily: "var(--font-dm-sans)", fontSize: 11, color: "#1E4D8C", lineHeight: 1.6 }}
+                >
+                  Ownership established. Control transferred. Every action documented from this point forward.
+                </div>
+              </div>
+            </FadeUp>
+
+          </div>
         </div>
       </section>
 
       {/* ── WHY WE BUILT IT ── */}
-      <section className="bg-bg-page py-24">
-        <div className="max-w-[900px] mx-auto px-5 lg:px-10">
-          <FadeUp><Eyebrow>The Origin</Eyebrow></FadeUp>
-          <FadeUp delay={0.1}>
-            <h2 className="font-outfit text-[clamp(34px,4.4vw,54px)] font-black tracking-[-0.04em] leading-[1.04] text-text-heading mb-8">
-              After enough years,{" "}
-              <span className="text-accent">the patterns repeat.</span>
-            </h2>
-          </FadeUp>
-          <FadeUp delay={0.2}>
-            <p className="text-[clamp(15px,1.5vw,17px)] text-text-body leading-[1.7] max-w-[56ch]">
-              Something breaks. The previous IT company patches the symptom. Bills for the time. Leaves no documentation. Six months later, the same root cause produces a different failure. The cycle repeats — until something serious goes down. By then, no one understands the environment well enough to fix it cleanly.
-            </p>
-          </FadeUp>
-          <FadeUp delay={0.2}>
-            <p className="text-[clamp(15px,1.5vw,17px)] text-text-body leading-[1.7] max-w-[56ch] mt-[18px]">
-              In small and mid-size business IT, this isn&apos;t an exception.{" "}
-              <span className="text-accent">It&apos;s the default.</span>{" "}
-              Technology gets touched. Never owned. The business pays the gap every time.
-            </p>
-          </FadeUp>
-          <FadeUp delay={0.3}>
-            <p className="text-[clamp(15px,1.5vw,17px)] text-text-body leading-[1.7] max-w-[56ch] mt-[18px]">
-              We built SynAck to be the alternative.{" "}
-              <strong className="text-text-heading font-bold">Own the environment from day one.</strong>{" "}
-              Document it as a matter of course. Measure success by the absence of incidents — not the speed of response to them.
-            </p>
-          </FadeUp>
-
-          {/* Pull quote */}
-          <FadeUp delay={0.2}>
-            <div
-              className="mt-14 rounded-[14px]"
-              style={{ padding: "40px 48px", background: "#FFFFFF", borderLeft: "3px solid #2472C8", border: "1px solid #B8D4F7", borderLeftWidth: 3, borderLeftColor: "#2472C8" }}
-            >
-              <p className="font-outfit text-[clamp(20px,2.2vw,26px)] font-black tracking-[-0.02em] leading-[1.3] text-text-heading">
-                The goal isn&apos;t a faster ticket queue.{" "}
-                <span className="text-accent">It&apos;s a system that doesn&apos;t generate them.</span>
-              </p>
-            </div>
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* ── PRINCIPLES ── */}
-      <section className="bg-bg-page py-24 border-t border-border-light">
+      <section className="bg-bg-page py-20">
         <div className="max-w-site mx-auto px-5 lg:px-10">
 
-          {/* Header */}
-          <FadeUp>
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-10 border-b border-border-light">
-              <div>
-                <Eyebrow>How We Think</Eyebrow>
-                <h2 className="font-outfit text-[clamp(30px,3.8vw,48px)] font-black tracking-[-0.04em] leading-[1.04] text-text-heading mt-1">
-                  Three things we don&apos;t{" "}
-                  <span className="text-accent">compromise on.</span>
+          {/* Prose — full width, two columns of text */}
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start mb-14">
+            <div>
+              <FadeUp><Eyebrow>The Origin</Eyebrow></FadeUp>
+              <FadeUp delay={0.1}>
+                <h2 className="font-outfit text-[clamp(34px,4.4vw,54px)] font-black tracking-[-0.04em] leading-[1.04] text-text-heading mt-2">
+                  After enough years,{" "}
+                  <span className="text-accent">the patterns repeat.</span>
                 </h2>
-              </div>
-              <p className="text-[14px] text-text-muted leading-[1.65] max-w-[28ch] md:text-right flex-shrink-0">
-                Every engagement runs through these.<br />They&apos;re not negotiable.
-              </p>
+              </FadeUp>
             </div>
-          </FadeUp>
-
-          {/* ── PRINCIPLE 01 — Ownership is the deliverable ── */}
-          <FadeUp delay={0.05}>
-            <div className="grid md:grid-cols-2 gap-10 md:gap-16 py-12 border-b border-border-light items-center">
-              <div className="flex flex-col gap-4">
-                <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-accent">Principle 01</span>
-                <h3 className="font-outfit text-[clamp(22px,2.8vw,34px)] font-black tracking-[-0.025em] leading-[1.12] text-text-heading">
-                  Ownership is the deliverable.
-                </h3>
-                <p className="text-[15px] text-text-body leading-[1.75]">
-                  Tickets, response times, SLAs — byproducts. Not products. The deliverable is an environment someone fully owns. Knows end to end. Can answer for. Without that, everything else is theatre.
+            <FadeUp delay={0.2}>
+              <div className="md:pt-[calc(1.5em+10px)] flex flex-col gap-4">
+                <p className="text-[clamp(15px,1.5vw,17px)] text-text-body leading-[1.75]">
+                  Something breaks. The previous IT company patches the symptom. Bills for the time. Leaves no documentation. Six months later, the same root cause produces a different failure — until something serious goes down and no one understands the environment well enough to fix it cleanly.
+                </p>
+                <p className="text-[clamp(15px,1.5vw,17px)] text-text-body leading-[1.75]">
+                  In small and mid-size business IT, this isn&apos;t an exception.{" "}
+                  <span className="text-accent font-semibold">It&apos;s the default.</span>{" "}
+                  We built SynAck to own the environment from day one — document everything, and measure success by the absence of incidents, not the speed of response.
                 </p>
               </div>
+            </FadeUp>
+          </div>
 
-              {/* Visual: environment ownership stack */}
-              <div className="rounded-[16px] border border-border-light bg-white overflow-hidden" style={{ boxShadow: "0 4px 20px rgba(16,35,71,.06)" }}>
-                <div className="flex items-center justify-between px-5 py-3 border-b border-border-light">
-                  <span className="text-[9.5px] font-bold tracking-[0.14em] uppercase text-text-muted">Environment Stack</span>
-                  <span className="flex items-center gap-1.5 text-[9.5px] font-bold tracking-[0.08em]" style={{ color: "#22A05A" }}>
-                    <span className="ab-blink w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#22A05A" }} />
-                    Fully Owned
-                  </span>
-                </div>
-                <div className="p-4 flex flex-col gap-2">
-                  {[
-                    { layer: "Cloud & SaaS",      pct: 100 },
-                    { layer: "Cybersecurity",      pct: 100 },
-                    { layer: "Network",            pct: 100 },
-                    { layer: "Endpoints & Devices",pct: 100 },
-                  ].map((l, i) => (
-                    <div key={i} className="flex items-center gap-3 px-3 py-2.5 rounded-[9px] bg-bg-page border border-border-light">
-                      <div
-                        className="w-1.5 h-4 rounded-full flex-shrink-0"
-                        style={{ background: `rgba(36,114,200,${0.3 + i * 0.18})` }}
-                      />
-                      <span className="text-[13px] font-semibold text-text-heading flex-1">{l.layer}</span>
-                      <span className="text-[9px] font-bold tracking-[0.10em] uppercase text-accent">Managed</span>
-                    </div>
-                  ))}
-                  <div
-                    className="mt-1 px-3 py-2.5 rounded-[9px] text-center"
-                    style={{ background: "linear-gradient(90deg, #102347, #0A1628)" }}
-                  >
-                    <span className="text-[9.5px] font-bold tracking-[0.14em] uppercase" style={{ color: "#3D8FE0" }}>
-                      SynAck — Single point of ownership
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </FadeUp>
-
-          {/* ── PRINCIPLE 02 — React less, not faster ── */}
-          <FadeUp delay={0.05}>
-            <div className="grid md:grid-cols-2 gap-10 md:gap-16 py-12 border-b border-border-light items-center">
-              <div className="flex flex-col gap-4">
-                <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-accent">Principle 02</span>
-                <h3 className="font-outfit text-[clamp(22px,2.8vw,34px)] font-black tracking-[-0.025em] leading-[1.12] text-text-heading">
-                  React less. Not faster.
-                </h3>
-                <p className="text-[15px] text-text-body leading-[1.75]">
-                  Most managed IT companies measure response time. We measure incident frequency. A four-minute response is impressive only if you couldn&apos;t have prevented the incident. Most of the time, you could have.
+          {/* Full-bleed pull-quote band */}
+          <FadeUp delay={0.2}>
+            <div
+              className="relative rounded-[20px] overflow-hidden px-10 py-10 md:px-16 md:py-12"
+              style={{
+                background: "linear-gradient(100deg, #0A1628 0%, #102347 50%, #0D1D3B 100%)",
+                boxShadow: "0 2px 0 rgba(61,143,224,.10) inset, 0 24px 56px rgba(10,22,40,.20)",
+                border: "1px solid rgba(36,114,200,.12)",
+              }}
+            >
+              <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: "linear-gradient(rgba(36,114,200,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(36,114,200,.04) 1px, transparent 1px)",
+                backgroundSize: "56px 56px",
+              }} />
+              <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <p
+                  className="font-outfit font-black leading-[1.15]"
+                  style={{ fontSize: "clamp(22px,3vw,36px)", letterSpacing: "-0.03em", color: "#EAF2FC", maxWidth: "22ch" }}
+                >
+                  Not a faster ticket queue.{" "}
+                  <span style={{ color: "#3D8FE0" }}>A system that doesn&apos;t generate them.</span>
                 </p>
-              </div>
-
-              {/* Visual: incident metric dashboard */}
-              <div className="rounded-[16px] border border-border-light bg-white overflow-hidden" style={{ boxShadow: "0 4px 20px rgba(16,35,71,.06)" }}>
-                <div className="flex items-center justify-between px-5 py-3 border-b border-border-light">
-                  <span className="text-[9.5px] font-bold tracking-[0.14em] uppercase text-text-muted">Performance Metrics</span>
-                  <span className="text-[9.5px] font-bold tracking-[0.08em] text-text-muted">Last 6 months</span>
-                </div>
-                <div className="grid grid-cols-2 divide-x divide-border-light">
-                  <div className="px-5 py-5">
-                    <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-text-muted mb-2">Others measure</div>
-                    <div className="font-outfit font-black leading-none mb-1 text-text-heading" style={{ fontSize: 40 }}>
-                      4<span className="text-[16px] font-bold text-text-muted ml-0.5">min</span>
-                    </div>
-                    <div className="text-[11px] font-medium text-text-muted">Response time</div>
-                  </div>
-                  <div className="px-5 py-5">
-                    <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-text-muted mb-2">We measure</div>
-                    <div className="font-outfit font-black leading-none mb-1" style={{ fontSize: 40, color: "#22A05A" }}>0</div>
-                    <div className="text-[11px] font-medium text-text-muted">Incidents this month</div>
-                  </div>
-                </div>
-                <div className="px-5 pb-5 pt-1">
-                  <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-text-muted mb-2.5">Incident frequency — declining</div>
-                  <div className="flex items-end gap-1.5" style={{ height: 48 }}>
-                    {[90, 72, 55, 36, 18, 0].map((h, i) => (
-                      <div
-                        key={i}
-                        className="flex-1 rounded-t-[3px] transition-all"
-                        style={{
-                          height: `${Math.max(h, 0)}%`,
-                          background: i === 5 ? "#22A05A" : `rgba(36,114,200,${0.15 + i * 0.13})`,
-                        }}
-                      />
-                    ))}
-                  </div>
-                  <div className="flex justify-between mt-1.5">
-                    <span className="text-[9px] text-text-muted">6 mo ago</span>
-                    <span className="text-[9px] font-bold" style={{ color: "#22A05A" }}>Now</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </FadeUp>
-
-          {/* ── PRINCIPLE 03 — If we can't explain it ── */}
-          <FadeUp delay={0.05}>
-            <div className="grid md:grid-cols-2 gap-10 md:gap-16 py-12 items-center">
-              <div className="flex flex-col gap-4">
-                <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-accent">Principle 03</span>
-                <h3 className="font-outfit text-[clamp(22px,2.8vw,34px)] font-black tracking-[-0.025em] leading-[1.12] text-text-heading">
-                  If we can&apos;t explain it, we don&apos;t understand it.
-                </h3>
-                <p className="text-[15px] text-text-body leading-[1.75]">
-                  Every environment we run, we can explain to a non-technical owner in five minutes. If we can&apos;t — the issue isn&apos;t the owner. It&apos;s the environment. The work is to close that gap.
-                </p>
-              </div>
-
-              {/* Visual: technical → plain English translation */}
-              <div className="rounded-[16px] border border-border-light bg-white overflow-hidden" style={{ boxShadow: "0 4px 20px rgba(16,35,71,.06)" }}>
-                {/* Technical side */}
-                <div className="px-5 py-4" style={{ background: "#080F1E" }}>
-                  <div className="text-[9px] font-bold tracking-[0.14em] uppercase mb-3" style={{ color: "#4ADE80" }}>
-                    // What your environment looks like
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    {[
-                      { key: "VLAN trunk",  val: "802.1Q — untagged on port 24" },
-                      { key: "FW policy",   val: "deny 0.0.0.0/0 outbound:443" },
-                      { key: "Patch delta", val: "CVE-2024-1182 — unmitigated"  },
-                    ].map((r, i) => (
-                      <div key={i} className="flex items-baseline gap-2">
-                        <span className="text-[10px] font-bold flex-shrink-0" style={{ color: "#3D8FE0", fontFamily: "monospace" }}>{r.key}</span>
-                        <span className="text-[10px]" style={{ color: "rgba(122,180,238,.55)", fontFamily: "monospace" }}>{r.val}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Divider */}
-                <div className="flex items-center gap-3 px-5 py-2.5 border-y border-border-light bg-bg-page">
-                  <div className="flex-1 h-px bg-border-light" />
-                  <span className="text-[9px] font-bold tracking-[0.12em] uppercase text-accent flex-shrink-0">We translate it</span>
-                  <div className="flex-1 h-px bg-border-light" />
-                </div>
-
-                {/* Plain English side */}
-                <div className="px-5 py-4">
-                  <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-text-muted mb-3">
-                    What we tell you — in 5 minutes
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    {[
-                      "Your network is segmented correctly — no leaks.",
-                      "External access is locked by default.",
-                      "One security gap found. Fixed within 24 hours.",
-                    ].map((line, i) => (
-                      <div key={i} className="flex items-start gap-2.5">
-                        <span className="text-[13px] flex-shrink-0 mt-px" style={{ color: "#22A05A" }}>✓</span>
-                        <span className="text-[13px] font-medium text-text-heading leading-[1.5]">{line}</span>
-                      </div>
-                    ))}
-                  </div>
+                <div className="flex-shrink-0 flex items-center gap-3">
+                  <div className="w-px h-10 bg-white/10 hidden md:block" />
+                  <p className="text-[13px] leading-[1.65]" style={{ color: "rgba(122,180,238,.6)", maxWidth: "22ch" }}>
+                    The metric we optimize for isn&apos;t speed of response. It&apos;s absence of incidents.
+                  </p>
                 </div>
               </div>
             </div>
@@ -556,6 +417,8 @@ export default function About() {
 
         </div>
       </section>
+
+      <TimelineSection />
 
       {/* ── THE TEAM ── */}
       <section className="bg-bg-page py-24">

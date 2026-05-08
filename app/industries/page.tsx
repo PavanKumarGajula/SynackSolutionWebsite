@@ -62,7 +62,7 @@ function DiagramHead({ icon, title, status }: { icon: React.ReactNode; title: st
       <div
         className="inline-flex items-center gap-[7px] font-mono text-[10px] font-bold tracking-[0.14em] uppercase px-[11px] py-[5px] rounded-full"
         style={{ color: "#22A05A", background: "rgba(34,160,90,.10)", border: "1px solid rgba(34,160,90,.30)" }}
-      >
+      > 
         <span className="w-[5px] h-[5px] rounded-full flex-shrink-0 ind-status-blink" style={{ background: "#22A05A", boxShadow: "0 0 6px #22A05A" }} />
         {status}
       </div>
@@ -823,6 +823,55 @@ function AlsoSection() {
   );
 }
 
+/* ─── Hero marquee card ─────────────────────────── */
+
+function MarqueeCard({ num, name, tag, src }: { num: string; name: string; tag: string; src: string }) {
+  return (
+    <div className="flex-shrink-0 rounded-[16px] overflow-hidden border border-border-light bg-white"
+      style={{ width: 240, boxShadow: "0 4px 20px rgba(16,35,71,.07), 0 1px 0 rgba(255,255,255,.9) inset" }}>
+      <div className="relative" style={{ height: 210 }}>
+        <Image fill src={src} alt={name} sizes="240px"
+          style={{ objectFit: "cover", filter: "grayscale(20%) contrast(1.05) brightness(0.88)" }} />
+        <div className="absolute inset-0"
+          style={{ background: "linear-gradient(180deg, rgba(16,35,71,.08) 0%, rgba(16,35,71,.64) 100%)" }} />
+        <div className="absolute top-3 left-3">
+          <span className="font-mono text-[8.5px] font-bold tracking-[0.14em] uppercase px-2 py-[3px] rounded-[5px]"
+            style={{ color: "#EAF2FC", background: "rgba(10,22,40,.70)", backdropFilter: "blur(6px)", border: "1px solid rgba(255,255,255,.14)" }}>
+            {num}
+          </span>
+        </div>
+        <div className="absolute bottom-3 left-3 right-3">
+          <p className="font-outfit font-extrabold leading-[1.15] text-white"
+            style={{ fontSize: 15.5, letterSpacing: "-0.018em" }}>
+            {name}
+          </p>
+        </div>
+      </div>
+      <div className="px-4 pt-3 pb-4 flex flex-col gap-[9px]">
+        <p className="font-mono text-[9px] font-bold tracking-[0.13em] uppercase text-accent">{tag}</p>
+        <div className="flex items-center gap-[7px]">
+          <span className="w-[5px] h-[5px] rounded-full flex-shrink-0"
+            style={{ background: "#22A05A", boxShadow: "0 0 5px #22A05A" }} />
+          <span className="font-mono text-[8.5px] font-bold tracking-[0.10em] uppercase text-text-muted">
+            Active protection
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const MARQUEE_CARDS = [
+  { num: "/01", name: "Manufacturing",     tag: "OT / IT Segmentation",  src: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&h=400&fit=crop&q=85" },
+  { num: "/02", name: "Healthcare",        tag: "HIPAA Controls",         src: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&h=400&fit=crop&q=85" },
+  { num: "/03", name: "Professional Svcs", tag: "Privileged Matter",      src: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=400&fit=crop&q=85" },
+  { num: "/04", name: "Small Business",    tag: "Managed IT",             src: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&h=400&fit=crop&q=85" },
+  { num: "/05", name: "Construction",      tag: "Site Connectivity",      src: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&h=400&fit=crop&q=85" },
+  { num: "/06", name: "Finance",           tag: "Compliance & Security",  src: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop&q=85" },
+  { num: "/07", name: "Education",         tag: "Campus IT Security",     src: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=400&fit=crop&q=85" },
+  { num: "/08", name: "Government",        tag: "Public Sector IT",       src: "https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=600&h=400&fit=crop&q=85" },
+];
+
 /* ═══════════════════════════════════════════════
    PAGE
 ═══════════════════════════════════════════════ */
@@ -832,115 +881,74 @@ export default function Industries() {
     <main className="pt-[68px] bg-bg-page">
 
       {/* ══ HERO ══ */}
-      <section className="relative min-h-screen flex flex-col overflow-hidden bg-bg-page">
+      <section className="relative flex flex-col items-center overflow-hidden bg-bg-page"
+        style={{ paddingTop: "clamp(24px,3vw,40px)", minHeight: "100vh" }}>
 
-        {/* Subtle background grid */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "linear-gradient(rgba(36,114,200,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(36,114,200,.045) 1px, transparent 1px)",
-            backgroundSize: "56px 56px",
-            maskImage: "radial-gradient(ellipse 70% 80% at 30% 50%, black 0%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(ellipse 70% 80% at 30% 50%, black 0%, transparent 100%)",
-          }}
-        />
+        {/* Radial glow */}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse 65% 45% at 50% 30%, rgba(36,114,200,.07) 0%, transparent 70%)" }} />
 
-        {/* Ambient glow behind text */}
-        <div className="absolute top-1/2 left-[20%] -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle, rgba(36,114,200,.07) 0%, transparent 65%)" }} />
+        {/* Subtle grid */}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ backgroundImage: "linear-gradient(rgba(36,114,200,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(36,114,200,.045) 1px, transparent 1px)", backgroundSize: "56px 56px", maskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, black 0%, transparent 100%)", WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, black 0%, transparent 100%)" }} />
 
-        {/* Main grid */}
-        <div className="relative z-10 flex-1 grid grid-cols-1 lg:grid-cols-2">
+        {/* ── Copy ── */}
+        <div className="relative z-10 flex flex-col items-center text-center px-5 max-w-[1000px] mx-auto">
+          <motion.div className="flex flex-col items-center gap-1.5 mb-5"
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.03, ease: EASE }}>
+            <div className="flex gap-0.5">
+              {[0,1,2,3,4].map(s => (
+                <svg key={s} viewBox="0 0 16 16" fill="#F5C518" style={{ width: 13, height: 13 }}>
+                  <path d="M8 1.5l1.65 3.35 3.7.54-2.68 2.6.63 3.68L8 9.77l-3.3 1.9.63-3.68L2.65 5.4l3.7-.55z"/>
+                </svg>
+              ))}
+            </div>
+            <p className="text-text-muted" style={{ fontSize: 12.5, fontFamily: "var(--font-dm-sans)", letterSpacing: "0.02em" }}>
+              Trusted by 80+ businesses across 4 industries
+            </p>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1, ease: EASE }}>
+            <Eyebrow>Industries We Serve</Eyebrow>
+          </motion.div>
+          <motion.h1 className="font-outfit font-black text-text-heading mb-5"
+            style={{ fontSize: "clamp(44px, 6.5vw, 80px)", letterSpacing: "-0.045em", lineHeight: 1.0 }}
+            initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.14, ease: EASE }}>
+            Built for your industry.<br />
+            <em className="not-italic">Not adapted for it.</em>
+          </motion.h1>
+          <motion.p className="text-text-body leading-[1.75] mb-9 max-w-[58ch]"
+            style={{ fontSize: "clamp(15px, 1.4vw, 17px)" }}
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.26, ease: EASE }}>
+            A plant floor running Windows NT — isolated, not replaced. A clinic that can&apos;t afford a four-hour outage — backups verified weekly. A law firm where one email to opposing counsel ends a career — flagged before sending, contained when it slips through. Different industries, same standard.
+          </motion.p>
+          <motion.div className="flex flex-wrap gap-3 justify-center"
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.38, ease: EASE }}>
+            <Link href="/contact" className="btn btn-primary">
+              Talk to us <ArrowRight size={14} strokeWidth={2.5} />
+            </Link>
+            <Link href="/services" className="btn btn-outline">
+              View services
+            </Link>
+          </motion.div>
+        </div>
 
-          {/* Left — text */}
-          <div className="flex flex-col justify-center px-8 lg:px-[60px] py-16 lg:py-24">
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.05, ease: EASE }}
-            >
-              <Eyebrow>Our Focus</Eyebrow>
-            </motion.div>
-
-            <motion.h1
-              className="font-outfit font-black text-text-heading mb-7"
-              style={{ fontSize: "clamp(44px, 6vw, 84px)", letterSpacing: "-0.045em", lineHeight: 0.96 }}
-              initial={{ opacity: 0, y: 32 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.14, ease: EASE }}
-            >
-              Built for your<br />industry.
-              <em className="not-italic block">— Not adapted<br />for it.</em>
-            </motion.h1>
-
-            <motion.p
-              className="text-text-body leading-[1.7] mb-10 max-w-[46ch]"
-              style={{ fontSize: "clamp(15px, 1.4vw, 17px)" }}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.28, ease: EASE }}
-            >
-              A plant floor running Windows NT — isolated, not replaced. A clinic that can&apos;t afford a four-hour outage — backups verified weekly. A law firm where one email to opposing counsel ends a career — flagged before sending, contained when it slips through. Different industries, same standard.
-            </motion.p>
-
-            <motion.div
-              className="flex flex-wrap gap-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.42, ease: EASE }}
-            >
-              <Link href="/contact" className="btn btn-primary">
-                Talk to us <ArrowRight size={14} strokeWidth={2.5} />
-              </Link>
-              <Link href="/services" className="btn btn-outline">
-                View services <ArrowRight size={14} strokeWidth={2.5} />
-              </Link>
-            </motion.div>
-
-          </div>
-
-          {/* Right — 2×2 + tall grid */}
-          <div
-            className="hidden lg:grid overflow-hidden p-5"
-            style={{
-              gridTemplateColumns: "1fr 1fr 1.15fr",
-              gridTemplateRows: "1fr 1fr",
-              gap: "8px",
-            }}
-          >
-            {[
-              { col: 1, row: 1,       label: "/01", name: "Manufacturing",    tag: "OT/IT Segmentation",    src: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=900&h=700&fit=crop&q=85" },
-              { col: 2, row: 1,       label: "/02", name: "Healthcare",       tag: "HIPAA Controls",        src: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&h=500&fit=crop&q=85" },
-              { col: 3, row: "1 / 3", label: "/05", name: "Construction",     tag: "Civil & Infrastructure", src: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=700&h=1200&fit=crop&q=85" },
-              { col: 1, row: 2,       label: "/03", name: "Professional",     tag: "Matter-based Access",   src: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=700&h=600&fit=crop&q=85" },
-              { col: 2, row: 2,       label: "/04", name: "Growing Business", tag: "Scaling Architecture",  src: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=700&h=900&fit=crop&q=85" },
-            ].map((card, i) => (
-              <motion.div
-                key={card.name}
-                className="photo-grid-card relative rounded-[12px] overflow-hidden cursor-pointer"
-                style={{ gridColumn: card.col, gridRow: card.row, background: "#0A1628" }}
-                initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.3 + i * 0.1, ease: EASE }}
-                whileHover={{ scale: 1.025, transition: { duration: 0.3, ease: EASE } }}
-              >
-                <Image fill src={card.src} alt={card.name} className="photo-grid-img" sizes="(max-width:1024px) 100vw, 33vw" />
-                <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(16,35,71,.15) 0%, rgba(16,35,71,.55) 100%)" }} />
-                <div className="absolute top-2.5 left-2.5 z-10">
-                  <span className="font-mono text-[9px] font-bold tracking-[0.14em] uppercase px-2 py-1 rounded-[5px]"
-                    style={{ color: "#EAF2FC", background: "rgba(16,35,71,.65)", backdropFilter: "blur(6px)", border: "1px solid rgba(255,255,255,.12)" }}>
-                    {card.label} {card.name}
-                  </span>
-                </div>
-                <div className="absolute bottom-2.5 left-2.5 z-10">
-                  <p className="font-mono text-[9px] font-bold tracking-[0.1em] uppercase" style={{ color: "rgba(234,242,252,.65)" }}>{card.tag}</p>
-                </div>
-              </motion.div>
+        {/* ── Industry Marquee ── */}
+        <motion.div className="relative mt-14 pb-8 overflow-hidden mx-10 lg:mx-20 rounded-[20px]"
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.55, ease: EASE }}>
+          <div className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(to right, #F4F7FB, transparent)" }} />
+          <div className="absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(to left, #F4F7FB, transparent)" }} />
+          <div className="industries-carousel-track">
+            {[...MARQUEE_CARDS, ...MARQUEE_CARDS].map((c, i) => (
+              <MarqueeCard key={i} {...c} />
             ))}
           </div>
-
-        </div>
+        </motion.div>
 
       </section>
 

@@ -291,6 +291,21 @@
   animation: drawPath 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
 }
 
+/* ── Industries hero marquee ── */
+@keyframes industriesMarquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.industries-carousel-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  animation: industriesMarquee 36s linear infinite;
+}
+.industries-carousel-track:hover {
+  animation-play-state: paused;
+}
+
 @layer utilities {
   .bg-grid {
     background-image: linear-gradient(theme(colors.border-light) 1px, transparent 1px),
