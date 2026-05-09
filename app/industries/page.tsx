@@ -929,9 +929,6 @@ export default function Industries() {
             <Link href="/contact" className="btn btn-primary">
               Talk to us <ArrowRight size={14} strokeWidth={2.5} />
             </Link>
-            <Link href="/services" className="btn btn-outline">
-              View services
-            </Link>
           </motion.div>
         </div>
 
@@ -1041,9 +1038,6 @@ export default function Industries() {
               <div className="flex gap-3 flex-wrap justify-center">
                 <Link href="/contact" className="btn btn-white">
                   Talk to an engineer <ArrowRight size={14} strokeWidth={2.5} />
-                </Link>
-                <Link href="/services" className="btn btn-outline-white">
-                  View services <ArrowRight size={14} strokeWidth={2.5} />
                 </Link>
               </div>
 

@@ -49,7 +49,7 @@ export default function CtaSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
         >
-          Don&apos;t trust another IT company.<br />
+          Don&apos;t take our word for it.<br />
           Look at how we work.<br />
           <span className="text-accent">Then decide.</span>
         </motion.h2>
@@ -61,7 +61,7 @@ export default function CtaSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.22, ease: EASE }}
         >
-          A senior engineer reviews your environment, maps what is broken, and tells you exactly what needs to happen. No obligation. No sales pitch.
+          A senior engineer reviews your environment, maps what&apos;s broken, and tells you exactly what needs to happen. No obligation. No sales pitch.
         </motion.p>
 
         {/* Buttons */}
@@ -76,7 +76,7 @@ export default function CtaSection() {
             <ArrowRight size={14} strokeWidth={2.5} />
           </Link>
           <Link href="/services" className="btn btn-outline-white">
-            See what we own
+            View Services
             <ArrowRight size={14} strokeWidth={2.5} />
           </Link>
         </motion.div>

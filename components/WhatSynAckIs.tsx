@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import { Building2, ArrowRight } from "lucide-react";
+import { Building2 } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -16,14 +16,6 @@ const CONN_PATHS = [
   { d: "M 170 420 Q 250 360, 320 290", delay: 0.62 }, // laptop
   { d: "M 187 437 Q 260 370, 320 290", delay: 0.70 }, // phone
   { d: "M 551 389 Q 440 340, 320 290", delay: 0.78 }, // badge
-];
-
-/* ─── Summary rows ──────────────────────────────────── */
-
-const SUMMARY = [
-  { num: "01", title: "5 services we run.",            sub: "Managed IT. Microsoft 365. Network. AV. Procurement." },
-  { num: "02", title: "4 layers we secure.",           sub: "Cybersecurity. Physical. Training. Backup & DR." },
-  { num: "03", title: "1 plan that ties it together.", sub: "IT Strategy & vCIO. The roadmap. The direction." },
 ];
 
 /* ─── Main ──────────────────────────────────────────── */
@@ -81,35 +73,6 @@ export default function WhatSynAckIs() {
             <strong className="text-text-heading font-bold">That&apos;s not your job.</strong> It&apos;s ours.
           </motion.p>
 
-          {/* Summary block */}
-          <motion.div
-            className="bg-white border border-border-light rounded-[16px] px-7 py-6 shadow-[0_4px_16px_rgba(16,35,71,.04)]"
-            {...textAnim(0.65)}
-          >
-            {SUMMARY.map((row, i) => (
-              <div
-                key={row.num}
-                className={[
-                  "flex items-center gap-4",
-                  i === 0 ? "pb-[14px]" : "py-[14px]",
-                  i < SUMMARY.length - 1 ? "border-b border-border-light" : "",
-                ].join(" ")}
-              >
-                <span className="font-mono text-[11px] font-bold text-accent tracking-[0.04em] w-7 flex-shrink-0">
-                  {row.num}
-                </span>
-                <div className="flex-1">
-                  <p className="font-outfit font-extrabold text-[15px] text-text-heading leading-[1.3]" style={{ letterSpacing: "-0.015em" }}>
-                    {row.title}
-                  </p>
-                  <p className="text-[12px] text-text-muted mt-[3px] leading-[1.5]">{row.sub}</p>
-                </div>
-                <div className="w-[22px] h-[22px] rounded-full bg-scale-50 border border-border-light flex items-center justify-center flex-shrink-0">
-                  <ArrowRight size={11} className="text-accent" strokeWidth={2.5} />
-                </div>
-              </div>
-            ))}
-          </motion.div>
 
         </div>
 
@@ -372,19 +335,6 @@ export default function WhatSynAckIs() {
             </p>
           </div>
 
-          <div className="grid grid-cols-3 gap-2">
-            {SUMMARY.map((row) => (
-              <div
-                key={row.num}
-                className="bg-white border border-border-light rounded-xl p-3 flex flex-col gap-1"
-              >
-                <span className="font-mono text-[9px] font-bold text-accent tracking-[0.06em]">{row.num}</span>
-                <p className="font-outfit font-extrabold text-[12px] text-text-heading leading-[1.3]" style={{ letterSpacing: "-0.01em" }}>
-                  {row.title}
-                </p>
-              </div>
-            ))}
-          </div>
         </motion.div>
 
       </div>

@@ -42,6 +42,49 @@ const team = [
   },
 ];
 
+const testimonials = [
+  {
+    quote: "SynAck doesn't just fix problems — they eliminated the category of problem entirely. We haven't had a repeat incident in over a year.",
+    name: "Daniel R.",
+    title: "COO",
+    company: "Tri-State Logistics",
+    industry: "Logistics",
+    logo: null, // replace with "/logos/tri-state-logistics.svg"
+  },
+  {
+    quote: "In financial services, downtime isn't inconvenient — it's a liability. SynAck understands that and operates accordingly. Our uptime has been flawless.",
+    name: "Jennifer K.",
+    title: "CEO",
+    company: "Meridian Financial Group",
+    industry: "Financial Services",
+    logo: null, // replace with "/logos/meridian-financial.svg"
+  },
+  {
+    quote: "Our shop floor runs 24/7. SynAck built us an environment we actually understand, and they own every layer of it. First IT partner that's ever done that.",
+    name: "Marcus T.",
+    title: "Director of Operations",
+    company: "NorthBridge Manufacturing",
+    industry: "Manufacturing",
+    logo: null, // replace with "/logos/northbridge-manufacturing.svg"
+  },
+  {
+    quote: "Patient records, compliance, HIPAA — the stakes are real. SynAck brought structure and documentation we never had before. I sleep better now.",
+    name: "Priya S.",
+    title: "Practice Administrator",
+    company: "Crestview Medical Associates",
+    industry: "Healthcare",
+    logo: null, // replace with "/logos/crestview-medical.svg"
+  },
+  {
+    quote: "We went through three MSPs in four years. SynAck is the first that made us feel like we weren't a client on a spreadsheet. They know our environment cold.",
+    name: "Ryan O.",
+    title: "Managing Partner",
+    company: "Halloran & Drake Legal",
+    industry: "Legal",
+    logo: null, // replace with "/logos/halloran-drake.svg"
+  },
+];
+
 const principles = [
   {
     num:   "PRINCIPLE 01",
@@ -60,6 +103,79 @@ const principles = [
   },
 ];
 
+
+function TestimonialCard({ t, dark }: { t: (typeof testimonials)[number]; dark: boolean }) {
+  return (
+    <div
+      className="flex flex-col h-full rounded-[20px] overflow-hidden"
+      style={{
+        background: dark ? "linear-gradient(160deg,#102347,#0A1628)" : "#FFFFFF",
+        border: dark ? "1px solid rgba(122,180,238,.18)" : "1px solid #B8D4F7",
+        boxShadow: dark ? "0 16px 36px rgba(16,35,71,.14)" : "0 4px 20px rgba(16,35,71,.06)",
+        padding: "32px 28px 28px",
+        position: "relative",
+      }}
+    >
+      {dark && (
+        <div style={{ position: "absolute", top: -60, right: -60, width: 220, height: 220, background: "radial-gradient(circle, rgba(36,114,200,.35) 0%, transparent 60%)", pointerEvents: "none" }} />
+      )}
+
+      {/* Brand logo placeholder + industry pill */}
+      <div className="flex items-center justify-between" style={{ position: "relative", zIndex: 1, marginBottom: 22 }}>
+        {/* Brand logo — swap null for a real path when available */}
+        {t.logo ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img src={t.logo} alt={t.company} style={{ height: 28, maxWidth: 110, objectFit: "contain", filter: dark ? "brightness(0) invert(1) opacity(0.6)" : "opacity(0.55)" }} />
+        ) : (
+          <div
+            style={{ height: 32, minWidth: 80, maxWidth: 120, borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", background: dark ? "rgba(255,255,255,.06)" : "#F0F5FC", border: dark ? "1px solid rgba(122,180,238,.12)" : "1px solid #DDE8F5", padding: "0 10px", gap: 6 }}
+            title="Logo coming soon"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" style={{ opacity: 0.35, flexShrink: 0 }}>
+              <rect x="3" y="3" width="18" height="18" rx="3" stroke={dark ? "#7AB4EE" : "#2472C8"} strokeWidth="1.5"/>
+              <path d="M3 9h18M9 21V9" stroke={dark ? "#7AB4EE" : "#2472C8"} strokeWidth="1.5"/>
+            </svg>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.07em", color: dark ? "rgba(122,180,238,.45)" : "rgba(30,77,140,.4)", whiteSpace: "nowrap" }}>
+              {t.company.split(" ").slice(0, 2).join(" ")}
+            </span>
+          </div>
+        )}
+
+        <span style={{ display: "inline-block", padding: "4px 10px", borderRadius: 999, fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", background: dark ? "rgba(36,114,200,.15)" : "#EAF2FC", color: dark ? "#3D8FE0" : "#2472C8", border: dark ? "1px solid rgba(61,143,224,.2)" : "1px solid #B8D4F7" }}>
+          {t.industry}
+        </span>
+      </div>
+
+      {/* Quote mark */}
+      <div style={{ fontFamily: "var(--font-outfit)", fontSize: 56, fontWeight: 900, lineHeight: 0.7, marginBottom: 16, color: dark ? "rgba(61,143,224,.3)" : "rgba(36,114,200,.12)", position: "relative", zIndex: 1 }}>
+        &ldquo;
+      </div>
+
+      {/* Quote text */}
+      <p className="flex-1" style={{ fontFamily: "var(--font-dm-sans)", fontSize: "clamp(14px,1.15vw,15.5px)", fontWeight: 500, lineHeight: 1.75, color: dark ? "#EAF2FC" : "#1E3A5F", marginBottom: 28, position: "relative", zIndex: 1 }}>
+        {t.quote}
+      </p>
+
+      {/* Divider */}
+      <div style={{ height: 1, background: dark ? "rgba(122,180,238,.15)" : "#EAF2FC", marginBottom: 20 }} />
+
+      {/* Attribution */}
+      <div className="flex items-center gap-3" style={{ position: "relative", zIndex: 1 }}>
+        <div className="flex items-center justify-center rounded-full flex-shrink-0" style={{ width: 40, height: 40, background: dark ? "rgba(36,114,200,.2)" : "#EAF2FC", border: dark ? "1px solid rgba(61,143,224,.3)" : "1px solid #B8D4F7", fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 800, color: dark ? "#3D8FE0" : "#2472C8" }}>
+          {t.name.charAt(0)}
+        </div>
+        <div>
+          <div style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 800, letterSpacing: "-0.01em", color: dark ? "#EAF2FC" : "#0A1628", lineHeight: 1.2 }}>
+            {t.name}
+          </div>
+          <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11.5, fontWeight: 500, color: dark ? "#7AB4EE" : "#1E4D8C", marginTop: 2 }}>
+            {t.title} · {t.company}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function About() {
   return (
@@ -540,6 +656,57 @@ export default function About() {
               </FadeUp>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS ── */}
+      <section className="bg-bg-page py-24">
+        <div className="max-w-site mx-auto px-5 lg:px-10">
+
+          {/* Header */}
+          <div className="max-w-[640px] mx-auto text-center mb-14">
+            <FadeUp>
+              <div className="inline-flex items-center gap-2.5 mb-[22px]">
+                <span className="w-6 h-0.5 bg-accent rounded-sm" />
+                <span className="text-[11px] font-bold tracking-[0.17em] uppercase text-accent">Client Stories</span>
+              </div>
+            </FadeUp>
+            <FadeUp delay={0.1}>
+              <h2 className="font-outfit text-[clamp(34px,4.4vw,54px)] font-black tracking-[-0.04em] leading-[1.04] text-text-heading mb-[18px]">
+                Don&apos;t take our word for it.
+              </h2>
+            </FadeUp>
+            <FadeUp delay={0.2}>
+              <p className="text-[clamp(15px,1.5vw,17px)] text-text-body leading-[1.7] max-w-[48ch] mx-auto">
+                The measure of ownership is what clients say after two years, not after two weeks.
+              </p>
+            </FadeUp>
+          </div>
+
+          {/* Row 1 — 3 cards */}
+          <div className="grid md:grid-cols-3 gap-5 mb-5">
+            {testimonials.slice(0, 3).map((t, i) => {
+              const dark = i === 1;
+              return (
+                <FadeUp key={t.name} delay={i * 0.12 + 0.1}>
+                  <TestimonialCard t={t} dark={dark} />
+                </FadeUp>
+              );
+            })}
+          </div>
+
+          {/* Row 2 — 2 cards centered */}
+          <div className="grid md:grid-cols-2 gap-5 md:max-w-[66%] mx-auto">
+            {testimonials.slice(3).map((t, i) => {
+              const dark = i === 1;
+              return (
+                <FadeUp key={t.name} delay={i * 0.12 + 0.45}>
+                  <TestimonialCard t={t} dark={dark} />
+                </FadeUp>
+              );
+            })}
+          </div>
+
         </div>
       </section>
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { motion, useInView } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import { SiCisco, SiApple } from "react-icons/si";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -80,17 +80,24 @@ const logos = [
 ];
 
 
-/* ── Typewriter cursor ── */
-function Cursor({ show }: { show: boolean }) {
-  if (!show) return null;
+/* ── Rolling digit ── */
+function RollingDigit({ digit, active, delay = 0 }: { digit: string; active: boolean; delay?: number }) {
+  const idx = "0123456789".indexOf(digit);
+  if (idx === -1) return <span>{digit}</span>;
   return (
-    <motion.span
-      animate={{ opacity: [1, 0, 1] }}
-      transition={{ duration: 0.65, repeat: Infinity, ease: "linear" }}
-      className="inline-block w-[3px] bg-accent ml-[3px] align-middle rounded-sm"
-      style={{ height: "0.82em" }}
-      aria-hidden
-    />
+    <span className="inline-block overflow-hidden" style={{ height: "1em", lineHeight: "1em" }}>
+      <motion.span
+        className="flex flex-col"
+        initial={{ y: 0 }}
+        animate={active ? { y: `${-idx}em` } : { y: 0 }}
+        transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+        style={{ lineHeight: "1em" }}
+      >
+        {"0123456789".split("").map((d) => (
+          <span key={d} className="block" style={{ height: "1em", lineHeight: "1em" }}>{d}</span>
+        ))}
+      </motion.span>
+    </span>
   );
 }
 
@@ -100,26 +107,16 @@ function StatCounter({ val, numStatic, suffix, label }: {
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!inView || val === null) return;
-    const dur = 1800;
-    const t0 = performance.now();
-    const tick = (now: number) => {
-      const t = Math.min((now - t0) / dur, 1);
-      const e = 1 - Math.pow(1 - t, 3);
-      setCount(Math.round(e * val));
-      if (t < 1) requestAnimationFrame(tick);
-      else setCount(val);
-    };
-    requestAnimationFrame(tick);
-  }, [inView, val]);
+  const numStr = val !== null ? String(val) : (numStatic ?? "");
 
   return (
     <div ref={ref} className="px-6 py-8 lg:py-10 text-center">
       <p className="font-outfit font-black text-h1 mb-1.5 leading-none tracking-[-0.03em]">
-        <span className="text-primary">{val !== null ? count : numStatic}</span>
+        <span className="text-primary inline-flex items-end">
+          {numStr.split("").map((char, i) => (
+            <RollingDigit key={i} digit={char} active={inView} delay={0.1 + i * 0.08} />
+          ))}
+        </span>
         <span className="text-accent">{suffix}</span>
       </p>
       <p className="text-[13px] font-semibold text-text-muted tracking-[0.02em]">{label}</p>
@@ -127,37 +124,57 @@ function StatCounter({ val, numStatic, suffix, label }: {
   );
 }
 
+const ACTIVITY_POOL = [
+  "Backup complete",
+  "0 threats detected",
+  "Patch deployed",
+  "247 devices online",
+  "Firewall updated",
+  "SSL cert renewed",
+  "VPN tunnel verified",
+  "MFA audit passed",
+  "Antivirus updated",
+  "Disk health: normal",
+  "Email filter active",
+  "Remote access OK",
+];
+const ACTIVITY_AGES = ["just now", "3m ago", "12m ago", "28m ago", "45m ago"];
+type ActivityItem = { id: number; label: string; time: string };
+let _actId = 0;
+
 export default function Hero() {
-  const dashRef   = useRef(null);
+  const dashRef    = useRef(null);
   const dashInView = useInView(dashRef, { once: true, margin: "-40px" });
 
-  const [line1, setLine1] = useState("");
-  const [line2, setLine2] = useState("");
-  const [sub1,  setSub1]  = useState("");
-  const [sub2,  setSub2]  = useState("");
-  const [activeIdx,  setActiveIdx]  = useState(-1);
-  const [typingDone, setTypingDone] = useState(false);
+  const [activities, setActivities] = useState<ActivityItem[]>(() =>
+    ACTIVITY_POOL.slice(0, 5).map((label, i) => ({ id: _actId++, label, time: ACTIVITY_AGES[i] }))
+  );
+  const [endpoints, setEndpoints] = useState(247);
+  const [syncSec, setSyncSec]     = useState(60);
 
   useEffect(() => {
-    const sequence = [
-      { text: "We run, secure, and",                                                        setter: setLine1, speed: 44 },
-      { text: "connect your IT systems.",                                                    setter: setLine2, speed: 44 },
-      { text: "If no one owns your environment, no one is responsible when it fails.",       setter: setSub1,  speed: 26 },
-      { text: "We make sure someone does.",                                                  setter: setSub2,  speed: 38 },
-    ];
-    let lineIdx = 0, charIdx = 0;
-    let timer: ReturnType<typeof setTimeout>;
-    const type = () => {
-      if (lineIdx >= sequence.length) { setTypingDone(true); return; }
-      const { text, setter, speed } = sequence[lineIdx];
-      setActiveIdx(lineIdx);
-      setter(text.slice(0, charIdx));
-      charIdx++;
-      if (charIdx > text.length) { lineIdx++; charIdx = 0; timer = setTimeout(type, 120); }
-      else timer = setTimeout(type, speed);
-    };
-    timer = setTimeout(type, 400);
-    return () => clearTimeout(timer);
+    let poolIdx = 5;
+    const iv = setInterval(() => {
+      setActivities(prev => [
+        { id: _actId++, label: ACTIVITY_POOL[poolIdx++ % ACTIVITY_POOL.length], time: "just now" },
+        ...prev.slice(0, 4).map((a, i) => ({ ...a, time: ACTIVITY_AGES[i + 1] })),
+      ]);
+    }, 3000);
+    return () => clearInterval(iv);
+  }, []);
+
+  useEffect(() => {
+    let t: ReturnType<typeof setTimeout>;
+    const iv = setInterval(() => {
+      setEndpoints(246);
+      t = setTimeout(() => setEndpoints(247), 2000);
+    }, 9000);
+    return () => { clearInterval(iv); clearTimeout(t); };
+  }, []);
+
+  useEffect(() => {
+    const iv = setInterval(() => setSyncSec(s => s + 30), 30000);
+    return () => clearInterval(iv);
   }, []);
 
   return (
@@ -195,35 +212,23 @@ export default function Hero() {
           <span className="text-eyebrow font-bold uppercase text-accent">Managed IT Provider</span>
         </motion.div>
 
-        {/* Headline — typewriter */}
+        {/* Headline */}
         <h1 className="font-outfit font-black text-display text-text-heading mb-6 max-w-[680px]">
-          <span className="block" style={{ minHeight: "1.06em" }}>
-            {line1}<Cursor show={activeIdx === 0 && !typingDone} />
-          </span>
-          <span className="block" style={{ minHeight: "1.06em" }}>
-            {line2}<Cursor show={activeIdx === 1 && !typingDone} />
-          </span>
+          <span className="block">We run, secure, and</span>
+          <span className="block">connect your IT systems.</span>
         </h1>
 
         {/* Subtext */}
-        <p className="text-body-lg mb-7 max-w-[48ch]" style={{ minHeight: "1.75em" }}>
+        <p className="text-body-lg mb-7 max-w-[48ch]">
           <span className="text-text-muted">
-            {sub1}<Cursor show={activeIdx === 2 && !typingDone} />
+            If no one owns your environment, no one is responsible when it fails.
           </span>
-          {sub2 && (
-            <>
-              <br />
-              <span className="font-semibold text-text-heading">
-                {sub2}<Cursor show={activeIdx === 3 && !typingDone} />
-              </span>
-            </>
-          )}
         </p>
 
-        {/* CTAs + trust — fades in after typing */}
+        {/* CTAs + trust */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
-          animate={typingDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE }}
           className="flex flex-col items-center gap-5"
         >
@@ -338,7 +343,21 @@ export default function Hero() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <p className="text-[13.5px] font-bold text-text-heading leading-tight">System Overview</p>
-                  <p className="text-[9px] text-text-muted mt-0.5">May 3, 2026 · Sync 1 min ago</p>
+                  <p className="text-[9px] text-text-muted mt-0.5">
+                    May 3, 2026 · Sync{" "}
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.span
+                        key={syncSec}
+                        initial={{ opacity: 0, y: -4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 4 }}
+                        transition={{ duration: 0.25 }}
+                        className="inline-block"
+                      >
+                        {syncSec < 60 ? "just now" : `${Math.floor(syncSec / 60)} min ago`}
+                      </motion.span>
+                    </AnimatePresence>
+                  </p>
                 </div>
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success-bg border border-status-success-border flex-shrink-0 ml-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-status-success flex-shrink-0" />
@@ -346,10 +365,55 @@ export default function Hero() {
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-2.5 mb-4">
+                {/* Endpoints — live */}
+                <div className="bg-white border border-border-light rounded-[8px] p-3.5">
+                  <div className="flex items-start justify-between mb-2">
+                    <p className="text-[8.5px] font-bold tracking-[0.08em] uppercase text-text-muted leading-tight">Endpoints</p>
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.span
+                        key={endpoints === 247 ? "full" : "partial"}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.2 }}
+                        className={`text-[7.5px] font-bold px-1.5 py-[2px] rounded-full flex-shrink-0 ml-1 whitespace-nowrap ${endpoints === 247 ? "bg-status-success-bg text-status-success-text" : "bg-yellow-50 text-yellow-700"}`}
+                      >
+                        {endpoints === 247 ? "100%" : "99.6%"}
+                      </motion.span>
+                    </AnimatePresence>
+                  </div>
+                  <p className="font-outfit text-[24px] font-black tracking-[-0.03em] leading-none mb-1 text-status-success">
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.span
+                        key={endpoints}
+                        initial={{ opacity: 0, y: -6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 6 }}
+                        transition={{ duration: 0.25 }}
+                        className="inline-block"
+                      >
+                        {endpoints}
+                      </motion.span>
+                    </AnimatePresence>
+                    <span className="text-[12px] font-semibold text-text-muted ml-0.5">/247</span>
+                  </p>
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.p
+                      key={endpoints === 247 ? "online" : "reconnecting"}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="text-[8.5px] font-medium text-text-muted"
+                    >
+                      {endpoints === 247 ? "All online" : "1 reconnecting…"}
+                    </motion.p>
+                  </AnimatePresence>
+                </div>
+                {/* Static cards */}
                 {[
-                  { label: "Endpoints",       value: "247", unit: "/247", badge: "100%",     sub: "All online"   },
-                  { label: "Security Score",  value: "A+",  unit: "",     badge: "↑ from B", sub: "Excellent"    },
-                  { label: "Incidents Today", value: "0",   unit: "",     badge: "↓ 100%",   sub: "Zero threats" },
+                  { label: "Security Score",  value: "A+", unit: "",  badge: "↑ from B", sub: "Excellent"    },
+                  { label: "Incidents Today", value: "0",  unit: "",  badge: "↓ 100%",   sub: "Zero threats" },
                 ].map((m) => (
                   <div key={m.label} className="bg-white border border-border-light rounded-[8px] p-3.5">
                     <div className="flex items-start justify-between mb-2">
@@ -439,26 +503,30 @@ export default function Hero() {
                   <p className="text-[8px] font-bold tracking-[0.1em] uppercase text-text-muted">Activity</p>
                   <span className="text-[8px] font-semibold text-accent cursor-default">See All</span>
                 </div>
-                <div className="flex flex-col gap-2.5">
-                  {[
-                    { label: "Backup complete",    time: "5m ago"  },
-                    { label: "0 threats detected", time: "18m ago" },
-                    { label: "Patch deployed",     time: "1h ago"  },
-                    { label: "247 devices online", time: "2h ago"  },
-                    { label: "Firewall updated",   time: "3h ago"  },
-                  ].map((a, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <div className="w-4 h-4 rounded-full bg-status-success-bg flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg width="7" height="7" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-status-success">
-                          <polyline points="1.5,5 3.5,7.5 8.5,2" />
-                        </svg>
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-[9px] font-medium text-text-heading leading-tight">{a.label}</p>
-                        <p className="text-[7.5px] text-text-muted">{a.time}</p>
-                      </div>
-                    </div>
-                  ))}
+                <div className="flex flex-col gap-2.5 overflow-hidden">
+                  <AnimatePresence initial={false} mode="popLayout">
+                    {activities.map((a) => (
+                      <motion.div
+                        key={a.id}
+                        layout
+                        initial={{ opacity: 0, x: -12, height: 0 }}
+                        animate={{ opacity: 1, x: 0, height: "auto" }}
+                        exit={{ opacity: 0, x: 12, height: 0 }}
+                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                        className="flex items-start gap-2 flex-shrink-0"
+                      >
+                        <div className="w-4 h-4 rounded-full bg-status-success-bg flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <svg width="7" height="7" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-status-success">
+                            <polyline points="1.5,5 3.5,7.5 8.5,2" />
+                          </svg>
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-[9px] font-medium text-text-heading leading-tight">{a.label}</p>
+                          <p className="text-[7.5px] text-text-muted">{a.time}</p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
                 </div>
               </div>
             </div>
@@ -469,7 +537,7 @@ export default function Hero() {
         {/* ── Logo marquee ── */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={typingDone ? { opacity: 1 } : { opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           className="w-full max-w-[900px] mx-auto mt-10 overflow-hidden"
           style={{ maskImage: "linear-gradient(90deg, transparent, black 12%, black 88%, transparent)" }}
