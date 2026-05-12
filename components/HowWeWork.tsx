@@ -78,7 +78,7 @@ function VisualDay1() {
           { label: "MFA",          tag: "Enforced" },
         ].map((r) => (
           <div key={r.label} className="flex items-center gap-2">
-            <span className="text-[9px] text-text-muted w-[72px] flex-shrink-0">{r.label}</span>
+            <span className="text-[10px] text-text-muted w-[72px] flex-shrink-0">{r.label}</span>
             <div className="flex-1 h-[4px] bg-bg-page rounded-full overflow-hidden">
               <div className="h-full bg-status-success rounded-full w-full" />
             </div>
@@ -86,7 +86,7 @@ function VisualDay1() {
           </div>
         ))}
         <div className="flex items-center justify-between pt-1.5 border-t border-border-light mt-auto">
-          <span className="text-[8.5px] text-text-muted">Risk level</span>
+          <span className="text-[10px] text-text-muted">Risk level</span>
           <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-status-success-bg text-status-success-text">LOW ↓</span>
         </div>
       </div>
@@ -130,7 +130,7 @@ function VisualWeeks23() {
                 <polyline points="1.5,5 3.5,7.5 8.5,2"/>
               </svg>
             </div>
-            <span className="text-[9px] text-text-muted">{item}</span>
+            <span className="text-[10px] text-text-muted">{item}</span>
           </div>
         ))}
       </div>
@@ -278,7 +278,7 @@ export default function HowWeWork() {
                       <h3 className="font-outfit text-[16px] font-black text-text-heading leading-tight">{step.title}</h3>
                     </div>
                   </div>
-                  <p className="text-[13px] text-text-muted leading-[1.7]">{step.desc}</p>
+                  <p className="text-[13.5px] text-text-muted leading-[1.7]">{step.desc}</p>
                   <Visual />
                 </div>
               );

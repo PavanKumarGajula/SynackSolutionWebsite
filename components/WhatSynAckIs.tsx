@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import { Building2 } from "lucide-react";
+import { IconBuilding } from "@tabler/icons-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -54,11 +54,11 @@ export default function WhatSynAckIs() {
           </motion.div>
 
           <motion.h2
-            className="font-outfit font-black text-text-heading mb-7"
+            className="font-outfit font-black text-text-heading mb-7 text-balance"
             style={{ fontSize: "clamp(36px,4.5vw,56px)", letterSpacing: "-0.04em", lineHeight: 1.02 }}
             {...textAnim(0.3)}
           >
-            Your business is the priority.<br />
+            Your business is the priority.{" "}
             We make sure your{" "}
             <em className="not-italic text-accent">IT supports it.</em>
           </motion.h2>
@@ -282,9 +282,9 @@ export default function WhatSynAckIs() {
                 {/* Icon */}
                 <div
                   className="w-7 h-7 rounded-[8px] flex items-center justify-center mx-auto mb-[6px] relative"
-                  style={{ background: "rgba(36,114,200,.22)", border: "1px solid rgba(36,114,200,.45)" }}
+                  style={{ background: "rgba(36,114,200,.22)", border: "1px solid rgba(36,114,200,.45)", color: "#5aa3e8" }}
                 >
-                  <Building2 size={13} style={{ color: "#5aa3e8" }} />
+                  <IconBuilding size={13} stroke={2} />
                 </div>
                 <p
                   className="relative font-mono font-bold uppercase"
@@ -294,7 +294,7 @@ export default function WhatSynAckIs() {
                 </p>
                 <p
                   className="relative font-outfit font-black leading-none"
-                  style={{ fontSize: 15, color: "#EAF2FC", letterSpacing: "-0.02em" }}
+                  style={{ fontSize: 16, color: "#EAF2FC", letterSpacing: "-0.02em" }}
                 >
                   SynAck
                 </p>
@@ -323,9 +323,9 @@ export default function WhatSynAckIs() {
           >
             <div
               className="w-9 h-9 rounded-[9px] flex items-center justify-center mx-auto mb-2"
-              style={{ background: "rgba(36,114,200,.22)", border: "1px solid rgba(36,114,200,.45)" }}
+              style={{ background: "rgba(36,114,200,.22)", border: "1px solid rgba(36,114,200,.45)", color: "#5aa3e8" }}
             >
-              <Building2 size={15} style={{ color: "#5aa3e8" }} />
+              <IconBuilding size={15} stroke={2} />
             </div>
             <p className="font-mono font-bold uppercase mb-[2px]" style={{ fontSize: 7, letterSpacing: "0.18em", color: "rgba(122,180,238,.65)" }}>
               OWNED BY

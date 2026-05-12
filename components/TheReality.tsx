@@ -2,9 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import {
-  Server, ClipboardList, HardDrive, ShieldAlert, Users,
-} from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import Eyebrow from "@/components/Eyebrow";
 
@@ -13,7 +10,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const failures = [
   {
     system: "File Server",
-    icon: Server,
+    icon: "ti-server",
     status: "OFFLINE",
     level: "error" as const,
     metric: "4h 23m",
@@ -22,7 +19,7 @@ const failures = [
   },
   {
     system: "Help Desk Queue",
-    icon: ClipboardList,
+    icon: "ti-clipboard-list",
     status: "CRITICAL",
     level: "error" as const,
     metric: "23",
@@ -31,7 +28,7 @@ const failures = [
   },
   {
     system: "Backup & Recovery",
-    icon: HardDrive,
+    icon: "ti-database-export",
     status: "CRITICAL",
     level: "error" as const,
     metric: "47 days",
@@ -40,7 +37,7 @@ const failures = [
   },
   {
     system: "Firewall",
-    icon: ShieldAlert,
+    icon: "ti-shield-exclamation",
     status: "CRITICAL",
     level: "error" as const,
     metric: "2022",
@@ -49,7 +46,7 @@ const failures = [
   },
   {
     system: "Security Training",
-    icon: Users,
+    icon: "ti-users",
     status: "WARNING",
     level: "warning" as const,
     metric: "0%",
@@ -90,8 +87,8 @@ export default function TheReality() {
         <div className="grid md:grid-cols-2 gap-16 lg:gap-20 items-end mb-14">
           <FadeUp>
             <Eyebrow>The Reality</Eyebrow>
-            <h2 className="font-outfit text-h1 font-black text-text-heading mb-4">
-              Most businesses don&apos;t have IT.<br />They have pieces.
+            <h2 className="font-outfit text-h1 font-black text-text-heading mb-4 text-balance">
+              Most businesses don&apos;t have IT. They have pieces.
             </h2>
             <p className="text-[16px] text-text-muted leading-[1.75]">
               Systems. Vendors. Tools. Access. Risk. All moving separately. No one owns how they work together.
@@ -126,7 +123,7 @@ export default function TheReality() {
                   <polyline points="2,12 5,9 9,13 14,8" />
                 </svg>
               </div>
-              <span className="text-[11.5px] font-semibold text-scale-50 tracking-[0.02em]">
+              <span className="text-[12.5px] font-semibold text-scale-50 tracking-[0.02em]">
                 IT Environment Overview — Audit Report
               </span>
             </div>
@@ -151,7 +148,7 @@ export default function TheReality() {
                 className="relative w-2 h-2 rounded-full bg-status-error"
               />
             </span>
-            <span className="text-[12px] font-semibold text-status-error-text flex-1">
+            <span className="text-[12.5px] font-semibold text-status-error-text flex-1">
               7 critical issues detected across your environment
             </span>
             <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-status-error text-scale-50 tracking-[0.07em] uppercase">
@@ -162,7 +159,6 @@ export default function TheReality() {
           {/* ── Failure cards grid ── */}
           <div className="bg-bg-page p-4 grid grid-cols-2 lg:grid-cols-5 gap-3">
             {failures.map((item, i) => {
-              const Icon = item.icon;
               const isErr = item.level === "error";
               return (
                 <motion.div
@@ -182,7 +178,9 @@ export default function TheReality() {
                         />
                         <span className={`relative w-1.5 h-1.5 rounded-full ${isErr ? "bg-status-error" : "bg-status-warning"}`} />
                       </span>
-                      <Icon size={12} className="text-text-muted flex-shrink-0" strokeWidth={2} />
+                      <span className="text-text-muted flex-shrink-0">
+                        <i className={`ti ${item.icon}`} style={{ fontSize: 12 }} />
+                      </span>
                       <span className="text-[11px] font-semibold text-text-body truncate">{item.system}</span>
                     </div>
                   </div>
@@ -190,9 +188,9 @@ export default function TheReality() {
                     <p className={`font-outfit text-[20px] font-black tracking-[-0.03em] leading-none ${isErr ? "text-status-error" : "text-status-warning-text"}`}>
                       {item.metric}
                     </p>
-                    <p className="text-[9.5px] text-text-muted mt-1 font-medium">{item.metricLabel}</p>
+                    <p className="text-[10px] text-text-muted mt-1 font-medium">{item.metricLabel}</p>
                   </div>
-                  <p className="text-[10.5px] text-text-muted leading-[1.5] border-t border-border-light pt-3">
+                  <p className="text-[11px] text-text-muted leading-[1.5] border-t border-border-light pt-3">
                     {item.description}
                   </p>
                 </motion.div>
@@ -217,11 +215,11 @@ export default function TheReality() {
                   <rect x="0" y="9" width="7" height="7" fill="#00a4ef" rx="1" />
                   <rect x="9" y="9" width="7" height="7" fill="#ffb900" rx="1" />
                 </svg>
-                <span className="text-[11.5px] font-semibold text-scale-100 tracking-[0.02em]">
+                <span className="text-[12.5px] font-semibold text-scale-100 tracking-[0.02em]">
                   Microsoft 365 — Admin Center
                 </span>
               </div>
-              <span className="text-[9px] font-bold px-2 py-[3px] rounded bg-status-error text-white tracking-[0.07em] uppercase">
+              <span className="text-[10px] font-bold px-2 py-[3px] rounded bg-status-error text-white tracking-[0.07em] uppercase">
                 Critical
               </span>
             </div>
@@ -231,7 +229,7 @@ export default function TheReality() {
 
               {/* Left — services list */}
               <div className="p-4">
-                <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-text-muted mb-3">
+                <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-text-muted mb-3">
                   Services
                 </p>
                 <div className="flex flex-col gap-0">
@@ -260,7 +258,7 @@ export default function TheReality() {
                         </span>
                         <span className="text-[11px] text-text-body font-medium">{svc.name}</span>
                       </div>
-                      <span className={`text-[8.5px] font-bold tracking-[0.07em] uppercase ${
+                      <span className={`text-[10px] font-bold tracking-[0.07em] uppercase ${
                         svc.level === "ok"   ? "text-status-success"
                         : svc.level === "warn" ? "text-status-warning-text"
                         : "text-status-error"
@@ -284,7 +282,7 @@ export default function TheReality() {
                       transition={{ duration: 0.4, delay: 0.95 + i * 0.07, ease: EASE }}
                       className="bg-white border border-border-light rounded-[8px] p-3"
                     >
-                      <p className="text-[9px] font-bold tracking-[0.09em] uppercase text-text-muted mb-2">
+                      <p className="text-[10px] font-bold tracking-[0.09em] uppercase text-text-muted mb-2">
                         {s.label}
                       </p>
                       <p className={`font-outfit text-[20px] font-black tracking-[-0.03em] leading-none ${s.critical ? "text-status-error" : "text-text-heading"}`}>
@@ -296,7 +294,7 @@ export default function TheReality() {
 
                 {/* Alerts */}
                 <div>
-                  <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-text-muted mb-2">
+                  <p className="text-[10px] font-bold tracking-[0.14em] uppercase text-text-muted mb-2">
                     Critical Alerts
                   </p>
                   <div className="bg-white border border-border-light rounded-[8px] divide-y divide-border-light overflow-hidden">
@@ -309,7 +307,7 @@ export default function TheReality() {
                         className="flex items-start gap-3 px-3.5 py-2.5"
                       >
                         <span className="w-[3px] h-[3px] rounded-full bg-status-error mt-[7px] flex-shrink-0" />
-                        <span className="text-[11.5px] text-text-body leading-[1.5]">{alert}</span>
+                        <span className="text-[12.5px] text-text-body leading-[1.5]">{alert}</span>
                       </motion.div>
                     ))}
                   </div>

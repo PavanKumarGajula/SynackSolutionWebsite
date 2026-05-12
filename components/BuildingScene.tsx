@@ -1,27 +1,28 @@
 import {
-  Video, Cloud, TrendingUp, Database, GraduationCap,
-  ShieldCheck, MonitorCheck, Package, Lock,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+  IconTrendingUp, IconPresentation, IconCloud, IconDatabaseExport,
+  IconSchool, IconShieldCheck, IconHeadset, IconPackage, IconDeviceCctv,
+} from "@tabler/icons-react";
+
+type IconComponent = React.ComponentType<{ size?: number; stroke?: number }>;
 
 interface Floor {
   num: string;
-  Icon: LucideIcon;
+  Icon: IconComponent;
   name: string;
   lit: [boolean, boolean, boolean];
   featured?: boolean;
 }
 
 const FLOORS: Floor[] = [
-  { num: "10", Icon: TrendingUp,    name: "IT Strategy & vCIO",        lit: [true,  false, true]  },
-  { num: "09", Icon: Video,         name: "AV & Conferencing",          lit: [false, true,  false] },
-  { num: "08", Icon: Cloud,         name: "Microsoft 365 & Cloud",      lit: [true,  true,  false] },
-  { num: "07", Icon: Database,      name: "Backup & Disaster Recovery", lit: [false, true,  true]  },
-  { num: "06", Icon: GraduationCap, name: "Security Training",          lit: [true,  false, false] },
-  { num: "05", Icon: ShieldCheck,   name: "Cybersecurity",              lit: [true,  true,  true]  },
-  { num: "04", Icon: MonitorCheck,  name: "Managed IT & Help Desk",     lit: [true,  true,  true], featured: true },
-  { num: "03", Icon: Package,       name: "IT Asset Procurement",       lit: [false, true,  false] },
-  { num: "02", Icon: Lock,          name: "Physical Security",          lit: [true,  false, true]  },
+  { num: "10", Icon: IconTrendingUp,    name: "IT Strategy & vCIO",        lit: [true,  false, true]  },
+  { num: "09", Icon: IconPresentation,  name: "AV & Conferencing",          lit: [false, true,  false] },
+  { num: "08", Icon: IconCloud,         name: "Microsoft 365 & Cloud",      lit: [true,  true,  false] },
+  { num: "07", Icon: IconDatabaseExport,name: "Backup & Disaster Recovery", lit: [false, true,  true]  },
+  { num: "06", Icon: IconSchool,        name: "Security Training",          lit: [true,  false, false] },
+  { num: "05", Icon: IconShieldCheck,   name: "Cybersecurity",              lit: [true,  true,  true]  },
+  { num: "04", Icon: IconHeadset,       name: "Managed IT & Help Desk",     lit: [true,  true,  true], featured: true },
+  { num: "03", Icon: IconPackage,       name: "IT Asset Procurement",       lit: [false, true,  false] },
+  { num: "02", Icon: IconDeviceCctv,    name: "Physical Security",          lit: [true,  false, true]  },
 ];
 
 // Positioned relative to building-wrap; floors are 50px each, roof 42px
@@ -86,13 +87,13 @@ export default function BuildingScene() {
       >
         <div
           className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-          style={{ background: "linear-gradient(135deg, #2472C8 0%, #1A5FA0 100%)", boxShadow: "0 4px 12px rgba(36,114,200,.35)" }}
+          style={{ background: "linear-gradient(135deg, #2472C8 0%, #1A5FA0 100%)", boxShadow: "0 4px 12px rgba(36,114,200,.35)", color: "#fff" }}
         >
-          <Video size={16} color="#fff" strokeWidth={2} />
+          <IconDeviceCctv size={16} stroke={2} />
         </div>
         <div>
-          <p className="text-[8.5px] font-black tracking-[.14em] uppercase mb-0.5" style={{ color: "#2472C8" }}>Outside</p>
-          <p className="text-[13px] font-bold leading-tight" style={{ color: "#0A1628" }}>Cameras + Access</p>
+          <p className="text-[10px] font-black tracking-[.14em] uppercase mb-0.5" style={{ color: "#2472C8" }}>Outside</p>
+          <p className="text-[13.5px] font-bold leading-tight" style={{ color: "#0A1628" }}>Cameras + Access</p>
         </div>
         <span className="absolute pointer-events-none" style={{
           bottom: -18, right: 28, width: 1.5, height: 18,
@@ -114,13 +115,13 @@ export default function BuildingScene() {
       >
         <div
           className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-          style={{ background: "linear-gradient(135deg, rgba(36,114,200,.35) 0%, rgba(36,114,200,.15) 100%)", border: "1px solid rgba(36,114,200,.3)" }}
+          style={{ background: "linear-gradient(135deg, rgba(36,114,200,.35) 0%, rgba(36,114,200,.15) 100%)", border: "1px solid rgba(36,114,200,.3)", color: "#7AB4EE" }}
         >
-          <Cloud size={16} color="#7AB4EE" strokeWidth={2} />
+          <IconCloud size={16} stroke={2} />
         </div>
         <div>
-          <p className="text-[8.5px] font-black tracking-[.14em] uppercase mb-0.5" style={{ color: "#7AB4EE" }}>In the cloud</p>
-          <p className="text-[13px] font-bold leading-tight" style={{ color: "#EAF2FC" }}>M365 Tenant</p>
+          <p className="text-[10px] font-black tracking-[.14em] uppercase mb-0.5" style={{ color: "#7AB4EE" }}>In the cloud</p>
+          <p className="text-[13.5px] font-bold leading-tight" style={{ color: "#EAF2FC" }}>M365 Tenant</p>
         </div>
         <span className="absolute pointer-events-none" style={{
           bottom: -16, left: 28, width: 1.5, height: 16,
@@ -257,14 +258,15 @@ export default function BuildingScene() {
                           : "linear-gradient(135deg, #EAF2FC 0%, #DCEFfA 100%)",
                         border: `1px solid ${featured ? "rgba(36,114,200,.35)" : "rgba(184,212,247,.8)"}`,
                         boxShadow: featured ? "inset 0 1px 0 rgba(122,180,238,.2)" : "inset 0 1px 0 rgba(255,255,255,.8)",
+                        color: featured ? "#7AB4EE" : "#2472C8",
                       }}
                     >
-                      <Icon size={13} color={featured ? "#7AB4EE" : "#2472C8"} strokeWidth={2} />
+                      <Icon size={13} stroke={2} />
                     </div>
 
                     {/* Name */}
                     <span
-                      className="font-outfit text-[12px] font-bold tracking-[-0.01em] truncate"
+                      className="font-outfit text-[12.5px] font-bold tracking-[-0.01em] truncate"
                       style={{ color: featured ? "#EAF2FC" : "#0A1628" }}
                     >
                       {name}

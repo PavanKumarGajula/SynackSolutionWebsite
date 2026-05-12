@@ -29,7 +29,7 @@ function WinFrame({
       <div style={{ display: "flex", alignItems: "center", height: 34, background: "rgba(4,9,20,.98)", borderBottom: "1px solid rgba(122,180,238,.10)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 7, paddingLeft: 12, flex: 1, minWidth: 0 }}>
           <span style={{ display: "flex", alignItems: "center", color: "#3D8FE0", flexShrink: 0 }}>{icon}</span>
-          <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12, fontWeight: 500, color: "rgba(184,212,247,.58)", letterSpacing: "0.01em", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>{title}</span>
+          <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12.5, fontWeight: 500, color: "rgba(184,212,247,.58)", letterSpacing: "0.01em", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>{title}</span>
         </div>
         {/* Controls — Windows 11 style */}
         <div style={{ display: "flex", alignSelf: "stretch", flexShrink: 0 }}>
@@ -95,7 +95,7 @@ function EnvironmentCard() {
       toolbar={
         <div style={{ display: "flex" }}>
           {["View", "Devices", "Network", "Reports"].map((item, i) => (
-            <span key={i} style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11.5, color: i === 0 ? "rgba(184,212,247,.58)" : "rgba(184,212,247,.38)", padding: "6px 10px", letterSpacing: "0.01em", background: i === 0 ? "rgba(36,114,200,.14)" : "transparent" }}>{item}</span>
+            <span key={i} style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12.5, color: i === 0 ? "rgba(184,212,247,.58)" : "rgba(184,212,247,.38)", padding: "6px 10px", letterSpacing: "0.01em", background: i === 0 ? "rgba(36,114,200,.14)" : "transparent" }}>{item}</span>
           ))}
         </div>
       }
@@ -104,18 +104,18 @@ function EnvironmentCard() {
     >
       {/* Column headers */}
       <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "5px 12px 5px 28px", background: "rgba(10,20,40,.55)", borderBottom: "1px solid rgba(122,180,238,.07)" }}>
-        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9.5, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "rgba(122,180,238,.4)", flex: 1 }}>Component</span>
-        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9.5, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "rgba(122,180,238,.4)", width: 44, textAlign: "right" }}>Count</span>
-        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9.5, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "rgba(122,180,238,.4)", width: 76, textAlign: "center" }}>Status</span>
+        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "rgba(122,180,238,.4)", flex: 1 }}>Component</span>
+        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "rgba(122,180,238,.4)", width: 44, textAlign: "right" }}>Count</span>
+        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "rgba(122,180,238,.4)", width: 76, textAlign: "center" }}>Status</span>
       </div>
       {/* Rows */}
       <div>
         {rows.map((row, i) => (
           <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", background: i % 2 === 1 ? "rgba(122,180,238,.025)" : "transparent" }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#22A05A", flexShrink: 0, display: "inline-block", boxShadow: "0 0 5px rgba(34,160,90,.6)" }} />
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13, fontWeight: 500, color: "#B8D4F7", flex: 1 }}>{row.label}</span>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13.5, fontWeight: 500, color: "#B8D4F7", flex: 1 }}>{row.label}</span>
             <span style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 800, letterSpacing: "-0.01em", color: "#EAF2FC", width: 44, textAlign: "right" }}>{row.val}</span>
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9.5, fontWeight: 700, color: "rgba(34,160,90,.75)", background: "rgba(34,160,90,.10)", padding: "2px 0", borderRadius: 4, border: "1px solid rgba(34,160,90,.2)", width: 76, textAlign: "center" }}>{row.status}</span>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, color: "rgba(34,160,90,.75)", background: "rgba(34,160,90,.10)", padding: "2px 0", borderRadius: 4, border: "1px solid rgba(34,160,90,.2)", width: 76, textAlign: "center" }}>{row.status}</span>
           </div>
         ))}
       </div>
@@ -170,13 +170,13 @@ function IncidentChartCard() {
         </svg>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 10, paddingTop: 10, borderTop: "1px solid rgba(122,180,238,.08)" }}>
           <div>
-            <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9, fontWeight: 700, letterSpacing: "0.11em", textTransform: "uppercase", color: "rgba(200,95,45,.65)", marginBottom: 2 }}>Before</div>
-            <div style={{ fontFamily: "var(--font-outfit)", fontSize: 22, fontWeight: 900, letterSpacing: "-0.03em", color: "rgba(200,95,45,.45)", lineHeight: 1 }}>10.2<span style={{ fontSize: 11, fontWeight: 600, marginLeft: 3 }}>avg / mo</span></div>
+            <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.11em", textTransform: "uppercase", color: "rgba(200,95,45,.65)", marginBottom: 2 }}>Before</div>
+            <div style={{ fontFamily: "var(--font-outfit)", fontSize: 24, fontWeight: 900, letterSpacing: "-0.03em", color: "rgba(200,95,45,.45)", lineHeight: 1 }}>10.2<span style={{ fontSize: 11, fontWeight: 600, marginLeft: 3 }}>avg / mo</span></div>
           </div>
           <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 16, color: "rgba(122,180,238,.2)" }}>→</div>
           <div style={{ textAlign: "right" }}>
-            <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9, fontWeight: 700, letterSpacing: "0.11em", textTransform: "uppercase", color: "rgba(34,160,90,.72)", marginBottom: 2 }}>After SynAck</div>
-            <div style={{ fontFamily: "var(--font-outfit)", fontSize: 22, fontWeight: 900, letterSpacing: "-0.03em", color: "#22A05A", lineHeight: 1, textShadow: "0 0 18px rgba(34,160,90,.45)" }}>0<span style={{ fontSize: 11, fontWeight: 600, marginLeft: 3, color: "rgba(34,160,90,.65)" }}>avg / mo</span></div>
+            <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.11em", textTransform: "uppercase", color: "rgba(34,160,90,.72)", marginBottom: 2 }}>After SynAck</div>
+            <div style={{ fontFamily: "var(--font-outfit)", fontSize: 24, fontWeight: 900, letterSpacing: "-0.03em", color: "#22A05A", lineHeight: 1, textShadow: "0 0 18px rgba(34,160,90,.45)" }}>0<span style={{ fontSize: 11, fontWeight: 600, marginLeft: 3, color: "rgba(34,160,90,.65)" }}>avg / mo</span></div>
           </div>
         </div>
       </div>
@@ -205,13 +205,13 @@ function DocumentationCard() {
       addressBar={
         <div style={{ display: "flex", alignItems: "center", gap: 4, width: "100%" }}>
           {["←", "→", "↑"].map((a, i) => (
-            <span key={i} style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12, color: "rgba(122,180,238,.28)", padding: "0 3px", userSelect: "none", lineHeight: 1 }}>{a}</span>
+            <span key={i} style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12.5, color: "rgba(122,180,238,.28)", padding: "0 3px", userSelect: "none", lineHeight: 1 }}>{a}</span>
           ))}
           <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 5, background: "rgba(122,180,238,.07)", border: "1px solid rgba(122,180,238,.13)", borderRadius: 4, padding: "3px 9px", marginLeft: 4 }}>
             {["Environments", "Client_247", "Documentation"].map((crumb, i, arr) => (
               <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
                 <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, color: i === arr.length - 1 ? "rgba(184,212,247,.7)" : "rgba(122,180,238,.38)" }}>{crumb}</span>
-                {i < arr.length - 1 && <span style={{ color: "rgba(122,180,238,.3)", fontSize: 9 }}>›</span>}
+                {i < arr.length - 1 && <span style={{ color: "rgba(122,180,238,.3)", fontSize: 10 }}>›</span>}
               </span>
             ))}
           </div>
@@ -222,9 +222,9 @@ function DocumentationCard() {
     >
       {/* Column headers */}
       <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "5px 12px 5px 30px", background: "rgba(10,20,40,.55)", borderBottom: "1px solid rgba(122,180,238,.07)" }}>
-        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9.5, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "rgba(122,180,238,.4)", flex: 1 }}>Name</span>
-        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9.5, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "rgba(122,180,238,.4)", width: 84 }}>Status</span>
-        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9.5, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "rgba(122,180,238,.4)", width: 68, textAlign: "right" }}>Modified</span>
+        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "rgba(122,180,238,.4)", flex: 1 }}>Name</span>
+        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "rgba(122,180,238,.4)", width: 84 }}>Status</span>
+        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "rgba(122,180,238,.4)", width: 68, textAlign: "right" }}>Modified</span>
       </div>
       {/* File rows */}
       <div>
@@ -235,7 +235,7 @@ function DocumentationCard() {
               <path d="M1 1h6.5L10 3.5V13H1z" fill={f.green ? "rgba(36,114,200,.22)" : "rgba(212,160,23,.18)"} stroke={f.green ? "rgba(61,143,224,.5)" : "rgba(212,160,23,.55)"} strokeWidth=".8" strokeLinejoin="round" />
               <path d="M7.5 1v2.5H10" fill="none" stroke={f.green ? "rgba(61,143,224,.5)" : "rgba(212,160,23,.55)"} strokeWidth=".8" />
             </svg>
-            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13, fontWeight: 500, color: "#B8D4F7", flex: 1 }}>{f.label}</span>
+            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13.5, fontWeight: 500, color: "#B8D4F7", flex: 1 }}>{f.label}</span>
             <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 600, color: f.green ? "rgba(34,160,90,.75)" : "rgba(212,160,23,.88)", width: 84 }}>{f.status}</span>
             <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, color: "rgba(122,180,238,.32)", width: 68, textAlign: "right" }}>{f.time}</span>
           </div>
@@ -316,7 +316,7 @@ export default function TimelineSection() {
                       <div className="pr-10">
                         <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#2472C8", marginBottom: 14 }}>{step.eyebrow}</div>
                         <h3 className="font-outfit text-[clamp(22px,2.6vw,32px)] font-black tracking-[-0.03em] leading-[1.1] text-text-heading mb-4">{step.headline}</h3>
-                        <p className="text-[15px] text-text-body leading-[1.75]">{step.body}</p>
+                        <p className="text-[16px] text-text-body leading-[1.75]">{step.body}</p>
                       </div>
                     ) : (
                       <div className="pl-2">{step.visual}</div>
@@ -334,7 +334,7 @@ export default function TimelineSection() {
                       <div className="pl-10">
                         <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#2472C8", marginBottom: 14 }}>{step.eyebrow}</div>
                         <h3 className="font-outfit text-[clamp(22px,2.6vw,32px)] font-black tracking-[-0.03em] leading-[1.1] text-text-heading mb-4">{step.headline}</h3>
-                        <p className="text-[15px] text-text-body leading-[1.75]">{step.body}</p>
+                        <p className="text-[16px] text-text-body leading-[1.75]">{step.body}</p>
                       </div>
                     ) : (
                       <div className="pr-2">{step.visual}</div>

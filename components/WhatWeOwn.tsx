@@ -137,7 +137,7 @@ export default function WhatWeOwn() {
                   letterSpacing: "-0.03em",
                 }}
               >
-                This is what we<br />take responsibility for.
+                This is what we take responsibility for.
               </h2>
             </div>
 
@@ -172,7 +172,7 @@ export default function WhatWeOwn() {
                     >
                       <span
                         className={[
-                          "font-outfit text-[13px] font-black transition-colors duration-300",
+                          "font-outfit text-[13.5px] font-black transition-colors duration-300",
                           i <= activeIdx ? "text-white" : "text-text-muted",
                         ].join(" ")}
                       >
@@ -274,7 +274,7 @@ export default function WhatWeOwn() {
                       </h3>
 
                       {/* Description */}
-                      <p className="text-[15px] text-white/65 leading-[1.65] mb-7 max-w-[52ch]">
+                      <p className="text-[16px] text-white/65 leading-[1.65] mb-7 max-w-[52ch]">
                         {svc.description}
                       </p>
 
@@ -286,7 +286,7 @@ export default function WhatWeOwn() {
                               className="w-[5px] h-[5px] rounded-full mt-[7px] flex-shrink-0"
                               style={{ background: svc.color }}
                             />
-                            <span className="text-[13px] text-white/55 leading-[1.5]">
+                            <span className="text-[13.5px] text-white/55 leading-[1.5]">
                               {b}
                             </span>
                           </div>
@@ -310,7 +310,7 @@ export default function WhatWeOwn() {
             className="font-outfit font-black text-text-heading"
             style={{ fontSize: "clamp(28px,7vw,40px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}
           >
-            This is what we<br />take responsibility for.
+            This is what we take responsibility for.
           </h2>
         </div>
 
@@ -333,7 +333,7 @@ export default function WhatWeOwn() {
               />
               <div className="absolute inset-0 flex flex-col justify-end p-6">
                 <span
-                  className="inline-flex items-center gap-1.5 text-[9px] font-bold tracking-[0.12em] uppercase mb-3 self-start px-2.5 py-1 rounded-full"
+                  className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.12em] uppercase mb-3 self-start px-2.5 py-1 rounded-full"
                   style={{
                     background: `${svc.color}20`,
                     border: `1px solid ${svc.color}44`,
@@ -344,11 +344,11 @@ export default function WhatWeOwn() {
                 </span>
                 <p
                   className="font-outfit font-black text-white mb-2"
-                  style={{ fontSize: 22, letterSpacing: "-0.025em", lineHeight: 1.1 }}
+                  style={{ fontSize: 24, letterSpacing: "-0.025em", lineHeight: 1.1 }}
                 >
                   {svc.name}
                 </p>
-                <p className="text-[13px] text-white/60 leading-[1.55]">{svc.description}</p>
+                <p className="text-[13.5px] text-white/60 leading-[1.55]">{svc.description}</p>
               </div>
             </div>
           ))}

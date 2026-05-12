@@ -56,8 +56,8 @@ export default function TheStandard() {
         <FadeUp>
           <div>
             <Eyebrow>The Standard</Eyebrow>
-            <h2 className="font-outfit text-h1 font-black text-text-heading mb-4">
-              Support reacts.<br />Ownership prevents.
+            <h2 className="font-outfit text-h1 font-black text-text-heading mb-4 text-balance">
+              Support reacts. Ownership prevents.
             </h2>
             <p className="text-body text-text-muted">
               Most IT providers wait for failure, then respond. We don&apos;t.
@@ -97,20 +97,20 @@ export default function TheStandard() {
                         animate={topInView ? { height: b.h } : { height: 0 }}
                         transition={{ duration: 0.55, delay: 0.35, ease: EASE }}
                       />
-                      <span className="text-[8.5px] text-text-muted font-semibold leading-none">{b.label}</span>
+                      <span className="text-[10px] text-text-muted font-semibold leading-none">{b.label}</span>
                     </div>
                   ))}
                 </div>
                 <div
-                  className="flex justify-between mt-2 text-[9px] font-semibold tracking-[0.04em]"
+                  className="flex justify-between mt-2 text-[10px] font-semibold tracking-[0.04em]"
                   style={{ color: "rgba(30,77,140,0.35)" }}
                 >
                   <span>← Before SynAck</span><span>After →</span>
                 </div>
               </div>
               <div className={TEXT}>
-                <p className="font-outfit text-[15px] font-extrabold text-text-heading mb-1.5">Prevent failure at the source</p>
-                <p className="text-[13px] text-text-muted leading-[1.65]">Systems designed to reduce incidents, not just respond to them.</p>
+                <p className="font-outfit text-[16px] font-extrabold text-text-heading mb-1.5">Prevent failure at the source</p>
+                <p className="text-[13.5px] text-text-muted leading-[1.65]">Systems designed to reduce incidents, not just respond to them.</p>
               </div>
             </motion.div>
 
@@ -137,18 +137,18 @@ export default function TheStandard() {
                 <div className="flex flex-col gap-1.5">
                   {systems.map((s) => (
                     <div key={s.name} className="flex items-center justify-between px-2.5 py-[7px] bg-white border border-border-light rounded-[7px]">
-                      <span className="text-[11.5px] font-semibold text-text-body">{s.name}</span>
-                      <span className="text-[9.5px] font-bold text-status-success-text bg-status-success-bg border border-status-success-border px-1.5 py-0.5 rounded-[4px]">{s.status}</span>
+                      <span className="text-[12.5px] font-semibold text-text-body">{s.name}</span>
+                      <span className="text-[10px] font-bold text-status-success-text bg-status-success-bg border border-status-success-border px-1.5 py-0.5 rounded-[4px]">{s.status}</span>
                     </div>
                   ))}
                 </div>
-                <p className="mt-2.5 text-[10.5px] text-text-muted">
+                <p className="mt-2.5 text-[11px] text-text-muted">
                   Last issue detected: <span className="font-bold text-accent">47 days ago</span>
                 </p>
               </div>
               <div className={TEXT}>
-                <p className="font-outfit text-[15px] font-extrabold text-text-heading mb-1.5">Detect before disruption</p>
-                <p className="text-[13px] text-text-muted leading-[1.65]">We see issues before they impact your operations.</p>
+                <p className="font-outfit text-[16px] font-extrabold text-text-heading mb-1.5">Detect before disruption</p>
+                <p className="text-[13.5px] text-text-muted leading-[1.65]">We see issues before they impact your operations.</p>
               </div>
             </motion.div>
 
@@ -166,20 +166,20 @@ export default function TheStandard() {
                   <span className="text-[10px] font-bold text-text-muted bg-scale-50 border border-border-light px-2 py-0.5 rounded-[4px]">#SR-2847</span>
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <div className="px-3 py-2.5 rounded-[10px] rounded-br-[2px] bg-scale-50 border border-border-light text-[11.5px] text-text-body leading-[1.5]">
+                  <div className="px-3 py-2.5 rounded-[10px] rounded-br-[2px] bg-scale-50 border border-border-light text-[12.5px] text-text-body leading-[1.5]">
                     VPN dropping for remote users since this morning.
                   </div>
                   <div className="px-3 py-2.5 rounded-[10px] rounded-bl-[2px] bg-primary text-[11px] text-text-heading-on-dark leading-[1.5]">
                     On it. Firewall misconfiguration — fixing now. Done in 8 min.
                   </div>
-                  <p className="text-[9px] font-semibold text-status-success mt-0.5">
+                  <p className="text-[10px] font-semibold text-status-success mt-0.5">
                     Senior Engineer · Responded in 4 min · No tiers. No handoffs.
                   </p>
                 </div>
               </div>
               <div className={TEXT}>
-                <p className="font-outfit text-[15px] font-extrabold text-text-heading mb-1.5">Direct engineer access</p>
-                <p className="text-[13px] text-text-muted leading-[1.65]">No tiers. No handoffs. Real expertise, directly available.</p>
+                <p className="font-outfit text-[16px] font-extrabold text-text-heading mb-1.5">Direct engineer access</p>
+                <p className="text-[13.5px] text-text-muted leading-[1.65]">No tiers. No handoffs. Real expertise, directly available.</p>
               </div>
             </motion.div>
 
@@ -204,7 +204,7 @@ export default function TheStandard() {
                     key={name}
                     className={`flex items-center justify-between py-1.5 ${i < costLines.length - 1 ? "border-b border-border-light" : ""}`}
                   >
-                    <span className="text-[12px] text-text-body">{name}</span>
+                    <span className="text-[12.5px] text-text-body">{name}</span>
                     <span className="text-[11px] font-bold text-status-success-text bg-status-success-bg border border-status-success-border px-1.5 py-0.5 rounded-[4px]">
                       Included
                     </span>
@@ -212,8 +212,8 @@ export default function TheStandard() {
                 ))}
               </div>
               <div className={TEXT}>
-                <p className="font-outfit text-[15px] font-extrabold text-text-heading mb-1.5">Predictable cost structure</p>
-                <p className="text-[13px] text-text-muted leading-[1.65]">One fixed monthly investment. No surprises, no exceptions.</p>
+                <p className="font-outfit text-[16px] font-extrabold text-text-heading mb-1.5">Predictable cost structure</p>
+                <p className="text-[13.5px] text-text-muted leading-[1.65]">One fixed monthly investment. No surprises, no exceptions.</p>
               </div>
             </motion.div>
 
@@ -240,8 +240,8 @@ export default function TheStandard() {
                 </div>
               </div>
               <div className={TEXT}>
-                <p className="font-outfit text-[15px] font-extrabold text-text-heading mb-1.5">Measured. Transparent. Accountable.</p>
-                <p className="text-[13px] text-text-muted leading-[1.65]">Most IT companies measure response time. We measure how rarely you need us.</p>
+                <p className="font-outfit text-[16px] font-extrabold text-text-heading mb-1.5">Measured. Transparent. Accountable.</p>
+                <p className="text-[13.5px] text-text-muted leading-[1.65]">Most IT companies measure response time. We measure how rarely you need us.</p>
               </div>
             </motion.div>
 

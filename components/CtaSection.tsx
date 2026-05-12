@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { IconArrowRight } from "@tabler/icons-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -44,13 +44,12 @@ export default function CtaSection() {
 
         {/* Title */}
         <motion.h2
-          className="font-outfit text-display font-black text-text-heading-on-dark mb-6"
+          className="font-outfit text-display font-black text-text-heading-on-dark mb-6 text-balance"
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
         >
-          Don&apos;t take our word for it.<br />
-          Look at how we work.<br />
+          Don&apos;t take our word for it. Look at how we work.{" "}
           <span className="text-accent">Then decide.</span>
         </motion.h2>
 
@@ -73,11 +72,11 @@ export default function CtaSection() {
         >
           <Link href="/contact" className="btn btn-white">
             Talk to us
-            <ArrowRight size={14} strokeWidth={2.5} />
+            <IconArrowRight size={14} stroke={2} />
           </Link>
           <Link href="/services" className="btn btn-outline-white">
             View Services
-            <ArrowRight size={14} strokeWidth={2.5} />
+            <IconArrowRight size={14} stroke={2} />
           </Link>
         </motion.div>
 

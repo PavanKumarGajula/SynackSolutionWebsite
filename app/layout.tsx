@@ -19,6 +19,7 @@ const dmSans = DM_Sans({
 });
 
 
+
 export const metadata: Metadata = {
   title: "SynAck Solutions — Your Complete IT Partner",
   description: "We run, secure, and connect your IT systems. Managed IT and cybersecurity partner for growing businesses. NY · NJ · MD · MN.",

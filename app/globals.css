@@ -36,8 +36,8 @@
     white-space: nowrap;
     transition: background-color 180ms, border-color 180ms, color 180ms, transform 140ms, box-shadow 180ms;
   }
-  .btn svg { flex-shrink: 0; transition: transform 150ms; }
-  .btn:hover svg { transform: translateX(3px); }
+  .btn svg, .btn i { flex-shrink: 0; transition: transform 150ms; }
+  .btn:hover svg, .btn:hover i { transform: translateX(3px); }
 
   /* ── 01 Primary — light bg ── */
   .btn-primary { color: #EAF2FC; background-color: #102347; border-color: #102347; }
@@ -74,8 +74,8 @@
     transition: background-color 150ms, border-color 150ms, transform 120ms;
   }
   .btn-nav:hover { background-color: #2472C8; border-color: #2472C8; transform: translateY(-1px); }
-  .btn-nav svg { flex-shrink: 0; transition: transform 150ms; }
-  .btn-nav:hover svg { transform: translateX(2px); }
+  .btn-nav svg, .btn-nav i { flex-shrink: 0; transition: transform 150ms; }
+  .btn-nav:hover svg, .btn-nav:hover i { transform: translateX(2px); }
 
   /* ── 08 Small ── */
   .btn-sm {
@@ -88,8 +88,8 @@
     transition: background-color 150ms, border-color 150ms;
   }
   .btn-sm:hover { background-color: #2472C8; border-color: #2472C8; }
-  .btn-sm svg { flex-shrink: 0; transition: transform 150ms; }
-  .btn-sm:hover svg { transform: translateX(2px); }
+  .btn-sm svg, .btn-sm i { flex-shrink: 0; transition: transform 150ms; }
+  .btn-sm:hover svg, .btn-sm:hover i { transform: translateX(2px); }
 
   /* ── 08 Small Outline ── */
   .btn-sm-outline {
@@ -102,8 +102,8 @@
     transition: background-color 150ms, color 150ms;
   }
   .btn-sm-outline:hover { background-color: #102347; color: #EAF2FC; }
-  .btn-sm-outline svg { flex-shrink: 0; transition: transform 150ms; }
-  .btn-sm-outline:hover svg { transform: translateX(2px); }
+  .btn-sm-outline svg, .btn-sm-outline i { flex-shrink: 0; transition: transform 150ms; }
+  .btn-sm-outline:hover svg, .btn-sm-outline:hover i { transform: translateX(2px); }
 
   /* ── 09 Icon ── */
   .btn-icon {
@@ -290,6 +290,25 @@
   stroke-dashoffset: 200;
   animation: drawPath 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
 }
+
+/* ── Industries v2 diagrams ── */
+@keyframes perimeterPulse { to { stroke-dashoffset: -100; } }
+@keyframes glowPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
+@keyframes minuteHand {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(2deg); }
+}
+@keyframes emailSlideIn {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+.perimeter-pulse { animation: perimeterPulse 6s linear infinite; }
+.glow-pulse      { animation: glowPulse 3s ease-in-out infinite; }
+.minute-hand-anim {
+  transform-origin: 190px 125px;
+  animation: minuteHand 4s cubic-bezier(0.22,1,0.36,1) infinite;
+}
+.email-slide-in  { animation: emailSlideIn 0.6s cubic-bezier(0.22,1,0.36,1) 0.3s both; }
 
 /* ── Industries hero marquee ── */
 @keyframes industriesMarquee {

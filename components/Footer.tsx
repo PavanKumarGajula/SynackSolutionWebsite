@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { SiGmail } from "react-icons/si";
+import { IconMail, IconPhone } from "@tabler/icons-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -53,7 +53,7 @@ export default function Footer() {
               <img src="/logo.svg" alt="SynAck Solutions" width={42} height={42} className="flex-shrink-0" />
               <div>
                 <span className="block font-outfit text-[13.5px] font-black tracking-[0.09em] text-text-heading-on-dark">SYNACK</span>
-                <span className="block text-[9px] font-semibold tracking-[0.14em] uppercase text-accent mt-0.5">Solutions</span>
+                <span className="block text-[10px] font-semibold tracking-[0.14em] uppercase text-accent mt-0.5">Solutions</span>
               </div>
             </Link>
 
@@ -76,19 +76,17 @@ export default function Footer() {
               </a>
               <a
                 href="mailto:sales@synacksolutions.com"
-                aria-label="Gmail"
-                className="w-[34px] h-[34px] rounded-[8px] flex items-center justify-center transition-colors duration-150 bg-white/[0.04] hover:bg-accent/[0.15] border border-border-light/10 hover:border-accent/30"
+                aria-label="Email"
+                className="w-[34px] h-[34px] rounded-[8px] flex items-center justify-center transition-colors duration-150 bg-white/[0.04] hover:bg-accent/[0.15] border border-border-light/10 hover:border-accent/30 text-[rgba(122,180,238,1)]"
               >
-                <SiGmail size={14} color="rgba(122,180,238,1)" />
+                <IconMail size={15} stroke={2} />
               </a>
               <a
                 href="tel:8584293000"
                 aria-label="Phone"
-                className="w-[34px] h-[34px] rounded-[8px] flex items-center justify-center transition-colors duration-150 bg-white/[0.04] hover:bg-accent/[0.15] border border-border-light/10 hover:border-accent/30"
+                className="w-[34px] h-[34px] rounded-[8px] flex items-center justify-center transition-colors duration-150 bg-white/[0.04] hover:bg-accent/[0.15] border border-border-light/10 hover:border-accent/30 text-[rgba(122,180,238,1)]"
               >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="rgba(122,180,238,1)" strokeWidth="2" strokeLinecap="round">
-                  <path d="M2 2h3l1.5 3.5-2 1.2c.8 1.8 2.3 3.2 4 4l1.2-2L13 10v3a1 1 0 0 1-1 1C5 14 0 9 0 3a1 1 0 0 1 1-1h1z"/>
-                </svg>
+                <IconPhone size={15} stroke={2} />
               </a>
             </div>
           </motion.div>
@@ -162,10 +160,10 @@ export default function Footer() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.4, ease: EASE }}
         >
-          <p className="text-[12px] text-text-on-dark/35">
+          <p className="text-[12.5px] text-text-on-dark/35">
             © 2024 SynAck Solutions LLC. All rights reserved.
           </p>
-          <div className="flex items-center gap-2 text-[12px] text-text-on-dark/35">
+          <div className="flex items-center gap-2 text-[12.5px] text-text-on-dark/35">
             {regions.map((r, i) => (
               <span key={r} className="flex items-center gap-2">
                 {i > 0 && (

@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
+import { IconMenu2, IconX } from "@tabler/icons-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const DUR  = 0.45;
@@ -72,8 +72,8 @@ export default function Nav() {
           <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
             <img src="/logo.svg" alt="SynAck Solutions" width={34} height={34} className="flex-shrink-0" />
             <div className="flex flex-col leading-none gap-0.5">
-              <span className="font-outfit text-[13px] font-black tracking-[0.08em] text-primary">SYNACK</span>
-              <span className="text-[9px] font-semibold tracking-[0.14em] uppercase text-accent">Solutions</span>
+              <span className="font-outfit text-[13.5px] font-black tracking-[0.08em] text-primary">SYNACK</span>
+              <span className="text-[10px] font-semibold tracking-[0.14em] uppercase text-accent">Solutions</span>
             </div>
           </Link>
 
@@ -106,7 +106,7 @@ export default function Nav() {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            {menuOpen ? <IconX size={20} stroke={2} /> : <IconMenu2 size={20} stroke={2} />}
           </button>
         </motion.div>
 
@@ -118,7 +118,7 @@ export default function Nav() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setMenuOpen(false)}
-                className="text-[15px] font-medium text-text-body hover:text-primary transition-colors"
+                className="text-[16px] font-medium text-text-body hover:text-primary transition-colors"
               >
                 {l.label}
               </Link>

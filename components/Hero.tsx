@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import { SiCisco, SiApple } from "react-icons/si";
+import { IconArrowRight } from "@tabler/icons-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -39,11 +39,24 @@ const logos = [
   },
   {
     name: "Cisco",
-    icon: <SiCisco size={20} color="#1BA0D7" className="flex-shrink-0" />,
+    icon: (
+      <svg width="20" height="14" viewBox="0 0 60 36" fill="#1BA0D7" className="flex-shrink-0">
+        <rect x="0"  y="12" width="8" height="24" rx="2"/>
+        <rect x="10" y="6"  width="8" height="30" rx="2"/>
+        <rect x="20" y="0"  width="8" height="36" rx="2"/>
+        <rect x="30" y="0"  width="8" height="36" rx="2"/>
+        <rect x="40" y="6"  width="8" height="30" rx="2"/>
+        <rect x="50" y="12" width="8" height="24" rx="2"/>
+      </svg>
+    ),
   },
   {
     name: "Apple Business",
-    icon: <SiApple size={18} color="#555" className="flex-shrink-0" />,
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#555" className="flex-shrink-0">
+        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+      </svg>
+    ),
   },
   {
     name: "Intune",
@@ -119,7 +132,7 @@ function StatCounter({ val, numStatic, suffix, label }: {
         </span>
         <span className="text-accent">{suffix}</span>
       </p>
-      <p className="text-[13px] font-semibold text-text-muted tracking-[0.02em]">{label}</p>
+      <p className="text-[13.5px] font-semibold text-text-muted tracking-[0.02em]">{label}</p>
     </div>
   );
 }
@@ -203,7 +216,9 @@ export default function Hero() {
               <rect x="0"  y="12" width="10" height="10" fill="#00A4EF"/>
               <rect x="12" y="12" width="10" height="10" fill="#FFB900"/>
             </svg>
-            <SiApple size={12} color="#6B7280" className="flex-shrink-0" />
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#6B7280" className="flex-shrink-0">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
             <svg viewBox="0 0 24 24" width="13" height="13" fill="#0078D4" className="flex-shrink-0">
               <path d="M13.05 4.24L6.56 20.13H2l6.46-11.18 4.59-4.71zm.45 0l3.57 9.79-6.79 7.34 7.89-.07 3.83-10.73z"/>
             </svg>
@@ -213,9 +228,8 @@ export default function Hero() {
         </motion.div>
 
         {/* Headline */}
-        <h1 className="font-outfit font-black text-display text-text-heading mb-6 max-w-[680px]">
-          <span className="block">We run, secure, and</span>
-          <span className="block">connect your IT systems.</span>
+        <h1 className="font-outfit font-black text-display text-text-heading mb-6 max-w-[680px] text-balance">
+          We run, secure, and connect your IT systems.
         </h1>
 
         {/* Subtext */}
@@ -235,15 +249,11 @@ export default function Hero() {
           <div className="flex items-center gap-4 flex-wrap justify-center">
             <Link href="/contact" className="btn btn-primary">
               Contact Us
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="3" y1="7" x2="11" y2="7"/><polyline points="7,3 11,7 7,11"/>
-              </svg>
+              <IconArrowRight size={14} stroke={2} />
             </Link>
             <Link href="/services" className="btn btn-outline">
               View Services
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="3" y1="7" x2="11" y2="7"/><polyline points="7,3 11,7 7,11"/>
-              </svg>
+              <IconArrowRight size={14} stroke={2} />
             </Link>
           </div>
 
@@ -255,7 +265,7 @@ export default function Hero() {
                     <polyline points="1.5,5 3.5,7.5 8.5,2"/>
                   </svg>
                 </div>
-                <span className="text-[13px] font-medium text-text-muted">{badge}</span>
+                <span className="text-[13.5px] font-medium text-text-muted">{badge}</span>
               </div>
             ))}
           </div>
@@ -282,7 +292,7 @@ export default function Hero() {
                   <polyline points="2,8 5,5 9,9 14,4" /><polyline points="2,12 5,9 9,13 14,8" />
                 </svg>
               </div>
-              <span className="text-[11.5px] font-semibold text-scale-50 tracking-[0.02em]">SynAck Command Center</span>
+              <span className="text-[12.5px] font-semibold text-scale-50 tracking-[0.02em]">SynAck Command Center</span>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-scale-300">
@@ -294,7 +304,7 @@ export default function Hero() {
                   transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
                   className="w-2 h-2 rounded-full bg-terminal-green flex-shrink-0"
                 />
-                <span className="text-[10.5px] font-semibold text-terminal-green">Live</span>
+                <span className="text-[11px] font-semibold text-terminal-green">Live</span>
               </div>
             </div>
           </div>
@@ -305,8 +315,8 @@ export default function Hero() {
             {/* Sidebar */}
             <div className="hidden lg:flex flex-col w-[150px] bg-bg-page border-r border-border-light flex-shrink-0">
               <div className="px-4 py-3 border-b border-border-light">
-                <p className="text-[8.5px] font-bold tracking-[0.12em] uppercase text-text-muted">Client</p>
-                <p className="text-[12px] font-semibold text-text-heading mt-0.5 leading-tight">Acme Corp</p>
+                <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-text-muted">Client</p>
+                <p className="text-[12.5px] font-semibold text-text-heading mt-0.5 leading-tight">Acme Corp</p>
               </div>
               <nav className="flex flex-col gap-0.5 p-2 flex-1">
                 <div className="flex items-center gap-2.5 px-3 py-[7px] rounded-[6px] bg-primary text-scale-50 cursor-default">
@@ -332,7 +342,7 @@ export default function Hero() {
                   </div>
                   <div>
                     <p className="text-[10px] font-semibold text-text-heading leading-tight">John D.</p>
-                    <p className="text-[8.5px] text-text-muted leading-tight">Admin</p>
+                    <p className="text-[10px] text-text-muted leading-tight">Admin</p>
                   </div>
                 </div>
               </div>
@@ -343,7 +353,7 @@ export default function Hero() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <p className="text-[13.5px] font-bold text-text-heading leading-tight">System Overview</p>
-                  <p className="text-[9px] text-text-muted mt-0.5">
+                  <p className="text-[10px] text-text-muted mt-0.5">
                     May 3, 2026 · Sync{" "}
                     <AnimatePresence mode="wait" initial={false}>
                       <motion.span
@@ -361,14 +371,14 @@ export default function Hero() {
                 </div>
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success-bg border border-status-success-border flex-shrink-0 ml-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-status-success flex-shrink-0" />
-                  <span className="text-[9px] font-semibold text-status-success-text whitespace-nowrap">All Systems Healthy</span>
+                  <span className="text-[10px] font-semibold text-status-success-text whitespace-nowrap">All Systems Healthy</span>
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-2.5 mb-4">
                 {/* Endpoints — live */}
                 <div className="bg-white border border-border-light rounded-[8px] p-3.5">
                   <div className="flex items-start justify-between mb-2">
-                    <p className="text-[8.5px] font-bold tracking-[0.08em] uppercase text-text-muted leading-tight">Endpoints</p>
+                    <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-text-muted leading-tight">Endpoints</p>
                     <AnimatePresence mode="wait" initial={false}>
                       <motion.span
                         key={endpoints === 247 ? "full" : "partial"}
@@ -395,7 +405,7 @@ export default function Hero() {
                         {endpoints}
                       </motion.span>
                     </AnimatePresence>
-                    <span className="text-[12px] font-semibold text-text-muted ml-0.5">/247</span>
+                    <span className="text-[12.5px] font-semibold text-text-muted ml-0.5">/247</span>
                   </p>
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.p
@@ -404,7 +414,7 @@ export default function Hero() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                      className="text-[8.5px] font-medium text-text-muted"
+                      className="text-[10px] font-medium text-text-muted"
                     >
                       {endpoints === 247 ? "All online" : "1 reconnecting…"}
                     </motion.p>
@@ -417,20 +427,20 @@ export default function Hero() {
                 ].map((m) => (
                   <div key={m.label} className="bg-white border border-border-light rounded-[8px] p-3.5">
                     <div className="flex items-start justify-between mb-2">
-                      <p className="text-[8.5px] font-bold tracking-[0.08em] uppercase text-text-muted leading-tight">{m.label}</p>
+                      <p className="text-[10px] font-bold tracking-[0.08em] uppercase text-text-muted leading-tight">{m.label}</p>
                       <span className="text-[7.5px] font-bold px-1.5 py-[2px] rounded-full bg-status-success-bg text-status-success-text flex-shrink-0 ml-1 whitespace-nowrap">{m.badge}</span>
                     </div>
                     <p className="font-outfit text-[24px] font-black tracking-[-0.03em] leading-none mb-1 text-status-success">
-                      {m.value}<span className="text-[12px] font-semibold text-text-muted ml-0.5">{m.unit}</span>
+                      {m.value}<span className="text-[12.5px] font-semibold text-text-muted ml-0.5">{m.unit}</span>
                     </p>
-                    <p className="text-[8.5px] text-text-muted font-medium">{m.sub}</p>
+                    <p className="text-[10px] text-text-muted font-medium">{m.sub}</p>
                   </div>
                 ))}
               </div>
               <div className="flex-1 bg-white border border-border-light rounded-[8px] p-4">
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <p className="text-[9.5px] font-black tracking-[0.1em] uppercase text-text-heading">System Uptime</p>
+                    <p className="text-[10px] font-black tracking-[0.1em] uppercase text-text-heading">System Uptime</p>
                     <p className="text-[8px] text-text-muted mt-0.5">Last 30 days</p>
                   </div>
                   <span className="text-[8px] font-semibold text-status-success bg-status-success-bg border border-status-success-border px-2 py-[3px] rounded-full whitespace-nowrap">99.98% avg</span>
@@ -476,7 +486,7 @@ export default function Hero() {
                 <p className="text-[8px] font-bold tracking-[0.12em] uppercase text-text-muted mb-2">SynAck Score</p>
                 <div className="flex items-end gap-1.5 mb-2.5">
                   <span className="font-outfit font-black leading-none text-status-success" style={{ fontSize: 34 }}>A+</span>
-                  <span className="text-[8.5px] font-semibold text-status-success mb-1">Excellent</span>
+                  <span className="text-[10px] font-semibold text-status-success mb-1">Excellent</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex-1 h-1.5 bg-border-light rounded-full overflow-hidden">
@@ -495,7 +505,7 @@ export default function Hero() {
                   <svg width="10" height="10" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white">
                     <path d="M7 1v8M4 6l3 3 3-3" /><path d="M2 11h10" />
                   </svg>
-                  <span className="text-[10.5px] font-bold text-white">View Report</span>
+                  <span className="text-[11px] font-bold text-white">View Report</span>
                 </div>
               </div>
               <div className="p-3 flex-1 overflow-hidden">
@@ -521,7 +531,7 @@ export default function Hero() {
                           </svg>
                         </div>
                         <div className="min-w-0">
-                          <p className="text-[9px] font-medium text-text-heading leading-tight">{a.label}</p>
+                          <p className="text-[10px] font-medium text-text-heading leading-tight">{a.label}</p>
                           <p className="text-[7.5px] text-text-muted">{a.time}</p>
                         </div>
                       </motion.div>
@@ -546,7 +556,7 @@ export default function Hero() {
             {[...logos, ...logos].map((logo, i) => (
               <div key={i} className="flex items-center gap-2.5 px-4 py-2.5 rounded-[10px] bg-white border border-border-light flex-shrink-0">
                 {logo.icon}
-                <span className="text-[12px] font-semibold text-text-muted whitespace-nowrap">{logo.name}</span>
+                <span className="text-[12.5px] font-semibold text-text-muted whitespace-nowrap">{logo.name}</span>
               </div>
             ))}
           </div>

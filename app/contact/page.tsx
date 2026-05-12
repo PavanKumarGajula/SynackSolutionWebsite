@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { ArrowRight, Phone, Mail, MapPin, Globe } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import Eyebrow from "@/components/Eyebrow";
+import { IconPhone, IconMail, IconWorld, IconMapPin, IconArrowRight } from "@tabler/icons-react";
 
 type FormData = { name:string; company:string; email:string; phone:string; message:string; source:string; };
 
@@ -18,11 +18,11 @@ export default function Contact() {
   };
 
   const contacts = [
-    { icon: Phone, label:"Sales",   val:"(858) 429-3000",             href:"tel:8584293000" },
-    { icon: Phone, label:"Support", val:"(888) 563-9132",             href:"tel:8885639132" },
-    { icon: Mail,  label:"Email",   val:"sales@synacksolutions.com",  href:"mailto:sales@synacksolutions.com" },
-    { icon: Globe, label:"Web",     val:"synacksolutions.com",        href:"https://synacksolutions.com" },
-    { icon: MapPin,label:"HQ",      val:"Maryland, USA",              href:"#" },
+    { Icon: IconPhone,   label:"Sales",   val:"(858) 429-3000",             href:"tel:8584293000" },
+    { Icon: IconPhone,   label:"Support", val:"(888) 563-9132",             href:"tel:8885639132" },
+    { Icon: IconMail,    label:"Email",   val:"sales@synacksolutions.com",  href:"mailto:sales@synacksolutions.com" },
+    { Icon: IconWorld,   label:"Web",     val:"synacksolutions.com",        href:"https://synacksolutions.com" },
+    { Icon: IconMapPin,  label:"HQ",      val:"Maryland, USA",              href:"#" },
   ];
 
   const nextSteps = [
@@ -58,7 +58,7 @@ export default function Contact() {
 
           {/* Form */}
           <FadeUp>
-            <h2 className="font-outfit text-[22px] font-black tracking-[-0.02em] text-text-heading mb-6">Send us a message</h2>
+            <h2 className="font-outfit text-[clamp(22px,2.8vw,34px)] font-black tracking-[-0.02em] text-text-heading mb-6">Send us a message</h2>
 
             {submitted ? (
               <div className="px-6 py-8 bg-status-success-bg border border-status-success-border rounded-xl">
@@ -74,7 +74,7 @@ export default function Contact() {
                   { id:"phone",   label:"Phone",   type:"tel",   placeholder:"(000) 000-0000",       required:false },
                 ].map(f => (
                   <div key={f.id}>
-                    <label className="block text-[12px] font-bold tracking-[0.08em] uppercase text-text-muted mb-1.5">{f.label}{f.required && " *"}</label>
+                    <label className="block text-[12.5px] font-bold tracking-[0.08em] uppercase text-text-muted mb-1.5">{f.label}{f.required && " *"}</label>
                     <input
                       {...register(f.id as keyof FormData, { required: f.required ? `${f.label} is required` : false })}
                       type={f.type}
@@ -82,24 +82,24 @@ export default function Contact() {
                       className="w-full px-4 py-3 bg-white border border-border-light rounded-[8px] text-[14px] text-text-heading placeholder:text-border-light focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
                     />
                     {errors[f.id as keyof FormData] && (
-                      <p className="text-[12px] text-status-error mt-1">{String(errors[f.id as keyof FormData]?.message)}</p>
+                      <p className="text-[12.5px] text-status-error mt-1">{String(errors[f.id as keyof FormData]?.message)}</p>
                     )}
                   </div>
                 ))}
 
                 <div>
-                  <label className="block text-[12px] font-bold tracking-[0.08em] uppercase text-text-muted mb-1.5">Message *</label>
+                  <label className="block text-[12.5px] font-bold tracking-[0.08em] uppercase text-text-muted mb-1.5">Message *</label>
                   <textarea
                     {...register("message", { required:"Message is required" })}
                     rows={4}
                     placeholder="Tell us about your environment and what you're dealing with..."
                     className="w-full px-4 py-3 bg-white border border-border-light rounded-[8px] text-[14px] text-text-heading placeholder:text-border-light focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all resize-none"
                   />
-                  {errors.message && <p className="text-[12px] text-status-error mt-1">{errors.message.message}</p>}
+                  {errors.message && <p className="text-[12.5px] text-status-error mt-1">{errors.message.message}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-[12px] font-bold tracking-[0.08em] uppercase text-text-muted mb-1.5">How did you hear about us?</label>
+                  <label className="block text-[12.5px] font-bold tracking-[0.08em] uppercase text-text-muted mb-1.5">How did you hear about us?</label>
                   <select
                     {...register("source")}
                     className="w-full px-4 py-3 bg-white border border-border-light rounded-[8px] text-[14px] text-text-heading focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
@@ -115,10 +115,10 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="inline-flex items-center justify-center gap-2 font-sans text-[14px] font-bold text-scale-50 bg-primary hover:bg-accent disabled:opacity-60 transition-all duration-150 px-8 py-[14px] rounded-[9px] hover:-translate-y-0.5 mt-2"
+                  className="btn btn-primary justify-center disabled:opacity-60 mt-2"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
-                  <ArrowRight size={15} strokeWidth={2.5} />
+                  <IconArrowRight size={15} stroke={2} />
                 </button>
               </form>
             )}
@@ -127,12 +127,12 @@ export default function Contact() {
           {/* Contact details + next steps */}
           <div>
             <FadeUp delay={0.1}>
-              <h2 className="font-outfit text-[22px] font-black tracking-[-0.02em] text-text-heading mb-6">Contact details</h2>
+              <h2 className="font-outfit text-[clamp(22px,2.8vw,34px)] font-black tracking-[-0.02em] text-text-heading mb-6">Contact details</h2>
               <div className="flex flex-col gap-4 mb-10">
                 {contacts.map(c => (
                   <div key={c.label} className="flex items-center gap-4">
-                    <div className="w-9 h-9 rounded-[8px] bg-bg-card border border-border-light flex items-center justify-center flex-shrink-0">
-                      <c.icon size={14} className="text-accent" strokeWidth={2} />
+                    <div className="w-9 h-9 rounded-[8px] bg-bg-card border border-border-light flex items-center justify-center flex-shrink-0 text-accent">
+                      <c.Icon size={14} stroke={2} />
                     </div>
                     <div>
                       <p className="text-[10px] font-bold tracking-[0.10em] uppercase text-text-muted">{c.label}</p>
@@ -144,14 +144,14 @@ export default function Contact() {
             </FadeUp>
 
             <FadeUp delay={0.2}>
-              <p className="text-[12px] font-bold tracking-[0.14em] uppercase text-text-muted mb-4">What happens next</p>
+              <p className="text-[12.5px] font-bold tracking-[0.14em] uppercase text-text-muted mb-4">What happens next</p>
               <div className="flex flex-col gap-3">
                 {nextSteps.map((s,i) => (
                   <div key={i} className="flex items-start gap-4 px-5 py-4 bg-bg-card border border-border-light rounded-xl">
                     <span className="font-outfit text-[11px] font-black text-accent tracking-[0.06em] flex-shrink-0 pt-0.5">{s.num}</span>
                     <div>
                       <p className="text-[13.5px] font-bold text-text-heading mb-0.5">{s.title}</p>
-                      <p className="text-[12px] text-text-muted">{s.desc}</p>
+                      <p className="text-[12.5px] text-text-muted">{s.desc}</p>
                     </div>
                   </div>
                 ))}

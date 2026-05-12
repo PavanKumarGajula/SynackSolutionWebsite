@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import FadeUp from "@/components/FadeUp";
 import Eyebrow from "@/components/Eyebrow";
 import CtaSection from "@/components/CtaSection";
 import TimelineSection from "@/components/TimelineSection";
+import { IconArrowRight } from "@tabler/icons-react";
 
 /* ── Page-scoped keyframes ── */
 const css = `
@@ -161,14 +161,14 @@ function TestimonialCard({ t, dark }: { t: (typeof testimonials)[number]; dark: 
 
       {/* Attribution */}
       <div className="flex items-center gap-3" style={{ position: "relative", zIndex: 1 }}>
-        <div className="flex items-center justify-center rounded-full flex-shrink-0" style={{ width: 40, height: 40, background: dark ? "rgba(36,114,200,.2)" : "#EAF2FC", border: dark ? "1px solid rgba(61,143,224,.3)" : "1px solid #B8D4F7", fontFamily: "var(--font-outfit)", fontSize: 13, fontWeight: 800, color: dark ? "#3D8FE0" : "#2472C8" }}>
+        <div className="flex items-center justify-center rounded-full flex-shrink-0" style={{ width: 40, height: 40, background: dark ? "rgba(36,114,200,.2)" : "#EAF2FC", border: dark ? "1px solid rgba(61,143,224,.3)" : "1px solid #B8D4F7", fontFamily: "var(--font-outfit)", fontSize: 13.5, fontWeight: 800, color: dark ? "#3D8FE0" : "#2472C8" }}>
           {t.name.charAt(0)}
         </div>
         <div>
           <div style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 800, letterSpacing: "-0.01em", color: dark ? "#EAF2FC" : "#0A1628", lineHeight: 1.2 }}>
             {t.name}
           </div>
-          <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11.5, fontWeight: 500, color: dark ? "#7AB4EE" : "#1E4D8C", marginTop: 2 }}>
+          <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12.5, fontWeight: 500, color: dark ? "#7AB4EE" : "#1E4D8C", marginTop: 2 }}>
             {t.title} · {t.company}
           </div>
         </div>
@@ -212,7 +212,7 @@ export default function About() {
                 <span className="ab-blink w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#22A05A" }} />
                 About SynAck
               </span>
-              <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13, fontWeight: 600, color: "#0A1628" }}>Engineering-first MSP · NY · NJ · MD · MN</span>
+              <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13.5, fontWeight: 600, color: "#0A1628" }}>Engineering-first MSP · NY · NJ · MD · MN</span>
             </div>
           </FadeUp>
 
@@ -230,11 +230,11 @@ export default function About() {
           </FadeUp>
 
           <FadeUp delay={0.25}>
-            <div className="flex items-center justify-center gap-3.5 mb-20">
-              <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "14px 24px", background: "#102347", color: "#EAF2FC", fontFamily: "var(--font-dm-sans)", fontSize: 14, fontWeight: 700, borderRadius: 999, textDecoration: "none", boxShadow: "0 8px 20px rgba(16,35,71,.15)" }}>
-                Free assessment <ArrowRight size={14} strokeWidth={2.5} />
+            <div className="flex items-center justify-center gap-3.5 mb-20 flex-wrap">
+              <Link href="/contact" className="btn btn-primary">
+                Free assessment <IconArrowRight size={14} stroke={2} />
               </Link>
-              <Link href="/services" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "14px 24px", background: "transparent", color: "#0A1628", fontFamily: "var(--font-dm-sans)", fontSize: 14, fontWeight: 700, borderRadius: 999, border: "1px solid #B8D4F7", textDecoration: "none" }}>
+              <Link href="/services" className="btn btn-outline">
                 How we work
               </Link>
             </div>
@@ -266,8 +266,8 @@ export default function About() {
                   </svg>
                 </div>
                 <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ fontFamily: "var(--font-outfit)", fontSize: 18, fontWeight: 800, letterSpacing: "-0.02em", color: "#EAF2FC", marginBottom: 4 }}>Managed environment</div>
-                  <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11.5, color: "#7AB4EE", fontWeight: 500 }}>247 endpoints across four states</div>
+                  <div style={{ fontFamily: "var(--font-outfit)", fontSize: 17, fontWeight: 800, letterSpacing: "-0.02em", color: "#EAF2FC", marginBottom: 4 }}>Managed environment</div>
+                  <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12.5, color: "#7AB4EE", fontWeight: 500 }}>247 endpoints across four states</div>
                 </div>
               </div>
             </FadeUp>
@@ -276,7 +276,7 @@ export default function About() {
             <FadeUp delay={0.38}>
               <div style={{ height: 260, background: "#FFFFFF", border: "1px solid #B8D4F7", borderRadius: 22, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.08)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
                 <div style={{ fontFamily: "var(--font-outfit)", fontSize: 56, fontWeight: 900, color: "#0A1628", letterSpacing: "-0.05em", lineHeight: 1, marginBottom: 12 }}>247</div>
-                <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13, fontWeight: 500, color: "#1E4D8C", maxWidth: "18ch", lineHeight: 1.4 }}>Endpoints under management</div>
+                <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13.5, fontWeight: 500, color: "#1E4D8C", maxWidth: "18ch", lineHeight: 1.4 }}>Endpoints under management</div>
               </div>
             </FadeUp>
 
@@ -290,7 +290,7 @@ export default function About() {
                   </svg>
                 </div>
                 <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ fontFamily: "var(--font-outfit)", fontSize: 22, fontWeight: 800, letterSpacing: "-0.025em", color: "#EAF2FC", lineHeight: 1.15, marginBottom: 6 }}>Identity.<br/>Not network.</div>
+                  <div style={{ fontFamily: "var(--font-outfit)", fontSize: 24, fontWeight: 800, letterSpacing: "-0.025em", color: "#EAF2FC", lineHeight: 1.15, marginBottom: 6 }}>Identity.<br/>Not network.</div>
                   <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12.5, color: "#7AB4EE", fontWeight: 500, lineHeight: 1.5 }}>The perimeter moved years ago. We secure accordingly.</div>
                 </div>
               </div>
@@ -301,7 +301,7 @@ export default function About() {
               <div style={{ height: 270, background: "linear-gradient(160deg,#102347,#0A1628)", border: "1px solid rgba(122,180,238,.18)", borderRadius: 22, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.12)", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative", overflow: "hidden" }}>
                 <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, background: "radial-gradient(circle, rgba(36,114,200,.4) 0%, transparent 60%)", pointerEvents: "none" }} />
                 <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ fontFamily: "var(--font-outfit)", fontSize: 22, fontWeight: 800, letterSpacing: "-0.025em", color: "#EAF2FC", lineHeight: 1.15, marginBottom: 6 }}>99.98%</div>
+                  <div style={{ fontFamily: "var(--font-outfit)", fontSize: 24, fontWeight: 800, letterSpacing: "-0.025em", color: "#EAF2FC", lineHeight: 1.15, marginBottom: 6 }}>99.98%</div>
                   <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12.5, color: "#7AB4EE", fontWeight: 500 }}>Uptime, sustained</div>
                 </div>
                 <div style={{ display: "flex", alignItems: "flex-end", gap: 6, height: 70, position: "relative", zIndex: 1 }}>
@@ -320,7 +320,7 @@ export default function About() {
                     <div style={{ fontFamily: "var(--font-outfit)", fontSize: 56, fontWeight: 900, letterSpacing: "-0.05em", color: "#0A1628", lineHeight: 0.95 }}>4</div>
                     <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1E4D8C" }}>Regions</div>
                   </div>
-                  <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13, fontWeight: 500, color: "#1E4D8C", marginTop: 4 }}>Where we currently operate.</div>
+                  <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13.5, fontWeight: 500, color: "#1E4D8C", marginTop: 4 }}>Where we currently operate.</div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 16 }}>
                     {[{l:"New York",dark:true},{l:"New Jersey",dark:true},{l:"Maryland",dark:false},{l:"Minnesota",dark:false}].map((r,i) => (
                       <span key={i} style={{ padding: "5px 12px", borderRadius: 999, fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", background: r.dark ? "#102347" : "#EAF2FC", color: r.dark ? "#3D8FE0" : "#2472C8", border: r.dark ? "none" : "1px solid #B8D4F7" }}>{r.l}</span>
@@ -407,7 +407,7 @@ export default function About() {
                           background: p.dark ? "linear-gradient(160deg,#102347,#0A1628)" : "#FFFFFF",
                           border: p.dark ? "none" : "1.5px solid #B8D4F7",
                           fontFamily: "var(--font-outfit)",
-                          fontSize: 12,
+                          fontSize: 12.5,
                           fontWeight: 800,
                           color: p.dark ? "#3D8FE0" : "#1E4D8C",
                         }}
@@ -415,7 +415,7 @@ export default function About() {
                         {p.initials}
                       </div>
                       <div className={p.side === "right" ? "text-right" : ""}>
-                        <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1E4D8C", marginBottom: 2 }}>{p.role}</div>
+                        <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1E4D8C", marginBottom: 2 }}>{p.role}</div>
                         <div style={{ fontFamily: "var(--font-outfit)", fontSize: 14, fontWeight: 800, letterSpacing: "-0.02em", color: "#0A1628" }}>{p.name}</div>
                       </div>
                     </div>
@@ -435,9 +435,9 @@ export default function About() {
                       style={{ borderBottom: i < arr.length - 1 ? "1px solid #EAF2FC" : "none" }}
                     >
                       <div className={`flex items-baseline gap-2.5 mb-2.5 ${s.dir === "left" ? "justify-end" : ""}`}>
-                        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 9, fontWeight: 700, color: "rgba(36,114,200,.4)", letterSpacing: "0.06em" }}>{s.num}</span>
+                        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, color: "rgba(36,114,200,.4)", letterSpacing: "0.06em" }}>{s.num}</span>
                         <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", color: "#2472C8" }}>{s.label}</span>
-                        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11.5, fontWeight: 400, color: "#1E4D8C" }}>— {s.desc}</span>
+                        <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12.5, fontWeight: 400, color: "#1E4D8C" }}>— {s.desc}</span>
                       </div>
                       <div className="flex items-center h-2.5">
                         {s.dir === "right" ? (
@@ -523,7 +523,7 @@ export default function About() {
                 </p>
                 <div className="flex-shrink-0 flex items-center gap-3">
                   <div className="w-px h-10 bg-white/10 hidden md:block" />
-                  <p className="text-[13px] leading-[1.65]" style={{ color: "rgba(122,180,238,.6)", maxWidth: "22ch" }}>
+                  <p className="text-[13.5px] leading-[1.65]" style={{ color: "rgba(122,180,238,.6)", maxWidth: "22ch" }}>
                     The metric we optimize for isn&apos;t speed of response. It&apos;s absence of incidents.
                   </p>
                 </div>
@@ -602,7 +602,7 @@ export default function About() {
                         <span
                           style={{
                             fontFamily: "var(--font-dm-sans)",
-                            fontSize: 9,
+                            fontSize: 10,
                             fontWeight: 700,
                             letterSpacing: "0.16em",
                             textTransform: "uppercase",
@@ -624,7 +624,7 @@ export default function About() {
                         borderRadius: 8,
                         padding: "4px 10px",
                         fontFamily: "var(--font-dm-sans)",
-                        fontSize: 9.5,
+                        fontSize: 10,
                         fontWeight: 700,
                         letterSpacing: "0.12em",
                         textTransform: "uppercase",
@@ -640,7 +640,7 @@ export default function About() {
                     <div
                       style={{
                         fontFamily: "var(--font-outfit)",
-                        fontSize: 18,
+                        fontSize: 17,
                         fontWeight: 800,
                         color: "#0A1628",
                         letterSpacing: "-0.02em",

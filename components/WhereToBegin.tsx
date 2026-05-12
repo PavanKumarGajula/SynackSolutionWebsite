@@ -2,15 +2,15 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { Flame, ShieldAlert, FolderX, ArrowRight } from "lucide-react";
 import Eyebrow from "@/components/Eyebrow";
+import { IconArrowRight } from "@tabler/icons-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const BRANCHES = [
   {
     id: "managed-it",
-    Icon: Flame,
+    icon: "ti-flame",
     pain: "\"Things keep breaking and no one owns it.\"",
     context: "Reactive fixes, no documentation, vendor chaos",
     tag: "Start here",
@@ -18,7 +18,7 @@ const BRANCHES = [
   },
   {
     id: "cybersecurity",
-    Icon: ShieldAlert,
+    icon: "ti-shield-exclamation",
     pain: "\"We're not sure if we're actually secure.\"",
     context: "No MFA, unpatched systems, no incident plan",
     tag: "Add second",
@@ -26,7 +26,7 @@ const BRANCHES = [
   },
   {
     id: "m365",
-    Icon: FolderX,
+    icon: "ti-folder-x",
     pain: "\"Our Microsoft 365 is a mess nobody manages.\"",
     context: "Stale accounts, shared mailboxes, no governance",
     tag: "Fastest win",
@@ -63,10 +63,10 @@ export default function WhereToBegin({ onSelect }: Props) {
         >
           <Eyebrow>Where To Begin</Eyebrow>
           <h2
-            className="font-outfit font-black text-text-heading mb-3"
+            className="font-outfit font-black text-text-heading mb-3 text-balance"
             style={{ fontSize: "clamp(28px,3.5vw,46px)", letterSpacing: "-0.03em", lineHeight: 1.1 }}
           >
-            We don&apos;t start with a sales pitch.<br />
+            We don&apos;t start with a sales pitch.{" "}
             <em className="not-italic" style={{ color: "#2472C8" }}>We start with what hurts.</em>
           </h2>
           <p className="text-text-muted" style={{ fontSize: "clamp(14px,1.2vw,16px)", maxWidth: 520 }}>
@@ -144,11 +144,12 @@ export default function WhereToBegin({ onSelect }: Props) {
                   style={{
                     background: "#2472C8",
                     animation: "arrowPulse 2s ease-in-out infinite",
+                    color: "#EAF2FC",
                   }}
                 >
-                  <ArrowRight size={16} color="#EAF2FC" strokeWidth={2.5} />
+                  <IconArrowRight size={16} stroke={2} />
                 </div>
-                <span className="text-[13px] font-semibold" style={{ color: "rgba(234,242,252,.55)" }}>
+                <span className="text-[13.5px] font-semibold" style={{ color: "rgba(234,242,252,.55)" }}>
                   Choose the pain that fits
                 </span>
               </div>
@@ -186,7 +187,6 @@ export default function WhereToBegin({ onSelect }: Props) {
             {/* Branch cards */}
             <div className="relative z-10 flex flex-col gap-4">
               {BRANCHES.map((branch, i) => {
-                const { Icon } = branch;
                 return (
                   <motion.button
                     key={branch.id}
@@ -221,9 +221,10 @@ export default function WhereToBegin({ onSelect }: Props) {
                         style={{
                           background: "linear-gradient(135deg, #EAF2FC 0%, #d4e8f9 100%)",
                           border: "1px solid rgba(36,114,200,.15)",
+                          color: "#2472C8",
                         }}
                       >
-                        <Icon size={20} color="#2472C8" strokeWidth={2} />
+                        <i className={`ti ${branch.icon}`} style={{ fontSize: 20 }} />
                       </div>
 
                       {/* Pain + context */}
@@ -234,7 +235,7 @@ export default function WhereToBegin({ onSelect }: Props) {
                         >
                           {branch.pain}
                         </p>
-                        <p className="text-[12px] leading-[1.4]" style={{ color: "rgba(30,77,140,.5)" }}>
+                        <p className="text-[12.5px] leading-[1.4]" style={{ color: "rgba(30,77,140,.5)" }}>
                           {branch.context}
                         </p>
                       </div>
@@ -260,15 +261,15 @@ export default function WhereToBegin({ onSelect }: Props) {
                         </span>
                         <span
                           className="font-outfit font-extrabold block"
-                          style={{ fontSize: 13, color: "#102347", letterSpacing: "-0.01em" }}
+                          style={{ fontSize: 13.5, color: "#102347", letterSpacing: "-0.01em" }}
                         >
                           {branch.name}
                         </span>
-                        <ArrowRight
-                          size={14}
-                          className="ml-auto mt-1 transition-transform duration-150 group-hover:translate-x-1"
-                          style={{ color: "#2472C8" }}
-                        />
+                        <span style={{ color: "#2472C8" }}>
+                          <span className="ml-auto mt-1 transition-transform duration-150 group-hover:translate-x-1">
+                            <IconArrowRight size={14} stroke={2} />
+                          </span>
+                        </span>
                       </div>
                     </div>
                   </motion.button>
@@ -278,7 +279,7 @@ export default function WhereToBegin({ onSelect }: Props) {
 
             {/* Footer note */}
             <motion.p
-              className="mt-5 text-[13px] italic"
+              className="mt-5 text-[13.5px] italic"
               style={{ color: "rgba(30,77,140,.45)" }}
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
