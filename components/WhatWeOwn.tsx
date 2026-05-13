@@ -1,14 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
-import {
-  motion,
-  useScroll,
-  useSpring,
-  useTransform,
-  useMotionValueEvent,
-} from "framer-motion";
+import Link from "next/link";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Eyebrow from "@/components/Eyebrow";
+import { IconArrowRight } from "@tabler/icons-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -19,15 +15,13 @@ const services = [
     tag: "Foundation",
     color: "#2472C8",
     description:
-      "The foundation that keeps the business running. From help desk to network to disaster recovery — we own the stack.",
+      "The foundation that keeps the business running. From help desk to network to disaster recovery, we own the stack.",
     bullets: [
       "Managed IT & Help Desk",
       "Microsoft 365 & Cloud",
-      "Network Infrastructure — Wi-Fi, firewalls, switching, VPN",
+      "Network Infrastructure: Wi-Fi, firewalls, switching, VPN",
       "IT Asset Procurement & Lifecycle",
       "Backup & Disaster Recovery",
-      "Audio/Visual & Conference Rooms",
-      "Office Build-Outs & Relocations",
     ],
     img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=90",
   },
@@ -44,7 +38,6 @@ const services = [
       "Email Security",
       "Vulnerability Management & Pen Testing",
       "Security Awareness Training",
-      "Physical Security — Rhombus cameras, Brivo access",
     ],
     img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1400&q=90",
   },
@@ -54,7 +47,7 @@ const services = [
     tag: "Governance",
     color: "#F59E0B",
     description:
-      "Compliance readiness and technical controls support — HIPAA, SOC 2, and NIST CSF as frameworks, not promises.",
+      "Compliance readiness and technical controls support: HIPAA, SOC 2, and NIST CSF as frameworks, not promises.",
     bullets: [
       "Compliance Readiness & Gap Assessments",
       "Technical Controls Implementation",
@@ -73,11 +66,10 @@ const services = [
       "Productivity, governance, and access lifecycle across the Microsoft ecosystem.",
     bullets: [
       "Microsoft 365 Governance",
-      "Identity Governance & Lifecycle — JML automation",
+      "Identity Governance & Lifecycle (JML automation)",
       "Microsoft 365 Copilot Readiness",
-      "Data Protection — Purview, classification, labeling",
+      "Data Protection: Purview, classification, labeling",
       "Secure Collaboration",
-      "Access Reviews",
     ],
     img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=90",
   },
@@ -92,211 +84,163 @@ export default function WhatWeOwn() {
     offset: ["start start", "end end"],
   });
 
-  const smooth = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 28,
-    restDelta: 0.001,
-  });
-
-  /*
-   * Map scroll progress so the fill line reaches each dot center at the exact
-   * moment the active index flips (every 25% of scroll).
-   * With w-10 dots and gap-10 spacing, dot centers fall at 0, 1/3, 2/3, 1
-   * of the total line height.
-   */
-  const lineScaleY = useTransform(
-    smooth,
-    [0, 0.25, 0.5, 0.75, 1],
-    [0, 1 / 3, 2 / 3, 1, 1],
-  );
-
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     setActiveIdx(Math.min(3, Math.floor(v * 4)));
   });
 
   return (
     <>
-      {/* ── Desktop: scroll-driven sticky layout ── */}
-      <div
-        ref={containerRef}
-        className="hidden lg:block"
-        style={{ height: "400vh" }}
-      >
-        <section className="sticky top-0 h-screen bg-bg-page overflow-hidden flex">
+      {/* ── Desktop: scroll-driven horizontal accordion ── */}
+      <div ref={containerRef} className="hidden lg:block" style={{ height: "400vh" }}>
+        <section className="sticky top-0 h-screen bg-bg-page overflow-hidden flex flex-col">
 
-          {/* ── Left: timeline ── */}
-          <div className="flex flex-col justify-center pl-[max(40px,calc(50vw-560px))] pr-10 w-[380px] flex-shrink-0">
-
-            <div className="mb-10">
-              <Eyebrow>What We Run</Eyebrow>
+          {/* Header */}
+          <div className="max-w-site mx-auto px-10 w-full pt-14 pb-7 flex-shrink-0 flex items-end justify-between">
+            <div>
+              <Eyebrow>What We Own</Eyebrow>
               <h2
                 className="font-outfit font-black text-text-heading"
-                style={{
-                  fontSize: "clamp(26px,3vw,40px)",
-                  lineHeight: 1.08,
-                  letterSpacing: "-0.03em",
-                }}
+                style={{ fontSize: "clamp(26px,2.8vw,40px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}
               >
-                This is what we take responsibility for.
+                Four areas.{" "}
+                <em className="not-italic text-accent">One team.</em>{" "}
+                Nothing falls between.
               </h2>
             </div>
-
-            {/* Timeline dots + line */}
-            <div className="relative">
-              {/* Static background line */}
-              <div className="absolute left-[19px] top-[20px] bottom-[20px] w-[2px] bg-border-light rounded-full" />
-
-              {/* Animated fill line */}
-              <motion.div
-                className="absolute left-[19px] top-[20px] w-[2px] bg-accent rounded-full origin-top"
-                style={{
-                  height: "calc(100% - 40px)",
-                  scaleY: lineScaleY,
-                }}
-              />
-
-              <div className="flex flex-col gap-10 relative z-10">
-                {services.map((svc, i) => (
-                  <div key={svc.num} className="flex items-center gap-5">
-                    {/* Dot */}
-                    <div
-                      className={[
-                        "w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 border-2",
-                        "transition-all duration-500",
-                        i === activeIdx
-                          ? "bg-primary border-primary scale-110 ring-4 ring-accent/20"
-                          : i < activeIdx
-                          ? "bg-accent border-accent"
-                          : "bg-white border-border-light",
-                      ].join(" ")}
-                    >
-                      <span
-                        className={[
-                          "font-outfit text-[13.5px] font-black transition-colors duration-300",
-                          i <= activeIdx ? "text-white" : "text-text-muted",
-                        ].join(" ")}
-                      >
-                        {svc.num}
-                      </span>
-                    </div>
-
-                    {/* Label */}
-                    <div>
-                      <p
-                        className={[
-                          "text-[10px] font-bold tracking-[0.1em] uppercase mb-0.5 transition-colors duration-300",
-                          i === activeIdx ? "text-accent" : "text-text-muted/50",
-                        ].join(" ")}
-                      >
-                        {svc.tag}
-                      </p>
-                      <p
-                        className={[
-                          "font-outfit font-extrabold text-[14px] leading-[1.25] transition-colors duration-300",
-                          i === activeIdx ? "text-text-heading" : "text-text-muted/50",
-                        ].join(" ")}
-                      >
-                        {svc.name}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent hover:text-primary transition-colors duration-150 flex-shrink-0 mb-1"
+            >
+              View all 24 services
+              <IconArrowRight size={13} stroke={2} />
+            </Link>
           </div>
 
-          {/* ── Right: active card ── */}
-          <div className="flex-1 flex items-center py-8 pr-[max(40px,calc(50vw-560px))] pl-6">
-            <div className="relative w-full h-full rounded-[28px] overflow-hidden">
-              {services.map((svc, i) => {
-                const isActive = i === activeIdx;
-                return (
+          {/* Accordion cards */}
+          <div
+            className="max-w-site mx-auto px-10 w-full pb-12 flex gap-3"
+            style={{ flex: 1, minHeight: 0 }}
+          >
+            {services.map((svc, i) => {
+              const isActive = i === activeIdx;
+              return (
+                <motion.div
+                  key={svc.num}
+                  className="relative rounded-[18px] overflow-hidden"
+                  initial={{ flexGrow: i === 0 ? 5 : 1 }}
+                  animate={{ flexGrow: isActive ? 5 : 1 }}
+                  transition={{ duration: 0.65, ease: EASE }}
+                  style={{ flexBasis: 0, flexShrink: 0, minWidth: 0 }}
+                >
+                  {/* Background photo */}
+                  <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{ backgroundImage: `url('${svc.img}')` }}
+                  />
+
+                  {/* Overlays */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[rgba(6,12,24,0.55)] to-[rgba(6,12,24,0.92)]" />
+                  <div className="absolute inset-x-0 bottom-0 h-[70%] bg-gradient-to-t from-[rgba(6,12,24,1)] to-transparent" />
+
+                  {/* Color border */}
                   <motion.div
-                    key={svc.num}
-                    className="absolute inset-0 rounded-[28px] overflow-hidden"
+                    className="absolute inset-0 rounded-[18px] pointer-events-none"
                     animate={{
-                      opacity: isActive ? 1 : 0.18,
-                      scale: isActive ? 1 : 0.97,
-                      filter: isActive ? "blur(0px)" : "blur(2px)",
+                      boxShadow: isActive
+                        ? `inset 0 0 0 1.5px ${svc.color}55, 0 0 60px ${svc.color}18`
+                        : "inset 0 0 0 1px rgba(255,255,255,0.06)",
                     }}
-                    transition={{ duration: 0.55, ease: EASE }}
-                    style={{ zIndex: isActive ? 2 : 1 }}
+                    transition={{ duration: 0.5 }}
+                  />
+
+                  {/* ── Collapsed label ── */}
+                  <motion.div
+                    className="absolute inset-0 flex flex-col items-center justify-between py-8 px-0"
+                    animate={{ opacity: isActive ? 0 : 1 }}
+                    transition={{ duration: isActive ? 0.15 : 0.3, delay: isActive ? 0 : 0.2 }}
+                    style={{ pointerEvents: isActive ? "none" : "auto" }}
                   >
-                    {/* Photo */}
-                    <div
-                      className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url('${svc.img}')` }}
+                    <span className="font-outfit text-[11px] font-black text-white/25 tracking-[0.06em]">
+                      {svc.num}
+                    </span>
+                    <span
+                      className="font-outfit text-[10.5px] font-semibold text-white/40 whitespace-nowrap"
+                      style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", letterSpacing: "0.05em" }}
+                    >
+                      {svc.name}
+                    </span>
+                    <span
+                      className="w-[5px] h-[5px] rounded-full"
+                      style={{ background: svc.color, opacity: 0.7 }}
                     />
+                  </motion.div>
 
-                    {/* Dark overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[rgba(6,12,24,0.45)] to-[rgba(6,12,24,0.88)]" />
-                    <div className="absolute inset-x-0 bottom-0 h-[68%] bg-gradient-to-t from-[rgba(6,12,24,1)] to-transparent" />
-
-                    {/* Glow border */}
-                    <motion.div
-                      className="absolute inset-0 rounded-[28px] pointer-events-none"
-                      animate={{
-                        boxShadow: isActive
-                          ? `inset 0 0 0 1.5px ${svc.color}55, 0 0 80px ${svc.color}25`
-                          : "inset 0 0 0 0px transparent, 0 0 0px transparent",
-                      }}
-                      transition={{ duration: 0.5 }}
-                    />
-
-                    {/* Content */}
-                    <div className="absolute inset-0 flex flex-col justify-end p-10">
-                      {/* Tag pill */}
-                      <span
-                        className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.12em] uppercase mb-5 self-start px-3 py-1.5 rounded-full"
-                        style={{
-                          background: `${svc.color}20`,
-                          border: `1px solid ${svc.color}44`,
-                          color: svc.color,
-                        }}
-                      >
-                        <span
-                          className="w-[5px] h-[5px] rounded-full flex-shrink-0"
-                          style={{ background: svc.color }}
+                  {/* ── Expanded content ── */}
+                  <motion.div
+                    className="absolute inset-0 flex flex-col justify-end p-8"
+                    animate={{ opacity: isActive ? 1 : 0 }}
+                    transition={{ duration: 0.4, delay: isActive ? 0.3 : 0 }}
+                    style={{ pointerEvents: isActive ? "auto" : "none" }}
+                  >
+                    {/* Step progress pills */}
+                    <div className="flex items-center gap-1.5 mb-6">
+                      {services.map((_, j) => (
+                        <motion.div
+                          key={j}
+                          className="h-[2.5px] rounded-full"
+                          animate={{
+                            width: j === activeIdx ? 26 : 7,
+                            opacity: j < activeIdx ? 0.35 : j === activeIdx ? 1 : 0.2,
+                            backgroundColor: j <= activeIdx ? svc.color : "#ffffff",
+                          }}
+                          transition={{ duration: 0.4 }}
                         />
-                        {svc.tag}
-                      </span>
+                      ))}
+                    </div>
 
-                      {/* Service name */}
-                      <h3
-                        className="font-outfit font-black text-white mb-3"
-                        style={{
-                          fontSize: "clamp(28px,3.2vw,48px)",
-                          letterSpacing: "-0.03em",
-                          lineHeight: 1.05,
-                        }}
-                      >
-                        {svc.name}
-                      </h3>
+                    {/* Tag pill */}
+                    <span
+                      className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.14em] uppercase mb-4 self-start px-3 py-1.5 rounded-full"
+                      style={{
+                        background: `${svc.color}18`,
+                        border: `1px solid ${svc.color}50`,
+                        color: svc.color,
+                      }}
+                    >
+                      <span className="w-[4px] h-[4px] rounded-full flex-shrink-0" style={{ background: svc.color }} />
+                      {svc.tag}
+                    </span>
 
-                      {/* Description */}
-                      <p className="text-[16px] text-white/65 leading-[1.65] mb-7 max-w-[52ch]">
-                        {svc.description}
-                      </p>
+                    {/* Service name */}
+                    <h3
+                      className="font-outfit font-black text-white mb-3"
+                      style={{ fontSize: "clamp(22px,2.4vw,36px)", letterSpacing: "-0.03em", lineHeight: 1.06 }}
+                    >
+                      {svc.name}
+                    </h3>
 
-                      {/* Bullet grid */}
-                      <div className="grid grid-cols-2 gap-x-8 gap-y-2.5">
-                        {svc.bullets.map((b) => (
-                          <div key={b} className="flex items-start gap-2.5">
-                            <span
-                              className="w-[5px] h-[5px] rounded-full mt-[7px] flex-shrink-0"
-                              style={{ background: svc.color }}
-                            />
-                            <span className="text-[13.5px] text-white/55 leading-[1.5]">
-                              {b}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
+                    {/* Description */}
+                    <p className="text-[14px] text-white/55 leading-[1.7] mb-5 max-w-[44ch]">
+                      {svc.description}
+                    </p>
+
+                    {/* Key services list */}
+                    <div className="flex flex-col gap-2">
+                      {svc.bullets.slice(0, 4).map((b) => (
+                        <div key={b} className="flex items-center gap-2.5">
+                          <span
+                            className="w-[4px] h-[4px] rounded-full flex-shrink-0 mt-px"
+                            style={{ background: svc.color }}
+                          />
+                          <span className="text-[12px] text-white/45 leading-none">{b}</span>
+                        </div>
+                      ))}
                     </div>
                   </motion.div>
-                );
-              })}
-            </div>
+
+                </motion.div>
+              );
+            })}
           </div>
 
         </section>
@@ -305,37 +249,37 @@ export default function WhatWeOwn() {
       {/* ── Mobile: stacked cards ── */}
       <section className="lg:hidden bg-bg-page py-16 px-5">
         <div className="mb-10">
-          <Eyebrow>What We Run</Eyebrow>
+          <Eyebrow>What We Own</Eyebrow>
           <h2
             className="font-outfit font-black text-text-heading"
             style={{ fontSize: "clamp(28px,7vw,40px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}
           >
-            This is what we take responsibility for.
+            Four areas.{" "}
+            <em className="not-italic text-accent">One team.</em>{" "}
+            Nothing falls between.
           </h2>
         </div>
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-4">
           {services.map((svc) => (
             <div
               key={svc.num}
-              className="relative rounded-[20px] overflow-hidden h-[280px]"
-              style={{ boxShadow: `0 8px 32px ${svc.color}22` }}
+              className="relative rounded-[18px] overflow-hidden h-[260px]"
             >
               <div
                 className="absolute inset-0 bg-cover bg-center"
                 style={{ backgroundImage: `url('${svc.img}')` }}
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-[rgba(6,12,24,0.45)] to-[rgba(6,12,24,0.92)]" />
-              <div className="absolute inset-x-0 bottom-0 h-[75%] bg-gradient-to-t from-[rgba(6,12,24,1)] to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-b from-[rgba(6,12,24,0.45)] to-[rgba(6,12,24,0.95)]" />
               <div
-                className="absolute inset-0 rounded-[20px]"
-                style={{ border: `1.5px solid ${svc.color}44` }}
+                className="absolute inset-0 rounded-[18px]"
+                style={{ border: `1.5px solid ${svc.color}40` }}
               />
               <div className="absolute inset-0 flex flex-col justify-end p-6">
                 <span
                   className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.12em] uppercase mb-3 self-start px-2.5 py-1 rounded-full"
                   style={{
-                    background: `${svc.color}20`,
+                    background: `${svc.color}18`,
                     border: `1px solid ${svc.color}44`,
                     color: svc.color,
                   }}
@@ -344,15 +288,23 @@ export default function WhatWeOwn() {
                 </span>
                 <p
                   className="font-outfit font-black text-white mb-2"
-                  style={{ fontSize: 24, letterSpacing: "-0.025em", lineHeight: 1.1 }}
+                  style={{ fontSize: 22, letterSpacing: "-0.025em", lineHeight: 1.1 }}
                 >
                   {svc.name}
                 </p>
-                <p className="text-[13.5px] text-white/60 leading-[1.55]">{svc.description}</p>
+                <p className="text-[13px] text-white/55 leading-[1.55]">{svc.description}</p>
               </div>
             </div>
           ))}
         </div>
+
+        <Link
+          href="/services"
+          className="mt-7 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-accent hover:text-white transition-colors duration-150"
+        >
+          View all 24 services
+          <IconArrowRight size={13} stroke={2} />
+        </Link>
       </section>
     </>
   );

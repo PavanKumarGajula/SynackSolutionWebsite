@@ -110,7 +110,7 @@ export default function TheStandard() {
               </div>
               <div className={TEXT}>
                 <p className="font-outfit text-[16px] font-extrabold text-text-heading mb-1.5">Prevent failure at the source</p>
-                <p className="text-[13.5px] text-text-muted leading-[1.65]">Systems designed to reduce incidents, not just respond to them.</p>
+                <p className="text-[13.5px] text-text-muted leading-[1.65]">Most incidents are predictable — same root cause, different symptom. We close the root, not the symptom.</p>
               </div>
             </motion.div>
 
@@ -148,7 +148,7 @@ export default function TheStandard() {
               </div>
               <div className={TEXT}>
                 <p className="font-outfit text-[16px] font-extrabold text-text-heading mb-1.5">Detect before disruption</p>
-                <p className="text-[13.5px] text-text-muted leading-[1.65]">We see issues before they impact your operations.</p>
+                <p className="text-[13.5px] text-text-muted leading-[1.65]">Monitoring tuned to operational impact, not ticket volume. Most issues we catch never become tickets.</p>
               </div>
             </motion.div>
 
@@ -179,7 +179,7 @@ export default function TheStandard() {
               </div>
               <div className={TEXT}>
                 <p className="font-outfit text-[16px] font-extrabold text-text-heading mb-1.5">Direct engineer access</p>
-                <p className="text-[13.5px] text-text-muted leading-[1.65]">No tiers. No handoffs. Real expertise, directly available.</p>
+                <p className="text-[13.5px] text-text-muted leading-[1.65]">No tiers. No handoffs. The engineer who answers is the engineer who fixes it.</p>
               </div>
             </motion.div>
 
@@ -213,7 +213,7 @@ export default function TheStandard() {
               </div>
               <div className={TEXT}>
                 <p className="font-outfit text-[16px] font-extrabold text-text-heading mb-1.5">Predictable cost structure</p>
-                <p className="text-[13.5px] text-text-muted leading-[1.65]">One fixed monthly investment. No surprises, no exceptions.</p>
+                <p className="text-[13.5px] text-text-muted leading-[1.65]">Per-seat monthly cost. No project invoices, no surprise capex. The number in your budget is the number you pay.</p>
               </div>
             </motion.div>
 

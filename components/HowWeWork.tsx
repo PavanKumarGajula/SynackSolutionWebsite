@@ -197,10 +197,11 @@ export default function HowWeWork() {
           <div className="flex flex-col items-center text-center mb-12">
             <Eyebrow>How We Work</Eyebrow>
             <h2 className="font-outfit font-black text-h1 text-text-heading mb-5">
-              We come prepared. From day one.
+              Day one isn&apos;t an introduction.{" "}
+              <em className="not-italic text-accent">It&apos;s a takeover.</em>
             </h2>
             <p className="text-body-lg text-text-muted max-w-[56ch]">
-              We map your environment. We bring you the plan.{" "}
+              We walk in with a plan. By day one, the immediate risks are locked down.{" "}
               <strong className="text-text-heading font-bold">
                 You&apos;re not managing us — we&apos;re working for you.
               </strong>

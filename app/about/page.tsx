@@ -37,14 +37,14 @@ const team = [
     initials: "TM",
     name:     "Taha Mohammed",
     title:    "Chief Technology Officer",
-    bio:      "Leads technical direction of service delivery — the platforms, tools, and engineering practices that make full ownership possible.",
+    bio:      "Leads technical direction of service delivery: the platforms, tools, and engineering practices that make full ownership possible.",
     image:    null, // replace with "/team-taha.jpg" when available
   },
 ];
 
 const testimonials = [
   {
-    quote: "SynAck doesn't just fix problems — they eliminated the category of problem entirely. We haven't had a repeat incident in over a year.",
+    quote: "SynAck doesn't just fix problems. They eliminated the category of problem entirely. We haven't had a repeat incident in over a year.",
     name: "Daniel R.",
     title: "COO",
     company: "Tri-State Logistics",
@@ -52,7 +52,7 @@ const testimonials = [
     logo: null, // replace with "/logos/tri-state-logistics.svg"
   },
   {
-    quote: "In financial services, downtime isn't inconvenient — it's a liability. SynAck understands that and operates accordingly. Our uptime has been flawless.",
+    quote: "In financial services, downtime isn't inconvenient, it's a liability. SynAck understands that and operates accordingly. Our uptime has been flawless.",
     name: "Jennifer K.",
     title: "CEO",
     company: "Meridian Financial Group",
@@ -68,7 +68,7 @@ const testimonials = [
     logo: null, // replace with "/logos/northbridge-manufacturing.svg"
   },
   {
-    quote: "Patient records, compliance, HIPAA — the stakes are real. SynAck brought structure and documentation we never had before. I sleep better now.",
+    quote: "Patient records, compliance, HIPAA: the stakes are real. SynAck brought structure and documentation we never had before. I sleep better now.",
     name: "Priya S.",
     title: "Practice Administrator",
     company: "Crestview Medical Associates",
@@ -89,7 +89,7 @@ const principles = [
   {
     num:   "PRINCIPLE 01",
     title: "Ownership is the deliverable.",
-    body:  "Tickets, response times, SLAs — byproducts. Not products. The deliverable is an environment someone fully owns. Knows end to end. Can answer for. Is responsible when something goes wrong. Without that, everything else is theatre.",
+    body:  "Tickets, response times, SLAs: byproducts. Not products. The deliverable is an environment someone fully owns. Knows end to end. Can answer for. Is responsible when something goes wrong. Without that, everything else is theatre.",
   },
   {
     num:   "PRINCIPLE 02",
@@ -99,7 +99,7 @@ const principles = [
   {
     num:   "PRINCIPLE 03",
     title: "If we can't explain it, we don't understand it.",
-    body:  "Every environment we run, we can explain to a non-technical owner in five minutes. If we can't — the issue isn't the owner. It's the environment. The work is to close that gap.",
+    body:  "Every environment we run, we can explain to a non-technical owner in five minutes. If we can't, the issue isn't the owner. It's the environment. The work is to close that gap.",
   },
 ];
 
@@ -488,12 +488,12 @@ export default function About() {
             <FadeUp delay={0.2}>
               <div className="md:pt-[calc(1.5em+10px)] flex flex-col gap-4">
                 <p className="text-[clamp(15px,1.5vw,17px)] text-text-body leading-[1.75]">
-                  Something breaks. The previous IT company patches the symptom. Bills for the time. Leaves no documentation. Six months later, the same root cause produces a different failure — until something serious goes down and no one understands the environment well enough to fix it cleanly.
+                  Something breaks. The previous IT company patches the symptom. Bills for the time. Leaves no documentation. Six months later, the same root cause produces a different failure, until something serious goes down and no one understands the environment well enough to fix it cleanly.
                 </p>
                 <p className="text-[clamp(15px,1.5vw,17px)] text-text-body leading-[1.75]">
                   In small and mid-size business IT, this isn&apos;t an exception.{" "}
                   <span className="text-accent font-semibold">It&apos;s the default.</span>{" "}
-                  We built SynAck to own the environment from day one — document everything, and measure success by the absence of incidents, not the speed of response.
+                  We built SynAck to own the environment from day one: document everything, and measure success by the absence of incidents, not the speed of response.
                 </p>
               </div>
             </FadeUp>

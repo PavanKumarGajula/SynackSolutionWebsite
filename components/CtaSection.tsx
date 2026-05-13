@@ -60,7 +60,7 @@ export default function CtaSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.22, ease: EASE }}
         >
-          A senior engineer reviews your environment, maps what&apos;s broken, and tells you exactly what needs to happen. No obligation. No sales pitch.
+          A senior engineer reviews your environment, maps what&apos;s broken, and tells you exactly what needs to happen. Not a template, not a sales pitch.
         </motion.p>
 
         {/* Buttons */}

@@ -41,32 +41,29 @@ function IndustryStrip() {
 
   return (
     <div
-      className="sticky top-[68px] z-40 border-b border-border-light overflow-x-auto"
-      style={{ background: "rgba(244,247,251,0.92)", backdropFilter: "blur(16px) saturate(180%)" }}
+      className="sticky top-[62px] z-40 border-b border-border-light overflow-x-auto"
+      style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(20px) saturate(180%)" }}
     >
-      <div className="max-w-[1280px] mx-auto px-5 lg:px-[60px] py-3 flex items-center gap-1.5 min-w-max">
-        {STRIP_ITEMS.map((s, i) => (
-          <React.Fragment key={s.id}>
-            {i > 0 && (
-              <span className="text-border-light flex-shrink-0 text-[11px]" style={{ fontFamily: JB }}>·</span>
-            )}
-            <a
-              href={`#${s.id}`}
-              className="flex items-center gap-2 px-3 py-[7px] rounded-full flex-shrink-0 transition-all duration-200 whitespace-nowrap"
-              style={{
-                fontFamily: JB,
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: active === s.id ? "#fff" : "#1E4D8C",
-                background: active === s.id ? "#2472C8" : "transparent",
-              }}
-            >
-              <span style={{ opacity: active === s.id ? 1 : 0.65 }}>{s.num}</span>
-              {s.label}
-            </a>
-          </React.Fragment>
+      <div className="max-w-site mx-auto px-5 lg:px-10 py-2.5 flex items-center gap-1 min-w-max">
+        {STRIP_ITEMS.map((s) => (
+          <a
+            key={s.id}
+            href={`#${s.id}`}
+            className="flex-shrink-0 whitespace-nowrap transition-all duration-200"
+            style={{
+              fontFamily: JB,
+              fontSize: 13.5,
+              fontWeight: active === s.id ? 600 : 500,
+              letterSpacing: "0.01em",
+              color: active === s.id ? "#102347" : "#1E4D8C",
+              padding: "6px 14px",
+              borderRadius: 8,
+              background: active === s.id ? "#EAF2FC" : "transparent",
+              textDecoration: "none",
+            }}
+          >
+            {s.label}
+          </a>
         ))}
       </div>
     </div>
@@ -142,13 +139,9 @@ function OutcomeList({ items }: { items: Outcome[] }) {
   );
 }
 
-function SectionNum({ n }: { n: string }) {
-  return (
-    <div className="font-outfit font-black text-accent mb-2 leading-none select-none"
-      style={{ fontSize: "clamp(48px,7vw,64px)", letterSpacing: "-0.05em", opacity: 0.18 }}>
-      {n}
-    </div>
-  );
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function SectionNum(_: { n: string }) {
+  return null;
 }
 
 /* ═══════════════════════════════════════════════
@@ -201,6 +194,7 @@ function MfgSection() {
                   <stop offset="100%" stopColor="#F4F7FB" stopOpacity="0" />
                 </radialGradient>
               </defs>
+
               <rect width="380" height="260" fill="url(#mfg-grid)" />
               <ellipse cx="190" cy="160" rx="170" ry="46" fill="url(#mfg-floor)" />
               {/* Telemetry arrow */}
@@ -871,7 +865,7 @@ export default function Industries() {
               ))}
             </div>
             <p className="text-text-muted" style={{ fontSize: 12.5, letterSpacing: "0.02em" }}>
-              Trusted by 80+ businesses across 4 industries
+              Trusted by 80+ businesses across every industry
             </p>
           </motion.div>
 
@@ -964,10 +958,10 @@ export default function Industries() {
                 ))}
               </div>
               <Eyebrow dark>What Comes Next</Eyebrow>
-              <h2 className="font-outfit font-black max-w-[22ch]"
+              <h2 className="font-outfit font-black max-w-[22ch] text-balance"
                 style={{ fontSize: "clamp(34px,4.4vw,54px)", letterSpacing: "-0.04em", lineHeight: 1.04, color: "#EAF2FC" }}>
-                Tell us your industry.
-                <em className="not-italic block">We&apos;ll map the right controls.</em>
+                Tell us your industry.{" "}
+                <em className="not-italic">We&apos;ll map the right controls.</em>
               </h2>
               <p style={{ fontSize: "17px", color: "#7AB4EE", lineHeight: 1.65, maxWidth: "52ch" }}>
                 A short call is enough to understand your environment. We&apos;ll tell you where your gaps are and what we&apos;d change first.

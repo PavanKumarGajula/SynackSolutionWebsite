@@ -224,51 +224,37 @@ export default function Hero() {
             </svg>
           </div>
           <span className="w-px h-3 bg-border-light flex-shrink-0" />
-          <span className="text-eyebrow font-bold uppercase text-accent">Managed IT Provider</span>
+          <span className="text-eyebrow font-bold uppercase text-accent">Your Complete IT Partner</span>
         </motion.div>
 
         {/* Headline */}
         <h1 className="font-outfit font-black text-display text-text-heading mb-6 max-w-[680px] text-balance">
-          We run, secure, and connect your IT systems.
+          Your entire IT.{" "}
+          <em className="not-italic text-accent">One accountable team.</em>
         </h1>
 
         {/* Subtext */}
-        <p className="text-body-lg mb-7 max-w-[48ch]">
+        <p className="text-body-lg mb-7 max-w-[52ch]">
           <span className="text-text-muted">
-            If no one owns your environment, no one is responsible when it fails.
+            Four areas — Managed IT, Cybersecurity, Compliance, and Modern Workplace — owned end-to-end by senior engineers. No vendor sprawl. No finger-pointing. No &ldquo;that&apos;s not our scope.&rdquo;
           </span>
         </p>
 
-        {/* CTAs + trust */}
+        {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE }}
-          className="flex flex-col items-center gap-5"
+          className="flex items-center gap-4 flex-wrap justify-center"
         >
-          <div className="flex items-center gap-4 flex-wrap justify-center">
-            <Link href="/contact" className="btn btn-primary">
-              Contact Us
-              <IconArrowRight size={14} stroke={2} />
-            </Link>
-            <Link href="/services" className="btn btn-outline">
-              View Services
-              <IconArrowRight size={14} stroke={2} />
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-6 flex-wrap justify-center">
-            {["We handle IT — you stay focused", "One partner. Full responsibility.", "Predictable monthly cost"].map((badge) => (
-              <div key={badge} className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center flex-shrink-0">
-                  <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-accent">
-                    <polyline points="1.5,5 3.5,7.5 8.5,2"/>
-                  </svg>
-                </div>
-                <span className="text-[13.5px] font-medium text-text-muted">{badge}</span>
-              </div>
-            ))}
-          </div>
+          <Link href="/contact" className="btn btn-primary">
+            Talk to us
+            <IconArrowRight size={14} stroke={2} />
+          </Link>
+          <Link href="/services" className="btn btn-outline">
+            View Services
+            <IconArrowRight size={14} stroke={2} />
+          </Link>
         </motion.div>
 
         {/* ── Dashboard mockup ── */}

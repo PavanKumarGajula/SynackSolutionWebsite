@@ -70,7 +70,7 @@ export default function WhereToBegin({ onSelect }: Props) {
             <em className="not-italic" style={{ color: "#2472C8" }}>We start with what hurts.</em>
           </h2>
           <p className="text-text-muted" style={{ fontSize: "clamp(14px,1.2vw,16px)", maxWidth: 520 }}>
-            Tell us your biggest pain point. We&apos;ll show you exactly which service solves it — and what order to add the rest.
+            Tell us your biggest pain point. We&apos;ll show you exactly which service solves it, and what order to add the rest.
           </p>
         </motion.div>
 
@@ -121,7 +121,7 @@ export default function WhereToBegin({ onSelect }: Props) {
               </h3>
 
               <p className="mb-8 leading-[1.7]" style={{ fontSize: 14, color: "rgba(234,242,252,.6)" }}>
-                Pick the problem that keeps you up at night. Each answer maps to a specific service — and a clear starting point.
+                Pick the problem that keeps you up at night. Each answer maps to a specific service and a clear starting point.
               </p>
 
               {/* Stats row */}
@@ -285,7 +285,7 @@ export default function WhereToBegin({ onSelect }: Props) {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.75, ease: EASE }}
             >
-              Not seeing your pain point? We manage 7 more areas — from AV &amp; conferencing to IT asset procurement.{" "}
+              Not seeing your pain point? We manage 7 more areas, from AV &amp; conferencing to IT asset procurement.{" "}
               <button
                 onClick={() => onSelect("managed-it")}
                 className="underline underline-offset-2 font-semibold not-italic cursor-pointer"

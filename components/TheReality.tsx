@@ -33,7 +33,7 @@ const failures = [
     level: "error" as const,
     metric: "47 days",
     metricLabel: "since last backup",
-    description: "If ransomware hit today, there's nothing to restore.",
+    description: "Backup hasn't been touched in seven weeks. Nobody knows if it restores.",
   },
   {
     system: "Firewall",
@@ -51,7 +51,7 @@ const failures = [
     level: "warning" as const,
     metric: "0%",
     metricLabel: "staff completion rate",
-    description: "Someone clicked a phishing link this month. You don't know who.",
+    description: "Insurer asks about training records at every renewal. There aren't any.",
   },
 ];
 
@@ -71,7 +71,7 @@ const m365Stats = [
 
 const m365Alerts = [
   "The person who set this up left in 2021. Nobody has the keys.",
-  "87% of users have no MFA. One password is all it takes.",
+  "87% of users have no MFA. The finding from your last audit — still open.",
   "Your cyber insurance policy asks about this every renewal.",
 ];
 

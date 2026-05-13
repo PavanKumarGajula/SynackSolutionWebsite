@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import {
   IconArrowRight,
@@ -11,6 +11,7 @@ import {
   IconLock, IconChartBar, IconFileCertificate, IconFileCheck,
   IconSettings2, IconUsersGroup, IconSparkles, IconShieldLock,
   IconShare2, IconKey,
+  IconSearch, IconAdjustmentsHorizontal, IconActivity, IconTrendingUp,
 } from "@tabler/icons-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -61,14 +62,14 @@ const AREAS: Area[] = [
     scopeServices: ["Managed IT", "M365 & Cloud", "Network", "Backup & DR", "Procurement", "AV", "Build-outs"],
     headlineA: "Good infrastructure is",
     headlineItalic: "invisible.",
-    sub: "Most foundations are whatever the last vendor left behind — an undocumented switch closet, a help desk that responds without resolving, a backup running for years but never restored. We rebuild the stack so it stops being the thing you worry about.",
+    sub: "Most foundations are whatever the last vendor left behind: an undocumented switch closet, a help desk that responds without resolving, a backup running for years but never restored. We rebuild the stack so it stops being the thing you worry about.",
     services: [
-      { icon: "ti-headset",            name: "Managed IT & Help Desk",            desc: "4-min average response. Senior engineers only — no tier-1 triage." },
+      { icon: "ti-headset",            name: "Managed IT & Help Desk",            desc: "4-min average response. Senior engineers only, no tier-1 triage." },
       { icon: "ti-cloud",              name: "Microsoft 365 & Cloud",             desc: "Tenant administration, licensing, Entra ID, migration support." },
-      { icon: "ti-router",             name: "Network Infrastructure",            desc: "Wi-Fi · firewalls · switching · VPN — designed for sub-second failover." },
+      { icon: "ti-router",             name: "Network Infrastructure",            desc: "Wi-Fi · firewalls · switching · VPN, designed for sub-second failover." },
       { icon: "ti-package",            name: "IT Asset Procurement & Lifecycle",  desc: "From PO to e-waste certificate. Serial-tagged asset register, warranty calendar, devices wiped to NIST 800-88 at end of life." },
       { icon: "ti-database-export",    name: "Backup & Disaster Recovery",        desc: "Backups verified weekly. Restore tested monthly. RTO measured, not assumed." },
-      { icon: "ti-device-tv",          name: "Audio/Visual & Conference Rooms",   desc: "Teams Rooms, Crestron, Polycom — installed, configured, supported." },
+      { icon: "ti-device-tv",          name: "Audio/Visual & Conference Rooms",   desc: "Teams Rooms, Crestron, Polycom: installed, configured, supported." },
       { icon: "ti-building-warehouse", name: "Office Build-Outs & Relocations",   desc: "Cabling, network design, day-one-ready before the movers leave." },
     ],
   },
@@ -92,12 +93,12 @@ const AREAS: Area[] = [
   {
     num: "03", label: "Governance", fullName: "Compliance & Risk",
     count: 5, color: "#22A05A",
-    scopeDesc: "Compliance readiness — HIPAA, SOC 2, NIST CSF.",
+    scopeDesc: "Compliance readiness: HIPAA, SOC 2, NIST CSF.",
     scopeServices: ["Gap Assessments", "Controls", "Risk", "Policy", "Audit Support"],
     headlineA: "Compliance is a",
     headlineItalic: "posture.",
     headlineB: " Not a 60-day scramble.",
-    sub: "Compliance readiness and technical controls support — HIPAA, SOC 2, and NIST CSF as frameworks, not promises.",
+    sub: "Compliance readiness and technical controls support: HIPAA, SOC 2, and NIST CSF as frameworks, not promises.",
     services: [
       { icon: "ti-clipboard-check",  name: "Compliance Readiness & Gap Assessments", desc: "Control-by-control mapping. Specific gaps with specific remediation steps. No vague \"enhance security\" findings." },
       { icon: "ti-lock",             name: "Technical Controls Implementation",       desc: "Controls deployed to your environment. Not bolted on before audit." },
@@ -114,23 +115,23 @@ const AREAS: Area[] = [
     headlineA: "Joiners day one. Leavers day zero.",
     headlineItalic: "Copilot",
     headlineB: " without the surprises.",
-    sub: "Most M365 tenants drift the moment they're set up — shared mailboxes nobody owns, guest accounts from a 2022 vendor, Copilot enabled before Purview was configured. We bring the tenant back to a defined state, and keep it there.",
+    sub: "Most M365 tenants drift the moment they're set up: shared mailboxes nobody owns, guest accounts from a 2022 vendor, Copilot enabled before Purview was configured. We bring the tenant back to a defined state, and keep it there.",
     services: [
       { icon: "ti-settings-2",  name: "Microsoft 365 Governance",        desc: "Least privilege by default. Tenant settings documented, not improvised." },
       { icon: "ti-users-group", name: "Identity Governance & Lifecycle",  desc: "JML automation across Entra. Zero orphan accounts." },
       { icon: "ti-sparkles",    name: "Microsoft 365 Copilot Readiness",  desc: "Data classification first. Then Copilot. Not the other way around." },
-      { icon: "ti-shield-lock", name: "Data Protection",                  desc: "Purview sensitivity labels, classification, DLP — applied consistently." },
-      { icon: "ti-share-2",     name: "Secure Collaboration",             desc: "Teams, SharePoint, external sharing — governed, not wide open." },
+      { icon: "ti-shield-lock", name: "Data Protection",                  desc: "Purview sensitivity labels, classification, DLP, applied consistently." },
+      { icon: "ti-share-2",     name: "Secure Collaboration",             desc: "Teams, SharePoint, external sharing, governed but not wide open." },
       { icon: "ti-key",         name: "Access Reviews",                   desc: "Quarterly automated reviews. Approvals tracked. Stale access removed." },
     ],
   },
 ];
 
 const PHASES = [
-  { num: "01", name: "Discover",    body: "We map the environment before we touch it. Every endpoint inventoried. Every backup tested." },
-  { num: "02", name: "Standardize", body: "Identity federated. Permissions mapped. Patching standardized. The foundation gets fixed once." },
-  { num: "03", name: "Stabilize",   body: "Monitoring in place. Runbooks tested. Repeat issues closed at the root, not the symptom." },
-  { num: "04", name: "Improve",     body: "Forever, not until renewal. Monthly roadmap. The environment gets better every quarter." },
+  { num: "01", name: "Discover",    icon: IconSearch,                 body: "We map the environment before we touch it. Every endpoint inventoried. Every backup tested." },
+  { num: "02", name: "Standardize", icon: IconAdjustmentsHorizontal,  body: "Identity federated. Permissions mapped. Patching standardized. The foundation gets fixed once." },
+  { num: "03", name: "Stabilize",   icon: IconActivity,               body: "Monitoring in place. Runbooks tested. Repeat issues closed at the root, not the symptom." },
+  { num: "04", name: "Improve",     icon: IconTrendingUp,             body: "Forever, not until renewal. Monthly roadmap. The environment gets better every quarter." },
 ];
 
 /* ── FI: fade-in animation wrapper ── */
@@ -156,71 +157,119 @@ function FI({
   );
 }
 
-/* ── PhaseColumns: line-draw sequential reveal ── */
-function PhaseColumns() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+/* ── ProcessSection: scroll-sticky sequential reveal ── */
+function ProcessSection() {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: wrapperRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Line draws left→right tied to scroll
+  const lineScaleX = scrollYProgress;
+
+  // Each column brightens as the line sweeps into its zone
+  const op0 = useTransform(scrollYProgress, [0,    0.12], [0.14, 1]);
+  const op1 = useTransform(scrollYProgress, [0.22, 0.36], [0.14, 1]);
+  const op2 = useTransform(scrollYProgress, [0.47, 0.61], [0.14, 1]);
+  const op3 = useTransform(scrollYProgress, [0.72, 0.86], [0.14, 1]);
+
+  // Dots fill when line reaches the column separator (25 % / 50 % / 75 % / 100 %)
+  const d0 = useTransform(scrollYProgress, [0.22, 0.28], ["rgba(36,114,200,.2)", "#2472C8"]);
+  const d1 = useTransform(scrollYProgress, [0.47, 0.53], ["rgba(36,114,200,.2)", "#2472C8"]);
+  const d2 = useTransform(scrollYProgress, [0.72, 0.78], ["rgba(36,114,200,.2)", "#2472C8"]);
+  const d3 = useTransform(scrollYProgress, [0.93, 0.99], ["rgba(36,114,200,.2)", "#2472C8"]);
+
+  const colOpacities = [op0, op1, op2, op3];
+  const dotColors    = [d0,  d1,  d2,  d3];
 
   return (
-    <div ref={ref}>
-      {/* 4 columns — number top, content bottom */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0" style={{ height: 280 }}>
-        {PHASES.map((phase, i) => (
-          <motion.div
-            key={phase.num}
-            initial={{ opacity: 0.18 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.65, delay: i * 0.5, ease: EASE }}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              height: "100%",
-              paddingBottom: 40,
-              paddingRight: 28,
-              paddingLeft: 28,
-              borderRight: i < PHASES.length - 1 ? "1px solid rgba(30,77,140,.12)" : "none",
-            }}
-          >
-            {/* Number at top */}
-            <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 15, fontWeight: 500, color: "#1E4D8C", letterSpacing: "0.02em" }}>
-              {phase.num}
-            </div>
+    // Tall wrapper gives the sticky panel scroll room (≈ 3 × panel height)
+    <div ref={wrapperRef} style={{ height: "400vh" }}>
 
-            {/* Heading + body pinned to bottom */}
-            <div>
-              <div className="font-outfit font-black" style={{ fontSize: "clamp(17px,1.8vw,24px)", color: "#0A1628", letterSpacing: "-0.03em", lineHeight: 1.15, marginBottom: 10 }}>
-                {phase.name}
-              </div>
-              <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13.5, color: "#1E4D8C", lineHeight: 1.75 }}>
-                {phase.body}
-              </p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+      {/* Sticky panel — stays pinned while user scrolls */}
+      <div style={{ position: "sticky", top: 0, height: "100vh", background: "#F4F7FB", display: "flex", flexDirection: "column", justifyContent: "center", overflow: "hidden" }}>
+        <div className="max-w-site mx-auto px-5 lg:px-10 w-full">
 
-      {/* Track + animated fill + dots — desktop only */}
-      <div className="hidden lg:block">
-        <div style={{ height: 1, background: "rgba(30,77,140,.12)", position: "relative", overflow: "hidden" }}>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={inView ? { scaleX: 1 } : {}}
-            transition={{ duration: 2, delay: 0.05, ease: EASE }}
-            style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg,#2472C8,#3D8FE0)", transformOrigin: "left" }}
-          />
-        </div>
-        <div className="grid grid-cols-4" style={{ marginTop: -7 }}>
-          {PHASES.map((_, i) => (
-            <div key={i} style={{ display: "flex", justifyContent: "center" }}>
+          {/* Header */}
+          <div style={{ marginBottom: 64 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
+              <span style={{ width: 20, height: 1, borderRadius: 999, background: "#2472C8", display: "inline-block" }} />
+              <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase" as const, color: "#2472C8" }}>
+                The Process
+              </span>
+            </div>
+            <h2 className="font-outfit font-black" style={{ fontSize: "clamp(30px,3.5vw,48px)", letterSpacing: "-0.04em", lineHeight: 1.08, color: "#0A1628", maxWidth: "24ch", marginBottom: 16 }}>
+              Four phases. The same every time.{" "}
+              <em style={{ fontStyle: "italic", color: "#2472C8" }}>Documented</em> from day one.
+            </h2>
+            <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: 16, color: "#1E4D8C", lineHeight: 1.78, maxWidth: "50ch" }}>
+              We don&apos;t show up and start fixing. Every engagement follows the same model, same outcome: IT you stop thinking about.
+            </p>
+          </div>
+
+          {/* 4 columns — number top, content bottom */}
+          <div className="grid grid-cols-4" style={{ height: 240 }}>
+            {PHASES.map((phase, i) => (
               <motion.div
-                initial={{ scale: 0.35, backgroundColor: "rgba(36,114,200,.22)" }}
-                animate={inView ? { scale: 1, backgroundColor: "#2472C8" } : {}}
-                transition={{ duration: 0.35, delay: i * 0.5 + 0.05, ease: EASE }}
-                style={{ width: 13, height: 13, borderRadius: "50%" }}
+                key={phase.num}
+                style={{
+                  opacity: colOpacities[i],
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  height: "100%",
+                  paddingBottom: 40,
+                  paddingRight: 28,
+                  paddingLeft: 28,
+                  borderRight: i < PHASES.length - 1 ? "1px solid rgba(30,77,140,.12)" : "none",
+                }}
+              >
+                <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 15, fontWeight: 500, color: "#1E4D8C" }}>
+                  {phase.num}
+                </div>
+                <div>
+                  <div style={{ width: 38, height: 38, borderRadius: 10, background: "rgba(36,114,200,.08)", border: "1px solid rgba(36,114,200,.14)", display: "flex", alignItems: "center", justifyContent: "center", color: "#2472C8", marginBottom: 14 }}>
+                    <phase.icon size={18} stroke={1.75} />
+                  </div>
+                  <div className="font-outfit font-black" style={{ fontSize: "clamp(17px,1.8vw,24px)", color: "#0A1628", letterSpacing: "-0.03em", lineHeight: 1.15, marginBottom: 10 }}>
+                    {phase.name}
+                  </div>
+                  <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13.5, color: "#1E4D8C", lineHeight: 1.75 }}>
+                    {phase.body}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Horizontal track + animated fill */}
+          <div style={{ position: "relative", marginTop: 0 }}>
+            <div style={{ height: 1, background: "rgba(30,77,140,.12)", position: "relative" }}>
+              <motion.div
+                style={{ position: "absolute", inset: 0, scaleX: lineScaleX, transformOrigin: "left", background: "linear-gradient(90deg,#2472C8,#3D8FE0)" }}
               />
             </div>
-          ))}
+
+            {/* Dots at intersections of column separators + horizontal line (25 %, 50 %, 75 %, 100 %) */}
+            {dotColors.map((bgColor, i) => (
+              <motion.div
+                key={i}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: `${(i + 1) * 25}%`,
+                  transform: "translate(-50%, -50%)",
+                  width: 13,
+                  height: 13,
+                  borderRadius: "50%",
+                  backgroundColor: bgColor,
+                  zIndex: 2,
+                }}
+              />
+            ))}
+          </div>
+
         </div>
       </div>
     </div>
@@ -233,18 +282,18 @@ export default function Services() {
   const heroInView = useInView(heroRef, { once: true });
 
   return (
-    <main className="pt-[68px]">
+    <main className="pt-[68px] bg-bg-page">
 
       {/* ══════════════════ HERO ══════════════════ */}
       <section
         ref={heroRef}
-        className="relative flex items-center overflow-hidden"
-        style={{ minHeight: "calc(100vh - 68px)", background: "#F4F7FB" }}
+        className="relative flex items-center overflow-hidden bg-bg-page"
+        style={{ minHeight: "calc(100vh - 68px)" }}
       >
         {/* Ambient glow */}
         <div className="absolute pointer-events-none" style={{ top: "18%", left: "32%", width: 600, height: 600, background: "radial-gradient(circle,rgba(36,114,200,.07) 0%,transparent 65%)" }} />
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none" style={{ background: "linear-gradient(to top,#F4F7FB,transparent)" }} />
+        <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none bg-gradient-to-t from-bg-page to-transparent" />
 
         <div className="relative z-10 max-w-site mx-auto px-5 lg:px-10 w-full py-24">
           <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-center">
@@ -295,7 +344,7 @@ export default function Services() {
                 transition={{ duration: 0.6, delay: 0.64, ease: EASE }}
                 style={{ fontSize: "clamp(15px,1.35vw,17px)", color: "#1E4D8C", lineHeight: 1.82, marginBottom: 40, maxWidth: "58ch" }}
               >
-                A help desk ticket that bounces between two MSPs for three days. An audit nobody has the documentation for. A new hire who can&apos;t log in until Tuesday because the M365 admin is on vacation. We own those seams — twenty-four services, four areas, one accountable team.
+                A help desk ticket that bounces between two MSPs for three days. An audit nobody has the documentation for. A new hire who can&apos;t log in until Tuesday because the M365 admin is on vacation. We own those seams: twenty-four services, four areas, one accountable team.
               </motion.p>
 
               <motion.div
@@ -344,7 +393,7 @@ export default function Services() {
       </section>
 
       {/* ══════════════════ SCOPE STRIP ══════════════════ */}
-      <section style={{ background: "#FFFFFF" }}>
+      <section className="bg-bg-page">
         <div className="max-w-site mx-auto px-5 lg:px-10">
           <div className="grid grid-cols-2 lg:grid-cols-4" style={{ borderLeft: "1px solid #B8D4F7" }}>
             {AREAS.map((area, i) => (
@@ -376,11 +425,10 @@ export default function Services() {
 
       {/* ══════════════════ AREA SECTIONS ══════════════════ */}
       {AREAS.map((area, aIdx) => {
-        const bg      = aIdx % 2 === 0 ? "#FFFFFF" : "#F4F7FB";
-        const cardBg  = bg === "#FFFFFF" ? "#F4F7FB" : "#FFFFFF";
+        const cardBg  = "#FFFFFF";
         const isOdd   = area.services.length % 2 !== 0;
         return (
-          <section key={area.num} style={{ background: bg, paddingTop: 96, paddingBottom: 96 }}>
+          <section key={area.num} className="bg-bg-page" style={{ paddingTop: 96, paddingBottom: 96 }}>
             <div className="max-w-site mx-auto px-5 lg:px-10">
 
               {/* Area label bar */}
@@ -460,32 +508,7 @@ export default function Services() {
       })}
 
       {/* ══════════════════ PROCESS ══════════════════ */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: "#F4F7FB", paddingTop: 96, paddingBottom: 96 }}
-      >
-        <div className="relative z-10 max-w-site mx-auto px-5 lg:px-10">
-
-          {/* Header */}
-          <FI y={14} className="mb-16">
-            <div className="inline-flex items-center gap-2.5 mb-6">
-              <span className="w-5 h-px rounded-full" style={{ background: "#2472C8" }} />
-              <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase" as const, color: "#2472C8" }}>The Process</span>
-            </div>
-            <h2 className="font-outfit font-black" style={{ fontSize: "clamp(30px,3.5vw,48px)", letterSpacing: "-0.04em", lineHeight: 1.08, color: "#0A1628", maxWidth: "24ch", marginBottom: 16 }}>
-              Four phases. The same every time.{" "}
-              <em style={{ fontStyle: "italic", color: "#2472C8" }}>Documented</em> from day one.
-            </h2>
-            <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: 16, color: "#1E4D8C", lineHeight: 1.78, maxWidth: "50ch" }}>
-              We don&apos;t show up and start fixing. Every engagement follows the same model — same outcome: IT you stop thinking about.
-            </p>
-          </FI>
-
-          {/* Phase columns — sequential reveal */}
-          <PhaseColumns />
-
-        </div>
-      </section>
+      <ProcessSection />
 
       {/* ══════════════════ FINAL CTA ══════════════════ */}
       <section className="bg-primary relative overflow-hidden py-16 lg:py-24">

@@ -39,7 +39,7 @@ const services: Service[] = [
       "Identity & access management",
       "Onboarding & offboarding runbooks",
       "Monthly stability reviews",
-      "Fast help desk — senior engineers only",
+      "Fast help desk, senior engineers only",
     ],
     tech: ["NinjaRMM", "Microsoft Intune", "Microsoft Entra ID", "Apple Business Manager"],
     outcomes: [
@@ -47,7 +47,7 @@ const services: Service[] = [
       { title: "You stop being the IT escalation point.", body: "SynAck handles it. You find out when it's done." },
       { title: "One monthly number. Everything included.", body: "No surprise invoices." },
     ],
-    bestFor: "Businesses without dedicated IT — or teams stuck firefighting every week.",
+    bestFor: "Businesses without dedicated IT, or teams stuck firefighting every week.",
   },
   {
     id: "cybersecurity",
@@ -55,9 +55,9 @@ const services: Service[] = [
     tabLabel: "Cybersecurity",
     tag: "Security",
     color: "#E84040",
-    oneliner: "Security that's enforced — not just installed.",
+    oneliner: "Security that's enforced, not just installed.",
     title: "Cybersecurity",
-    desc: "Most businesses assume they're secure. They're not. We fix that.\n\nSecurity gaps don't stay small. The longer they sit — the more they cost.",
+    desc: "Most businesses assume they're secure. They're not. We fix that.\n\nSecurity gaps don't stay small. The longer they sit, the more they cost.",
     included: [
       "MFA & conditional access",
       "Email security & anti-phishing",
@@ -70,7 +70,7 @@ const services: Service[] = [
     outcomes: [
       { title: "The most common attacks stop working on your business.", body: "MFA and access policies enforced across every identity." },
       { title: "Your team stops being the weakest link.", body: "Fewer one-click incidents reach your users." },
-      { title: "You can prove your security posture — to anyone.", body: "Documented controls for leadership or auditors." },
+      { title: "You can prove your security posture to anyone.", body: "Documented controls for leadership or auditors." },
     ],
     bestFor: "Healthcare, professional services, and businesses that need controls they can actually prove.",
   },
@@ -80,9 +80,9 @@ const services: Service[] = [
     tabLabel: "Microsoft 365 & Cloud",
     tag: "Cloud",
     color: "#0078D4",
-    oneliner: "Your M365 becomes an asset — not a mess.",
+    oneliner: "Your M365 becomes an asset, not a mess.",
     title: "Microsoft 365 & Cloud",
-    desc: "Folders nobody organized. Licenses nobody audited. Access nobody cleaned up. That's most M365 tenants. Not yours — not after we're done.",
+    desc: "Folders nobody organized. Licenses nobody audited. Access nobody cleaned up. That's most M365 tenants. Not yours. Not after we're done.",
     included: [
       "Tenant governance & security baseline",
       "SharePoint & OneDrive structure",
@@ -97,7 +97,7 @@ const services: Service[] = [
       { title: "You stop paying for seats nobody uses.", body: "Right-sized licenses. No waste." },
       { title: "Access gets cleaned up when people leave.", body: "Conditional access and offboarding by default." },
     ],
-    bestFor: "Teams growing on M365 without governance — or migrating from legacy systems.",
+    bestFor: "Teams growing on M365 without governance, or migrating from legacy systems.",
   },
   {
     id: "network",
@@ -130,7 +130,7 @@ const services: Service[] = [
     tabLabel: "IT Strategy & vCIO",
     tag: "Advisory",
     color: "#F59E0B",
-    oneliner: "Senior IT leadership — without the full-time hire.",
+    oneliner: "Senior IT leadership, without the full-time hire.",
     title: "IT Strategy & vCIO",
     desc: "Something breaks. Someone Googles a fix. A vendor calls with a deal. That's not a strategy. We build the plan instead.",
     included: [
@@ -143,11 +143,11 @@ const services: Service[] = [
     ],
     tech: [],
     outcomes: [
-      { title: "You know what's next — and what it costs.", body: "No more surprise IT decisions or invoices." },
+      { title: "You know what's next and what it costs.", body: "No more surprise IT decisions or invoices." },
       { title: "Fewer vendors. Less overlap. More control.", body: "Consolidated tools and right-sized licenses." },
       { title: "IT reports your board actually reads.", body: "Plain language. Clear priorities. Real decisions." },
     ],
-    bestFor: "Companies without a CIO — or in-house IT leaders who need a senior partner.",
+    bestFor: "Companies without a CIO, or in-house IT leaders who need a senior partner.",
   },
   {
     id: "procurement",
@@ -180,7 +180,7 @@ const services: Service[] = [
     tabLabel: "Physical Security",
     tag: "Physical",
     color: "#EC4899",
-    oneliner: "Digital and physical — one owner.",
+    oneliner: "Digital and physical, one owner.",
     title: "Physical Security",
     desc: "Most MSPs stop at the network edge. Your front door is not their problem. It is ours. Cameras. Badge access. Owned alongside everything else.",
     included: [
@@ -193,7 +193,7 @@ const services: Service[] = [
     ],
     tech: ["Rhombus", "Brivo"],
     outcomes: [
-      { title: "One partner for both sides of your environment.", body: "Digital and physical security — fully connected." },
+      { title: "One partner for both sides of your environment.", body: "Digital and physical security, fully connected." },
       { title: "Every entry logged. Every permission documented.", body: "Access you can prove to anyone who asks." },
       { title: "All locations. One dashboard.", body: "Nothing falling through the gaps between vendors." },
     ],
@@ -207,7 +207,7 @@ const services: Service[] = [
     color: "#F97316",
     oneliner: "Your team becomes harder to fool.",
     title: "Security Awareness Training",
-    desc: "Most breaches start with a person, not a port. Your team is the target. We make them harder to fool — and give you proof it's working.",
+    desc: "Most breaches start with a person, not a port. Your team is the target. We make them harder to fool and give you proof it's working.",
     included: [
       "Phishing simulations",
       "Role-based training modules",
@@ -232,7 +232,7 @@ const services: Service[] = [
     color: "#14B8A6",
     oneliner: "Tested. Validated. Ready when it matters.",
     title: "Backup & Disaster Recovery",
-    desc: "Everyone has backups. Almost no one tests them. We monitor, validate, and document everything — so when recovery is needed, it's not a guess.",
+    desc: "Everyone has backups. Almost no one tests them. We monitor, validate, and document everything, so when recovery is needed, it's not a guess.",
     included: [
       "Backup monitoring & alerting",
       "Restore validation & testing",
@@ -245,9 +245,9 @@ const services: Service[] = [
     outcomes: [
       { title: "When something goes wrong, recovery isn't a question mark.", body: "Tested playbooks. Known timelines." },
       { title: "Ransomware doesn't mean you lose everything.", body: "Validated restores from before the incident." },
-      { title: "You can show a recovery plan — not just a backup tool.", body: "For auditors, insurers, and leadership." },
+      { title: "You can show a recovery plan, not just a backup tool.", body: "For auditors, insurers, and leadership." },
     ],
-    bestFor: "Any business where downtime costs money — especially professional services and healthcare.",
+    bestFor: "Any business where downtime costs money, especially professional services and healthcare.",
   },
   {
     id: "av",
@@ -257,7 +257,7 @@ const services: Service[] = [
     color: "#6366F1",
     oneliner: "Meetings that work. Every room. Every time.",
     title: "AV & Conference Rooms",
-    desc: "Half the meeting spent fighting the display. The call that never connected. The room no one uses because it's always broken. We fix that — permanently.",
+    desc: "Half the meeting spent fighting the display. The call that never connected. The room no one uses because it's always broken. We fix that permanently.",
     included: [
       "Screen & display installation",
       "Video conferencing hardware",
