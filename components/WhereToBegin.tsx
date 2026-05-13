@@ -67,7 +67,7 @@ export default function WhereToBegin({ onSelect }: Props) {
             style={{ fontSize: "clamp(28px,3.5vw,46px)", letterSpacing: "-0.03em", lineHeight: 1.1 }}
           >
             We don&apos;t start with a sales pitch.{" "}
-            <em className="not-italic" style={{ color: "#2472C8" }}>We start with what hurts.</em>
+            <em className="not-italic">We start with what hurts.</em>
           </h2>
           <p className="text-text-muted" style={{ fontSize: "clamp(14px,1.2vw,16px)", maxWidth: 520 }}>
             Tell us your biggest pain point. We&apos;ll show you exactly which service solves it, and what order to add the rest.

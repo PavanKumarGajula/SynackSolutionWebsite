@@ -590,7 +590,7 @@ function SmbSection() {
           <h2 className="font-outfit font-black text-text-heading mb-[22px]"
             style={{ fontSize: "clamp(34px,4.2vw,50px)", letterSpacing: "-0.04em", lineHeight: 1.04 }}>
             Most SMB IT breaks at 50 people.{" "}
-            <em className="not-italic text-accent">Ours doesn&apos;t.</em>
+            <em className="not-italic">Ours doesn&apos;t.</em>
           </h2>
           <p className="text-text-body leading-[1.7] max-w-[56ch]" style={{ fontSize: "clamp(15px,1.5vw,17px)" }}>
             Most SMB environments break the same way — on-prem AD nobody federated to Entra ID, a shared drive with

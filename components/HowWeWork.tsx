@@ -198,7 +198,7 @@ export default function HowWeWork() {
             <Eyebrow>How We Work</Eyebrow>
             <h2 className="font-outfit font-black text-h1 text-text-heading mb-5">
               Day one isn&apos;t an introduction.{" "}
-              <em className="not-italic text-accent">It&apos;s a takeover.</em>
+              <em className="not-italic">It&apos;s a takeover.</em>
             </h2>
             <p className="text-body-lg text-text-muted max-w-[56ch]">
               We walk in with a plan. By day one, the immediate risks are locked down.{" "}

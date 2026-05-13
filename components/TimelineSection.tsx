@@ -292,7 +292,7 @@ export default function TimelineSection() {
           <FadeUp delay={0.1}>
             <h2 className="font-outfit text-[clamp(34px,4.4vw,54px)] font-black tracking-[-0.04em] leading-[1.04] text-text-heading mt-2">
               What 25 years in the field{" "}
-              <span className="text-accent">teaches you.</span>
+              teaches you.
             </h2>
           </FadeUp>
         </div>

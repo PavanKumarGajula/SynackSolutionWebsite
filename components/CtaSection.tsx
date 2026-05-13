@@ -50,7 +50,7 @@ export default function CtaSection() {
           transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
         >
           Don&apos;t take our word for it. Look at how we work.{" "}
-          <span className="text-accent">Then decide.</span>
+          Then decide.
         </motion.h2>
 
         {/* Body */}

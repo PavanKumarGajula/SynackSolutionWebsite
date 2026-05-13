@@ -103,7 +103,7 @@ export default function WhatWeOwn() {
                 style={{ fontSize: "clamp(26px,2.8vw,40px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}
               >
                 Four areas.{" "}
-                <em className="not-italic text-accent">One team.</em>{" "}
+                <em className="not-italic">One team.</em>{" "}
                 Nothing falls between.
               </h2>
             </div>
@@ -255,7 +255,7 @@ export default function WhatWeOwn() {
             style={{ fontSize: "clamp(28px,7vw,40px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}
           >
             Four areas.{" "}
-            <em className="not-italic text-accent">One team.</em>{" "}
+            <em className="not-italic">One team.</em>{" "}
             Nothing falls between.
           </h2>
         </div>

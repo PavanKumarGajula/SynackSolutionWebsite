@@ -201,7 +201,7 @@ function ProcessSection() {
             </div>
             <h2 className="font-outfit font-black" style={{ fontSize: "clamp(30px,3.5vw,48px)", letterSpacing: "-0.04em", lineHeight: 1.08, color: "#0A1628", maxWidth: "24ch", marginBottom: 16 }}>
               Four phases. The same every time.{" "}
-              <em style={{ fontStyle: "italic", color: "#2472C8" }}>Documented</em> from day one.
+              <em style={{ fontStyle: "italic" }}>Documented</em> from day one.
             </h2>
             <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: 16, color: "#1E4D8C", lineHeight: 1.78, maxWidth: "50ch" }}>
               We don&apos;t show up and start fixing. Every engagement follows the same model, same outcome: IT you stop thinking about.
@@ -332,8 +332,8 @@ export default function Services() {
                     animate={heroInView ? { y: 0 } : {}}
                     transition={{ duration: 0.75, delay: 0.44, ease: EASE }}
                   >
-                    <span style={{ color: "#2472C8" }}>SOC 2 audit.</span>{" "}
-                    <span>One owner.</span>
+                    SOC 2 audit.{" "}
+                    One owner.
                   </motion.span>
                 </span>
               </h1>
@@ -459,7 +459,7 @@ export default function Services() {
                   </div>
                   <h2 style={{ fontFamily: "var(--font-outfit)", fontSize: "clamp(27px,3vw,42px)", fontWeight: 900, letterSpacing: "-0.035em", lineHeight: 1.1, color: "#0A1628", marginBottom: 20 }}>
                     {area.headlineA}{" "}
-                    <em style={{ fontStyle: "italic", color: area.color }}>{area.headlineItalic}</em>
+                    <em style={{ fontStyle: "italic" }}>{area.headlineItalic}</em>
                     {area.headlineB ?? ""}
                   </h2>
                   <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: 16, color: "#1E4D8C", lineHeight: 1.82, marginBottom: 32 }}>
@@ -529,7 +529,7 @@ export default function Services() {
           </div>
           <h2 className="font-outfit text-display font-black text-text-heading-on-dark mb-6 text-balance">
             Four areas. Twenty-four services.{" "}
-            <span className="text-accent">One conversation</span> to start.
+            One conversation to start.
           </h2>
           <p className="text-body text-text-on-dark max-w-[52ch] mx-auto mb-10">
             A senior engineer walks your environment, maps what&apos;s missing or broken, and tells you exactly which area to begin with. Not a template, not a sales pitch.

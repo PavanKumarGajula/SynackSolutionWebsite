@@ -219,7 +219,7 @@ export default function About() {
           <FadeUp delay={0.1}>
             <h1 className="font-outfit font-black mx-auto mb-7" style={{ fontSize: "clamp(48px,7vw,88px)", letterSpacing: "-0.045em", lineHeight: 0.98, maxWidth: "18ch", color: "#0A1628" }}>
               Most IT problems aren&apos;t technical.{" "}
-              <span className="text-accent">They&apos;re ownership problems.</span>
+              They&apos;re ownership problems.
             </h1>
           </FadeUp>
 
@@ -364,7 +364,7 @@ export default function About() {
                 </p>
                 <p className="text-[clamp(15px,1.5vw,17px)] text-text-body leading-[1.75]">
                   The name is deliberate. Both sides agree before anything moves.{" "}
-                  <span className="text-accent font-semibold">Acknowledged. Established. Documented.</span>{" "}
+                  <span className="font-semibold">Acknowledged. Established. Documented.</span>{" "}
                   That&apos;s how we operate.
                 </p>
               </FadeUp>
@@ -481,7 +481,7 @@ export default function About() {
               <FadeUp delay={0.1}>
                 <h2 className="font-outfit text-[clamp(34px,4.4vw,54px)] font-black tracking-[-0.04em] leading-[1.04] text-text-heading mt-2">
                   After enough years,{" "}
-                  <span className="text-accent">the patterns repeat.</span>
+                  the patterns repeat.
                 </h2>
               </FadeUp>
             </div>
@@ -492,7 +492,7 @@ export default function About() {
                 </p>
                 <p className="text-[clamp(15px,1.5vw,17px)] text-text-body leading-[1.75]">
                   In small and mid-size business IT, this isn&apos;t an exception.{" "}
-                  <span className="text-accent font-semibold">It&apos;s the default.</span>{" "}
+                  <span className="font-semibold">It&apos;s the default.</span>{" "}
                   We built SynAck to own the environment from day one: document everything, and measure success by the absence of incidents, not the speed of response.
                 </p>
               </div>
@@ -549,7 +549,7 @@ export default function About() {
             <FadeUp delay={0.1}>
               <h2 className="font-outfit text-[clamp(34px,4.4vw,54px)] font-black tracking-[-0.04em] leading-[1.04] text-text-heading mb-[22px]">
                 Run by engineers.{" "}
-                <span className="text-accent">Not by salespeople.</span>
+                Not by salespeople.
               </h2>
             </FadeUp>
             <FadeUp delay={0.2}>

@@ -70,7 +70,7 @@ export default function WhatSynAckIs() {
             {...textAnim(0.3)}
           >
             Your business is the priority.{" "}
-            <em className="not-italic text-accent">Your IT shouldn&apos;t compete with it.</em>
+            <em className="not-italic">Your IT shouldn&apos;t compete with it.</em>
           </motion.h2>
 
           <motion.p

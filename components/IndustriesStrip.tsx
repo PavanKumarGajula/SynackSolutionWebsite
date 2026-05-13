@@ -72,7 +72,7 @@ export default function IndustriesStrip() {
           }}
         >
           Industries we protect{" "}
-          <em className="not-italic text-accent">every day</em>
+          <em className="not-italic">every day</em>
         </h2>
         <p
           className="mt-4 mx-auto text-text-body max-w-[42ch]"

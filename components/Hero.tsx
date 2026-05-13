@@ -230,7 +230,7 @@ export default function Hero() {
         {/* Headline */}
         <h1 className="font-outfit font-black text-display text-text-heading mb-6 max-w-[680px] text-balance">
           Your entire IT.{" "}
-          <em className="not-italic text-accent">One accountable team.</em>
+          <em className="not-italic">One accountable team.</em>
         </h1>
 
         {/* Subtext */}
