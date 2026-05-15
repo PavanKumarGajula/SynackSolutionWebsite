@@ -310,7 +310,7 @@
 }
 .email-slide-in  { animation: emailSlideIn 0.6s cubic-bezier(0.22,1,0.36,1) 0.3s both; }
 
-/* ── Industries hero marquee ── */
+/* ── Industries hero marquee (horizontal) ── */
 @keyframes industriesMarquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -323,6 +323,24 @@
 }
 .industries-carousel-track:hover {
   animation-play-state: paused;
+}
+
+/* ── Industries hero vertical scroll ── */
+@keyframes industriesVertMarquee {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+.ind-vert-track {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: industriesVertMarquee 30s linear infinite;
+}
+.ind-vert-track-slow {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: industriesVertMarquee 40s linear infinite;
 }
 
 @layer utilities {

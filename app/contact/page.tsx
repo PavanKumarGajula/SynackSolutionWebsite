@@ -10,11 +10,22 @@ type FormData = { name:string; company:string; email:string; phone:string; messa
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>();
 
-  const onSubmit = async (_data: FormData) => {
-    await new Promise(r => setTimeout(r, 1000));
-    setSubmitted(true);
+  const onSubmit = async (data: FormData) => {
+    setSubmitError(null);
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (res.ok) {
+      setSubmitted(true);
+    } else {
+      const json = await res.json().catch(() => ({}));
+      setSubmitError(json.error ?? "Something went wrong. Please try again.");
+    }
   };
 
   const contacts = [
@@ -120,6 +131,10 @@ export default function Contact() {
                   {isSubmitting ? "Sending..." : "Send Message"}
                   <IconArrowRight size={15} stroke={2} />
                 </button>
+
+                {submitError && (
+                  <p className="text-[13px] text-status-error mt-1">{submitError}</p>
+                )}
               </form>
             )}
           </FadeUp>

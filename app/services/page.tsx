@@ -312,31 +312,15 @@ export default function Services() {
                 </span>
               </motion.div>
 
-              <h1 className="font-outfit font-black mb-8" style={{ fontSize: "clamp(38px,5.5vw,70px)", letterSpacing: "-0.04em", lineHeight: 1.02, color: "#0A1628" }}>
-                {(["From the help desk ticket", "to the"] as const).map((line, i) => (
-                  <span key={i} className="block overflow-hidden">
-                    <motion.span
-                      className="block"
-                      initial={{ y: "110%" }}
-                      animate={heroInView ? { y: 0 } : {}}
-                      transition={{ duration: 0.75, delay: 0.18 + i * 0.13, ease: EASE }}
-                    >
-                      {line}
-                    </motion.span>
-                  </span>
-                ))}
-                <span className="block overflow-hidden">
-                  <motion.span
-                    className="block"
-                    initial={{ y: "110%" }}
-                    animate={heroInView ? { y: 0 } : {}}
-                    transition={{ duration: 0.75, delay: 0.44, ease: EASE }}
-                  >
-                    SOC 2 audit.{" "}
-                    One owner.
-                  </motion.span>
-                </span>
-              </h1>
+              <motion.h1
+                className="font-outfit font-black mb-8 text-balance"
+                style={{ fontSize: "clamp(38px,5.5vw,70px)", letterSpacing: "-0.04em", lineHeight: 1.02, color: "#0A1628" }}
+                initial={{ opacity: 0, y: 24 }}
+                animate={heroInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.75, delay: 0.18, ease: EASE }}
+              >
+                From the help desk ticket to the SOC 2 audit. One owner.
+              </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 16 }}

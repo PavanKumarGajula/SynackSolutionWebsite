@@ -207,12 +207,11 @@ export default function About() {
         {/* ── Center content ── */}
         <div className="max-w-site mx-auto px-5 lg:px-10 relative z-10 pt-20 text-center">
           <FadeUp>
-            <div className="inline-flex items-center gap-2.5 mb-8 rounded-full" style={{ padding: "6px 16px 6px 8px", background: "#FFFFFF", border: "1px solid #B8D4F7", boxShadow: "0 4px 14px rgba(16,35,71,.05)" }}>
-              <span className="inline-flex items-center gap-1.5 rounded-full" style={{ padding: "4px 10px", background: "rgba(34,160,90,.10)", fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.10em", textTransform: "uppercase", color: "#22A05A" }}>
-                <span className="ab-blink w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#22A05A" }} />
-                About SynAck
-              </span>
-              <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13.5, fontWeight: 600, color: "#0A1628" }}>Engineering-first MSP · NY · NJ · MD · MN</span>
+            <div className="inline-flex items-center gap-2.5 mb-8">
+              <span className="inline-block w-4 h-0.5 rounded-full flex-shrink-0" style={{ background: "#2472C8" }} />
+              <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 11, fontWeight: 700, letterSpacing: "0.17em", textTransform: "uppercase", color: "#2472C8" }}>About SynAck</span>
+              <span className="w-px h-3 flex-shrink-0" style={{ background: "#B8D4F7" }} />
+              <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: 12, fontWeight: 600, color: "#1E4D8C" }}>Engineering-first MSP · NY · NJ · MD · MN</span>
             </div>
           </FadeUp>
 
@@ -247,7 +246,7 @@ export default function About() {
 
             {/* Card 1 — dark, 340px, network viz */}
             <FadeUp delay={0.3}>
-              <div style={{ height: 340, background: "linear-gradient(160deg,#102347,#0A1628)", border: "1px solid rgba(122,180,238,.18)", borderRadius: 22, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.12)", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative", overflow: "hidden" }}>
+              <div style={{ height: 340, background: "linear-gradient(160deg,#102347,#0A1628)", border: "1px solid rgba(122,180,238,.18)", borderRadius: 20, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.12)", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative", overflow: "hidden" }}>
                 <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, background: "radial-gradient(circle, rgba(36,114,200,.4) 0%, transparent 60%)", pointerEvents: "none" }} />
                 <span className="ab-blink" style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 10px", background: "rgba(122,180,238,.10)", border: "1px solid rgba(122,180,238,.20)", borderRadius: 999, fontFamily: "var(--font-dm-sans)", fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#3D8FE0", alignSelf: "flex-start", position: "relative", zIndex: 1, animationName: "none" }}>
                   <span className="ab-blink w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#22A05A" }} />
@@ -274,7 +273,7 @@ export default function About() {
 
             {/* Card 2 — white, 260px, big stat */}
             <FadeUp delay={0.38}>
-              <div style={{ height: 260, background: "#FFFFFF", border: "1px solid #B8D4F7", borderRadius: 22, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.08)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
+              <div style={{ height: 260, background: "#FFFFFF", border: "1px solid #B8D4F7", borderRadius: 20, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.08)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
                 <div style={{ fontFamily: "var(--font-outfit)", fontSize: 56, fontWeight: 900, color: "#0A1628", letterSpacing: "-0.05em", lineHeight: 1, marginBottom: 12 }}>247</div>
                 <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: 13.5, fontWeight: 500, color: "#1E4D8C", maxWidth: "18ch", lineHeight: 1.4 }}>Endpoints under management</div>
               </div>
@@ -282,7 +281,7 @@ export default function About() {
 
             {/* Card 3 — dark, 300px, identity */}
             <FadeUp delay={0.46}>
-              <div style={{ height: 300, background: "linear-gradient(160deg,#102347,#0A1628)", border: "1px solid rgba(122,180,238,.18)", borderRadius: 22, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.12)", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative", overflow: "hidden" }}>
+              <div style={{ height: 300, background: "linear-gradient(160deg,#102347,#0A1628)", border: "1px solid rgba(122,180,238,.18)", borderRadius: 20, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.12)", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative", overflow: "hidden" }}>
                 <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, background: "radial-gradient(circle, rgba(36,114,200,.4) 0%, transparent 60%)", pointerEvents: "none" }} />
                 <div style={{ width: 56, height: 56, borderRadius: 16, background: "rgba(36,114,200,.20)", border: "1px solid rgba(122,180,238,.25)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", zIndex: 1 }}>
                   <svg viewBox="0 0 24 24" style={{ width: 24, height: 24, stroke: "#3D8FE0", strokeWidth: 2, fill: "none" }}>
@@ -298,7 +297,7 @@ export default function About() {
 
             {/* Card 4 — dark, 270px, uptime + bars */}
             <FadeUp delay={0.52}>
-              <div style={{ height: 270, background: "linear-gradient(160deg,#102347,#0A1628)", border: "1px solid rgba(122,180,238,.18)", borderRadius: 22, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.12)", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative", overflow: "hidden" }}>
+              <div style={{ height: 270, background: "linear-gradient(160deg,#102347,#0A1628)", border: "1px solid rgba(122,180,238,.18)", borderRadius: 20, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.12)", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative", overflow: "hidden" }}>
                 <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, background: "radial-gradient(circle, rgba(36,114,200,.4) 0%, transparent 60%)", pointerEvents: "none" }} />
                 <div style={{ position: "relative", zIndex: 1 }}>
                   <div style={{ fontFamily: "var(--font-outfit)", fontSize: 24, fontWeight: 800, letterSpacing: "-0.025em", color: "#EAF2FC", lineHeight: 1.15, marginBottom: 6 }}>99.98%</div>
@@ -314,7 +313,7 @@ export default function About() {
 
             {/* Card 5 — white, 340px, regions + globe */}
             <FadeUp delay={0.58}>
-              <div style={{ height: 340, background: "#FFFFFF", border: "1px solid #B8D4F7", borderRadius: 22, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.08)", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div style={{ height: 340, background: "#FFFFFF", border: "1px solid #B8D4F7", borderRadius: 20, padding: 22, boxShadow: "0 16px 36px rgba(16,35,71,.08)", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <div>
                   <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
                     <div style={{ fontFamily: "var(--font-outfit)", fontSize: 56, fontWeight: 900, letterSpacing: "-0.05em", color: "#0A1628", lineHeight: 0.95 }}>4</div>

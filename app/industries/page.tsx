@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { IconArrowRight } from "@tabler/icons-react";
+import { IconArrowRight, IconAlertTriangle, IconShieldCheck, IconClock } from "@tabler/icons-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const JB = "var(--font-dm-sans), sans-serif";
@@ -268,82 +268,103 @@ function HcSection() {
         <motion.div className="order-2 lg:order-1"
           initial={{ opacity: 0, y: 32 }} animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.1, ease: EASE }}>
-          <VisualCard label="The Clock · RTO Budget">
-            <svg viewBox="0 0 380 290" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto block">
-              <defs>
-                <radialGradient id="hc-clock-glow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#2472C8" stopOpacity="0.15" />
-                  <stop offset="100%" stopColor="#2472C8" stopOpacity="0" />
-                </radialGradient>
-                <linearGradient id="hc-clock-face" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#FFFFFF" />
-                  <stop offset="100%" stopColor="#F8FAFD" />
-                </linearGradient>
-              </defs>
-              <circle cx="190" cy="125" r="105" fill="url(#hc-clock-glow)" />
-              <circle cx="190" cy="125" r="88" fill="url(#hc-clock-face)" stroke="#B8D4F7" strokeWidth="1.5" />
-              <circle cx="190" cy="125" r="82" fill="none" stroke="#B8D4F7" strokeWidth="0.5" opacity="0.5" />
-              {/* Tick marks */}
-              <g stroke="#B8D4F7" strokeWidth="0.8" opacity="0.5">
-                <line x1="190" y1="46" x2="190" y2="52" />
-                <line x1="260" y1="71" x2="255" y2="74" />
-                <line x1="269" y1="125" x2="263" y2="125" />
-                <line x1="260" y1="179" x2="255" y2="176" />
-                <line x1="190" y1="204" x2="190" y2="198" />
-                <line x1="120" y1="179" x2="125" y2="176" />
-                <line x1="111" y1="125" x2="117" y2="125" />
-                <line x1="120" y1="71" x2="125" y2="74" />
-              </g>
-              {/* Hour labels */}
-              <text x="190" y="62" fontFamily="var(--font-outfit)" fontWeight="900" fontSize="16" fill="#0A1628" textAnchor="middle">0</text>
-              <text x="251" y="131" fontFamily="var(--font-outfit)" fontWeight="900" fontSize="16" fill="#0A1628" textAnchor="middle">1</text>
-              <text x="190" y="197" fontFamily="var(--font-outfit)" fontWeight="900" fontSize="16" fill="#0A1628" textAnchor="middle">2</text>
-              <text x="129" y="131" fontFamily="var(--font-outfit)" fontWeight="900" fontSize="16" fill="#0A1628" textAnchor="middle">3</text>
-              <text x="190" y="148" fontFamily="DM Sans, sans-serif" fontSize="7" fontWeight="700" fill="#1E4D8C" textAnchor="middle" letterSpacing="2">HOURS</text>
-              {/* Green arc — safe zone 0–0:31 */}
-              <path d="M 190 37 A 88 88 0 0 1 252 55" fill="none" stroke="#22A05A" strokeWidth="3" strokeLinecap="round" opacity="0.85" />
-              {/* Minute hand */}
-              <g className="minute-hand-anim">
-                <line x1="190" y1="125" x2="247" y2="79" stroke="#2472C8" strokeWidth="2.5" strokeLinecap="round" />
-                <circle cx="190" cy="125" r="6" fill="#0A1628" />
-                <circle cx="190" cy="125" r="3" fill="#2472C8" />
-              </g>
-              {/* 4h warning */}
-              <circle cx="190" cy="37" r="11" fill="#DC3545" />
-              <circle cx="190" cy="37" r="11" fill="none" stroke="#DC3545" strokeWidth="1.5" opacity="0.4">
-                <animate attributeName="r" from="11" to="20" dur="2s" repeatCount="indefinite" />
-                <animate attributeName="opacity" from="0.6" to="0" dur="2s" repeatCount="indefinite" />
-              </circle>
-              <path d="M186 33 L194 41 M194 33 L186 41" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
-              <text x="190" y="22" fontFamily="DM Sans, sans-serif" fontSize="9" fontWeight="700" fill="#DC3545" textAnchor="middle" letterSpacing="2">4 HOURS · NEVER</text>
-              <text x="265" y="68" fontFamily="DM Sans, sans-serif" fontSize="8" fontWeight="700" fill="#22A05A" letterSpacing="1">0:31 ✓</text>
-              {/* Timeline */}
-              <line x1="40" y1="245" x2="340" y2="245" stroke="#B8D4F7" strokeWidth="1" />
-              {[
-                { cx: 40,  label: "00:00", sub: "Incident" },
-                { cx: 125, label: "00:08", sub: "Failover" },
-                { cx: 215, label: "00:23", sub: "Verified" },
-              ].map(p => (
-                <g key={p.cx}>
-                  <circle cx={p.cx} cy="245" r="4" fill="#22A05A" />
-                  <text x={p.cx} y="263" fontFamily="DM Sans, sans-serif" fontSize="8" fontWeight="700" fill="#0A1628" textAnchor="middle">{p.label}</text>
-                  <text x={p.cx} y="275" fontFamily="var(--font-dm-sans)" fontSize="9" fill="#1E4D8C" textAnchor="middle">{p.sub}</text>
-                </g>
-              ))}
-              <g>
-                <circle cx="305" cy="245" r="5" fill="#2472C8" />
-                <circle cx="305" cy="245" r="5" fill="none" stroke="#2472C8" strokeWidth="1" opacity="0.3">
-                  <animate attributeName="r" from="5" to="12" dur="2s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" from="0.5" to="0" dur="2s" repeatCount="indefinite" />
-                </circle>
-                <text x="305" y="263" fontFamily="DM Sans, sans-serif" fontSize="8" fontWeight="700" fill="#0A1628" textAnchor="middle">00:31</text>
-                <text x="305" y="275" fontFamily="var(--font-dm-sans)" fontSize="9" fontWeight="700" fill="#2472C8" textAnchor="middle">Care resumed</text>
-              </g>
-            </svg>
+          <VisualCard label="SOC · Live Incident Response">
+            {/* Incident response mockup */}
+            <div className="rounded-[12px] overflow-hidden border border-border-light"
+              style={{ boxShadow: "0 8px 24px rgba(16,35,71,0.06)" }}>
+
+              {/* Title bar */}
+              <div className="flex items-center justify-between px-3.5 py-2.5"
+                style={{ background: "linear-gradient(180deg,#1a0a00,#2d1200)", borderBottom: "1px solid rgba(245,158,11,0.35)" }}>
+                <div className="flex items-center gap-2.5">
+                  <div className="flex gap-1.5">
+                    <span className="w-[10px] h-[10px] rounded-full block" style={{ background: "#ff5f57" }} />
+                    <span className="w-[10px] h-[10px] rounded-full block" style={{ background: "#febc2e" }} />
+                    <span className="w-[10px] h-[10px] rounded-full block" style={{ background: "#28c840" }} />
+                  </div>
+                  <span style={{ fontFamily: JB, fontSize: 11.5, fontWeight: 600, color: "#FCD34D" }}>
+                    SynAck SOC · Incident #HC-0847
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-[6px] h-[6px] rounded-full ind-status-blink" style={{ background: "#F59E0B" }} />
+                  <span style={{ fontFamily: JB, fontSize: 9.5, fontWeight: 700, color: "#FCD34D", letterSpacing: "0.06em" }}>ACTIVE</span>
+                </div>
+              </div>
+
+              {/* Alert banner */}
+              <div className="flex items-start gap-3 px-4 py-3"
+                style={{ background: "#FEF3C7", borderBottom: "1px solid #FCD34D" }}>
+                <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                  style={{ background: "#F59E0B" }}>
+                  <IconAlertTriangle size={13} stroke={2.5} color="#fff" />
+                </div>
+                <div>
+                  <div style={{ fontFamily: JB, fontSize: 12, fontWeight: 700, color: "#92400E" }}>
+                    Ransomware variant detected — Workstation 07
+                  </div>
+                  <div style={{ fontFamily: JB, fontSize: 10.5, color: "#B45309", lineHeight: 1.5 }}>
+                    06:47 AM · Flagged by endpoint agent · EHR network segment isolated
+                  </div>
+                </div>
+              </div>
+
+              {/* Response timeline */}
+              <div className="px-4 py-3.5" style={{ borderBottom: "1px solid #EEF2F8" }}>
+                <div style={{ fontFamily: JB, fontSize: 9, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase" as const, color: "#1E4D8C", marginBottom: 10 }}>
+                  Response Timeline
+                </div>
+                {([
+                  { time: "06:47:12", label: "Threat detected", detail: "Endpoint agent blocked execution", status: "done" },
+                  { time: "06:47:58", label: "Workstation isolated", detail: "Removed from EHR network segment", status: "done" },
+                  { time: "06:49:03", label: "Engineer paged", detail: "SOC analyst on call, analysis started", status: "active" },
+                  { time: "pending", label: "Full remediation", detail: "Wipe, reimage, rejoin — EHR stays up", status: "pending" },
+                ] as const).map((step, i) => (
+                  <div key={i} className="flex items-start gap-2.5 mb-2 last:mb-0">
+                    <div className="flex flex-col items-center flex-shrink-0 pt-0.5">
+                      <div className="w-[14px] h-[14px] rounded-full flex items-center justify-center"
+                        style={{
+                          background: step.status === "done" ? "#22A05A" : step.status === "active" ? "#F59E0B" : "#E2E8F0",
+                        }}>
+                        {step.status === "done" && <IconShieldCheck size={9} stroke={3} color="#fff" />}
+                        {step.status === "active" && <span className="w-[5px] h-[5px] rounded-full block" style={{ background: "#fff" }} />}
+                        {step.status === "pending" && <IconClock size={9} stroke={2.5} color="#94A3B8" />}
+                      </div>
+                      {i < 3 && <div className="w-px mt-1" style={{ height: 14, background: "#E2E8F0" }} />}
+                    </div>
+                    <div className="pb-1">
+                      <div className="flex items-center gap-2">
+                        <span style={{ fontFamily: JB, fontSize: 10.5, fontWeight: 700, color: step.status === "pending" ? "#94A3B8" : "#0A1628" }}>
+                          {step.label}
+                        </span>
+                        <span style={{ fontFamily: JB, fontSize: 9, color: "#94A3B8" }}>{step.time}</span>
+                      </div>
+                      <div style={{ fontFamily: JB, fontSize: 10, color: step.status === "pending" ? "#CBD5E1" : "#64748B", lineHeight: 1.4 }}>
+                        {step.detail}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* EHR still running */}
+              <div className="grid grid-cols-3 divide-x divide-border-light" style={{ background: "#F0FDF4" }}>
+                {([
+                  { label: "EHR Status",    value: "Online"      },
+                  { label: "Patient Data",  value: "Unaffected"  },
+                  { label: "Downtime",      value: "0 min"       },
+                ] as const).map((item) => (
+                  <div key={item.label} className="px-2 py-3 flex flex-col items-center gap-1">
+                    <div style={{ fontFamily: JB, fontSize: 8.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" as const, color: "#1E4D8C" }}>{item.label}</div>
+                    <div style={{ fontFamily: JB, fontSize: 11.5, fontWeight: 700, color: "#22A05A" }}>{item.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
             <StatusRow>
-              <StatusItem label="RTO budget" value="< 1 hour" />
-              <StatusItem label="Last verified" value="Today 06:42" />
-              <StatusItem label="Restore tested" value="Mon 14:00" />
+              <StatusItem label="Threat contained in" value="2 min 51 sec" />
+              <StatusItem label="EHR uptime" value="Uninterrupted" />
+              <StatusItem label="Staff notified" value="06:50 AM" />
             </StatusRow>
           </VisualCard>
         </motion.div>
@@ -837,83 +858,114 @@ export default function Industries() {
     <main className="pt-[68px] bg-bg-page">
 
       {/* ══ HERO ══ */}
-      <section className="relative flex flex-col items-center overflow-hidden bg-bg-page"
-        style={{ paddingTop: "clamp(24px,3vw,40px)", minHeight: "100vh" }}>
+      <section className="relative overflow-hidden bg-bg-page" style={{ minHeight: "100vh", display: "grid", gridTemplateColumns: "1fr 1fr" }}>
 
-        {/* Radial glow */}
+        {/* Ambient glow — left side */}
         <div className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 65% 45% at 50% 30%, rgba(36,114,200,.07) 0%, transparent 70%)" }} />
-        {/* Grid */}
+          style={{ background: "radial-gradient(ellipse 50% 70% at 20% 50%, rgba(36,114,200,.08) 0%, transparent 65%)" }} />
+
+        {/* Dot grid — fades toward right */}
         <div className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: "linear-gradient(rgba(36,114,200,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(36,114,200,.045) 1px, transparent 1px)",
+            backgroundImage: "linear-gradient(rgba(36,114,200,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(36,114,200,.05) 1px, transparent 1px)",
             backgroundSize: "56px 56px",
-            maskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, black 0%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, black 0%, transparent 100%)",
+            maskImage: "radial-gradient(ellipse 55% 85% at 18% 50%, black 0%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(ellipse 55% 85% at 18% 50%, black 0%, transparent 100%)",
           }} />
 
-        {/* Copy */}
-        <div className="relative z-10 flex flex-col items-center text-center px-5 max-w-[1000px] mx-auto">
-          <motion.div className="flex flex-col items-center gap-1.5 mb-5"
+        {/* Vertical divider */}
+        <div className="hidden lg:block absolute top-0 bottom-0 pointer-events-none"
+          style={{ left: "50%", width: 1, background: "linear-gradient(to bottom, transparent 0%, #B8D4F7 20%, #B8D4F7 80%, transparent 100%)", opacity: 0.4 }} />
+
+        {/* ── LEFT: content ── */}
+        <div className="relative z-10 flex flex-col justify-center pl-5 lg:pl-[60px] xl:pl-[80px] pr-5 lg:pr-16 col-span-2 lg:col-span-1"
+          style={{ paddingTop: "clamp(100px, 14vh, 160px)", paddingBottom: "clamp(60px, 8vh, 100px)" }}>
+
+          {/* Trust pill */}
+          <motion.div
+            className="mb-8"
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.03, ease: EASE }}>
-            <div className="flex gap-0.5">
-              {[0,1,2,3,4].map(s => (
-                <svg key={s} viewBox="0 0 16 16" fill="#F5C518" style={{ width: 13, height: 13 }}>
-                  <path d="M8 1.5l1.65 3.35 3.7.54-2.68 2.6.63 3.68L8 9.77l-3.3 1.9.63-3.68L2.65 5.4l3.7-.55z" />
-                </svg>
-              ))}
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-border-light bg-white/70"
+              style={{ backdropFilter: "blur(8px)" }}>
+              <div className="flex gap-0.5">
+                {[0,1,2,3,4].map(s => (
+                  <svg key={s} viewBox="0 0 16 16" fill="#F5C518" style={{ width: 12, height: 12 }}>
+                    <path d="M8 1.5l1.65 3.35 3.7.54-2.68 2.6.63 3.68L8 9.77l-3.3 1.9.63-3.68L2.65 5.4l3.7-.55z" />
+                  </svg>
+                ))}
+              </div>
+              <span className="w-px h-3 bg-border-light flex-shrink-0" />
+              <span className="text-text-muted font-bold" style={{ fontFamily: JB, fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase" }}>
+                80+ businesses · 5 industries
+              </span>
             </div>
-            <p className="text-text-muted" style={{ fontSize: 12.5, letterSpacing: "0.02em" }}>
-              Trusted by 80+ businesses across every industry
-            </p>
           </motion.div>
 
+          {/* Eyebrow */}
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1, ease: EASE }}>
             <Eyebrow>Industries We Serve</Eyebrow>
           </motion.div>
 
-          <motion.h1 className="font-outfit font-black text-text-heading mb-5 text-balance"
-            style={{ fontSize: "clamp(44px,6.5vw,80px)", letterSpacing: "-0.045em", lineHeight: 1.0 }}
+          {/* Heading */}
+          <motion.h1
+            className="font-outfit font-black text-text-heading mb-6"
+            style={{ fontSize: "clamp(42px,4.8vw,72px)", letterSpacing: "-0.045em", lineHeight: 1.0, maxWidth: "13ch" }}
             initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.14, ease: EASE }}>
-            Built for your industry.{" "}
-            <em className="not-italic">Not adapted for it.</em>
+            transition={{ duration: 0.75, delay: 0.14, ease: EASE }}>
+            Built for your industry. Not adapted for it.
           </motion.h1>
 
-          <motion.p className="text-text-body leading-[1.75] mb-9 max-w-[58ch]"
-            style={{ fontSize: "clamp(15px,1.4vw,17px)" }}
+          {/* Body */}
+          <motion.p
+            className="text-text-body leading-[1.78] mb-8"
+            style={{ fontSize: "clamp(15px,1.3vw,17px)", maxWidth: "44ch" }}
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.26, ease: EASE }}>
-            A plant floor running Windows NT — isolated, not replaced. A clinic that can&apos;t afford a four-hour outage —
-            backups verified weekly. A law firm where one email to opposing counsel ends a career — flagged before sending,
-            contained when it slips through. Different industries, same standard.
+            A plant floor running Windows NT — isolated, not replaced. A clinic that can&apos;t afford a four-hour outage — backups verified weekly. A law firm where one email ends a career — flagged before it sends.
           </motion.p>
 
-          <motion.div className="flex flex-wrap gap-3 justify-center"
+          {/* CTAs */}
+          <motion.div
+            className="flex flex-wrap gap-3"
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.38, ease: EASE }}>
+            transition={{ duration: 0.5, delay: 0.4, ease: EASE }}>
             <Link href="/contact" className="btn btn-primary">
               Talk to us <IconArrowRight size={14} stroke={2} />
+            </Link>
+            <Link href="#manufacturing" className="btn btn-outline">
+              See industries <IconArrowRight size={14} stroke={2} />
             </Link>
           </motion.div>
         </div>
 
-        {/* Marquee */}
-        <motion.div className="relative mt-14 pb-8 overflow-hidden mx-10 lg:mx-20 rounded-[20px]"
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.55, ease: EASE }}>
-          <div className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to right, #F4F7FB, transparent)" }} />
-          <div className="absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to left, #F4F7FB, transparent)" }} />
-          <div className="industries-carousel-track">
-            {[...MARQUEE_CARDS, ...MARQUEE_CARDS].map((c, i) => (
-              <MarqueeCard key={i} {...c} />
-            ))}
+        {/* ── RIGHT: vertical image scroll ── */}
+        <div className="hidden lg:flex overflow-hidden relative" style={{ height: "100vh" }}>
+
+          {/* Top fade */}
+          <div className="absolute top-0 inset-x-0 z-10 pointer-events-none"
+            style={{ height: 160, background: "linear-gradient(to bottom, #F4F7FB 0%, transparent 100%)" }} />
+          {/* Bottom fade */}
+          <div className="absolute bottom-0 inset-x-0 z-10 pointer-events-none"
+            style={{ height: 160, background: "linear-gradient(to top, #F4F7FB 0%, transparent 100%)" }} />
+
+          <div className="flex gap-4 pl-10 pr-6 pt-6">
+            {/* Column 1 */}
+            <div className="ind-vert-track flex-shrink-0">
+              {[...MARQUEE_CARDS, ...MARQUEE_CARDS].map((c, i) => (
+                <MarqueeCard key={i} {...c} />
+              ))}
+            </div>
+            {/* Column 2 — slower + offset */}
+            <div className="ind-vert-track-slow flex-shrink-0" style={{ marginTop: 80 }}>
+              {[...MARQUEE_CARDS.slice(3), ...MARQUEE_CARDS.slice(0, 3),
+                ...MARQUEE_CARDS.slice(3), ...MARQUEE_CARDS.slice(0, 3)].map((c, i) => (
+                <MarqueeCard key={i} {...c} />
+              ))}
+            </div>
           </div>
-        </motion.div>
+        </div>
 
       </section>
 
@@ -931,51 +983,58 @@ export default function Industries() {
       <AlsoSection />
 
       {/* ══ CTA ══ */}
-      <section className="relative px-5 lg:px-[60px] py-[120px]">
-        <div className="absolute top-0 left-5 right-5 lg:left-[60px] lg:right-[60px] h-px bg-border-light" />
-        <div className="max-w-[920px] mx-auto">
-          <div className="relative rounded-[22px] text-center overflow-hidden px-8 py-[80px] lg:px-16"
-            style={{
-              background: "linear-gradient(180deg, #102347 0%, #0A1628 100%)",
-              boxShadow: "0 0 0 6px rgba(36,114,200,.08), 0 0 0 12px rgba(36,114,200,.04), 0 24px 56px rgba(16,35,71,.18)",
-            }}>
-            <div className="absolute -top-[120px] left-1/2 -translate-x-1/2 w-[460px] h-[460px] rounded-full pointer-events-none ind-glow-blob"
-              style={{ background: "radial-gradient(circle, rgba(36,114,200,.42) 0%, transparent 60%)" }} />
-            <div className="absolute inset-0 pointer-events-none rounded-[22px] overflow-hidden"
-              style={{
-                backgroundImage: "linear-gradient(rgba(122,180,238,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(122,180,238,.04) 1px, transparent 1px)",
-                backgroundSize: "48px 48px",
-                maskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, transparent 100%)",
-                WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, transparent 100%)",
-              }} />
-            <div className="relative z-10 flex flex-col items-center gap-7">
-              <div className="flex flex-wrap gap-1.5 justify-center">
-                {["No pitch deck", "No obligation", "Senior engineer", "Any industry"].map((tag) => (
-                  <span key={tag} className="font-bold px-[11px] py-[5px] rounded-full"
-                    style={{ fontFamily: JB, fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "#7AB4EE", background: "rgba(122,180,238,.08)", border: "1px solid rgba(122,180,238,.20)" }}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <Eyebrow dark>What Comes Next</Eyebrow>
-              <h2 className="font-outfit font-black max-w-[22ch] text-balance"
-                style={{ fontSize: "clamp(34px,4.4vw,54px)", letterSpacing: "-0.04em", lineHeight: 1.04, color: "#EAF2FC" }}>
-                Tell us your industry.{" "}
-                <em className="not-italic">We&apos;ll map the right controls.</em>
-              </h2>
-              <p style={{ fontSize: "17px", color: "#7AB4EE", lineHeight: 1.65, maxWidth: "52ch" }}>
-                A short call is enough to understand your environment. We&apos;ll tell you where your gaps are and what we&apos;d change first.
-              </p>
-              <div className="flex gap-3 flex-wrap justify-center">
-                <Link href="/contact" className="btn btn-white">
-                  Talk to an engineer <IconArrowRight size={14} stroke={2} />
-                </Link>
-                <Link href="/services" className="btn btn-outline-white">
-                  See our services <IconArrowRight size={14} stroke={2} />
-                </Link>
-              </div>
-            </div>
+      <section className="bg-primary relative overflow-hidden py-16 lg:py-24">
+
+        {/* Grid overlay */}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "linear-gradient(rgba(184,212,247,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(184,212,247,.04) 1px, transparent 1px)",
+            backgroundSize: "56px 56px",
+          }} />
+
+        {/* Glows */}
+        <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(36,114,200,.18) 0%, transparent 65%)" }} />
+        <div className="absolute bottom-[-150px] left-[8%] w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(36,114,200,.08) 0%, transparent 65%)" }} />
+        <div className="absolute bottom-[-100px] right-[8%] w-[300px] h-[300px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(36,114,200,.06) 0%, transparent 65%)" }} />
+
+        <div className="relative z-10 max-w-[800px] mx-auto px-5 lg:px-10 text-center">
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-1.5 justify-center mb-7">
+            {["No pitch deck", "No obligation", "Senior engineer", "Any industry"].map((tag) => (
+              <span key={tag} className="font-bold px-[11px] py-[5px] rounded-full"
+                style={{ fontFamily: JB, fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase" as const, color: "#7AB4EE", background: "rgba(122,180,238,.08)", border: "1px solid rgba(122,180,238,.20)" }}>
+                {tag}
+              </span>
+            ))}
           </div>
+
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-2.5 mb-7">
+            <span className="w-5 h-0.5 bg-accent rounded-full" />
+            <span className="text-eyebrow font-bold uppercase text-accent">What Comes Next</span>
+          </div>
+
+          {/* Heading */}
+          <h2 className="font-outfit text-display font-black text-text-heading-on-dark mb-6 text-balance">
+            Tell us your industry. We&apos;ll map the right controls.
+          </h2>
+
+          {/* Body */}
+          <p className="text-body text-text-on-dark max-w-[52ch] mx-auto mb-10">
+            A short call is enough to understand your environment. We&apos;ll tell you where your gaps are and what we&apos;d change first.
+          </p>
+
+          {/* Buttons */}
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <Link href="/contact" className="btn btn-white">
+              Talk to an engineer <IconArrowRight size={14} stroke={2} />
+            </Link>
+            <Link href="/services" className="btn btn-outline-white">
+              See our services <IconArrowRight size={14} stroke={2} />
+            </Link>
+          </div>
+
         </div>
       </section>
 
